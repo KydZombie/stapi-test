@@ -1,21 +1,16 @@
 package com.github.kydzombie.stapitest.block;
 
-import com.github.kydzombie.stapitest.events.init.ItemListener;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.render.block.BlockRenderer;
-import net.minecraft.item.Block;
 import net.minecraft.level.BlockView;
-import net.modificationstation.stationapi.api.block.CustomBlockItemFactoryProvider;
 import net.modificationstation.stationapi.api.client.model.block.BlockWithWorldRenderer;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockBase;
 
-import java.util.function.IntFunction;
-
 public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer {
     
-    private static final float MIN_WIDTH = .25f;
-    private static final float MAX_WIDTH = .75f;
+    private static final float MIN_WIDTH = .3f;
+    private static final float MAX_WIDTH = .7f;
     
     public Cable(Identifier identifier) {
         super(identifier, Material.WOOL);
