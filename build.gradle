@@ -71,6 +71,9 @@ dependencies {
 	implementation "com.github.mineLdiver:expressions:2fa66db"
 	implementation "com.github.mineLdiver:UnsafeEvents:7efec57"
 
+	implementation "com.github.ben-manes.caffeine:caffeine:${project.caffeine_version}"
+	implementation "it.unimi.dsi:fastutil:${project.fastutil_version}"
+
 	// to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
@@ -89,6 +92,12 @@ dependencies {
 	modImplementation "com.github.minecraft-cursed-legacy:cursed-fabric-loader:${project.loader_version}"
 
 	modImplementation "com.github.ModificationStation:StationAPI:${project.stapi_version}"
+
+	modImplementation('com.github.calmilamsy:HowManyItems-Fabric-Unofficial:6af40ed18d') {
+		exclude group: 'com.github.ModificationStation', module: 'StationAPI'
+	}
+
+	modImplementation "com.github.calmilamsy:ModMenu:03023e1"
 }
 
 processResources {
