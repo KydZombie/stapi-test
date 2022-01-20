@@ -54,8 +54,6 @@ public class TileGenerator extends TileEntityBase implements PowerStorage {
 
         blocksChecked.remove(0);
 
-        System.out.println("Found: ");
-
         blocksChecked.forEach((found) -> {
             TileEntityBase tileEntity = level.getTileEntity(found.pos.x, found.pos.y, found.pos.z);
 
