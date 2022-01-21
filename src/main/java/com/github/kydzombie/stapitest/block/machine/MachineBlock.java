@@ -10,6 +10,7 @@ import net.modificationstation.stationapi.api.template.block.TemplateBlockWithEn
 public abstract class MachineBlock extends TemplateBlockWithEntity implements Wrenchable {
     public MachineBlock(Identifier identifier) {
         super(identifier, Material.METAL);
+        this.hardness = 3.5f;
     }
 
     @Override

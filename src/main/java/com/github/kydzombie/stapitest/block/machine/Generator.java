@@ -5,7 +5,11 @@ import com.github.kydzombie.stapitest.tileentity.TileGenerator;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockBase;
+import net.minecraft.block.material.Material;
 import net.minecraft.entity.Living;
+import net.minecraft.entity.player.PlayerBase;
+import net.minecraft.item.ItemBase;
+import net.minecraft.item.ItemInstance;
 import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.tileentity.TileEntityBase;
@@ -79,6 +83,16 @@ public class Generator extends MachineBlock implements PowerConnection {
         else {
             return BlockBase.GOLD_BLOCK.getTextureForSide(0);
         }
+    }
+
+    @Override
+    public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
+        if (player.getHeldItem().itemId == ItemBase.coal.id) {
+            ((TileGenerator)level.getTileEntity(x, y, z)).insertFuel(player.getHeldItem().itemId);
+            return true;
+        }
+
+        return false;
     }
 
     @Override
