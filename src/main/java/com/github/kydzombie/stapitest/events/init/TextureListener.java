@@ -14,15 +14,15 @@ import java.io.File;
 import java.io.IOException;
 
 public class TextureListener {
-
     @Entrypoint.ModID
     public static final ModID MOD_ID = Null.get();
 
     @EventListener
     public void registerTextures(TextureRegisterEvent event) {
         BlockListener.electricFurnace.texture = Atlases.getStationTerrain().addTexture(Identifier.of(MOD_ID, "electric_furnace")).index;
+        BlockListener.generator.texture = BlockListener.electricFurnace.texture;
 
-        BlockListener.cable.texture = BlockListener.electricFurnace.texture;
-        ItemListener.cable.setTexture(Identifier.of(MOD_ID, "electric_furnace"));
+        ItemListener.cable.setTexture(Identifier.of(MOD_ID, "cable"));
+        ItemListener.powerCable.setTexture(Identifier.of(MOD_ID, "cable_power"));
     }
 }

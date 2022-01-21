@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.block.machine;
 
-import com.github.kydzombie.stapitest.util.power.PowerConnection;
+import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
 import com.github.kydzombie.stapitest.tileentity.TileElectricFurnace;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -19,29 +19,8 @@ public class ElectricFurnace extends MachineBlock implements PowerConnection {
     }
 
     @Override
-    public void onBlockPlaced(Level level, int x, int y, int z) {
-        super.onBlockPlaced(level, x, y, z);
-    }
-
-    @Override
     protected TileEntityBase createTileEntity() {
         return new TileElectricFurnace();
-    }
-
-    @Environment(EnvType.CLIENT)
-    public int getTextureForSide(BlockView tileView, int x, int y, int z, int meta) {
-        if (meta == 1) {
-            return BlockBase.IRON_BLOCK.getTextureForSide(0);
-        } else if (meta == 0) {
-            return BlockBase.IRON_BLOCK.getTextureForSide(0);
-        } else {
-            int var6 = tileView.getTileMeta(x, y, z);
-            if (meta != var6) {
-                return BlockBase.IRON_BLOCK.getTextureForSide(0);
-            } else {
-                return this.texture;
-            }
-        }
     }
 
     @Override
@@ -65,7 +44,23 @@ public class ElectricFurnace extends MachineBlock implements PowerConnection {
 
     }
 
-    @Override
+    @Environment(EnvType.CLIENT)
+    public int getTextureForSide(BlockView tileView, int x, int y, int z, int meta) {
+        if (meta == 1) {
+            return BlockBase.IRON_BLOCK.getTextureForSide(0);
+        } else if (meta == 0) {
+            return BlockBase.IRON_BLOCK.getTextureForSide(0);
+        } else {
+            int var6 = tileView.getTileMeta(x, y, z);
+            if (meta != var6) {
+                return BlockBase.IRON_BLOCK.getTextureForSide(0);
+            } else {
+                return this.texture;
+            }
+        }
+    }
+
+    @Environment(EnvType.CLIENT)
     public int getTextureForSide(int side, int meta) {
         if (side == 3) {
             return this.texture;
@@ -75,7 +70,7 @@ public class ElectricFurnace extends MachineBlock implements PowerConnection {
         }
     }
 
-    @Override
+    @Environment(EnvType.CLIENT)
     public int getTextureForSide(int side) {
         if (side == 3) {
             return this.texture;

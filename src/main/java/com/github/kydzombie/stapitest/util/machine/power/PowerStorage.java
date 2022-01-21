@@ -1,4 +1,4 @@
-package com.github.kydzombie.stapitest.util.power;
+package com.github.kydzombie.stapitest.util.machine.power;
 
 public interface PowerStorage {
 

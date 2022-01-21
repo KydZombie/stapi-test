@@ -24,9 +24,9 @@ public class BlockListener {
 
     @EventListener
     public void registerBlocks(BlockRegistryEvent event) {
-        cable = new Cable(Identifier.of(MOD_ID, "cable")).setTranslationKey(MOD_ID, "cable");
-        powerCable = new PowerCable(Identifier.of(MOD_ID, "power_cable")).setTranslationKey(MOD_ID, "power_cable");
-        electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electric_furnace")).setTranslationKey(MOD_ID, "electric_furnace");
+        cable = new Cable(Identifier.of(MOD_ID, "cable")); // .setTranslationKey(MOD_ID, "cable")
+        powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable")); // .setTranslationKey(MOD_ID, "power_cable")
+        electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electricFurnace")).setTranslationKey(MOD_ID, "electricFurnace");
         generator = new Generator(Identifier.of(MOD_ID, "generator")).setTranslationKey(MOD_ID, "generator");
     }
 }

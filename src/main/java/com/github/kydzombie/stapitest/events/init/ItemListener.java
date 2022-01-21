@@ -22,8 +22,8 @@ public class ItemListener {
 
     @EventListener
     public void registerItems(ItemRegistryEvent event) {
-        wrench = new Wrench(Identifier.of(MOD_ID, "wrench")).setTranslationKey("wrench");
-        cable = new TemplateSecondaryBlock(Identifier.of(MOD_ID, "cable"), BlockListener.cable).setTranslationKey("cable");
-        powerCable = new TemplateSecondaryBlock(Identifier.of(MOD_ID, "power_able"), BlockListener.powerCable).setTranslationKey("power_cable");
+        wrench = new Wrench(Identifier.of(MOD_ID, "wrench")).setTranslationKey(MOD_ID, "wrench");
+        cable = new TemplateSecondaryBlock(Identifier.of(MOD_ID, "cable"), BlockListener.cable).setTranslationKey(MOD_ID, "cable");
+        powerCable = new TemplateSecondaryBlock(Identifier.of(MOD_ID, "powerCable"), BlockListener.powerCable).setTranslationKey(MOD_ID, "powerCable");
     }
 }
