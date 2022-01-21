@@ -1,16 +1,22 @@
 package com.github.kydzombie.stapitest.block.machine;
 
+import com.github.kydzombie.stapitest.container.ContainerElectricFurnace;
+import com.github.kydzombie.stapitest.events.init.BlockListener;
 import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
 import com.github.kydzombie.stapitest.tileentity.TileElectricFurnace;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockBase;
 import net.minecraft.entity.Living;
+import net.minecraft.entity.player.PlayerBase;
+import net.minecraft.inventory.InventoryBase;
 import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.tileentity.TileEntityBase;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.maths.MathHelper;
 import net.minecraft.util.maths.Vec3i;
+import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
 public class ElectricFurnace extends MachineBlock implements PowerConnection {
@@ -83,5 +89,13 @@ public class ElectricFurnace extends MachineBlock implements PowerConnection {
     @Override
     public boolean canConnect(BlockView tileView, Vec3i pos, int side) {
         return side != tileView.getTileMeta(pos.x, pos.y, pos.z);
+    }
+
+    @Override
+    public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
+        super.canUse(level, x, y, z, player);
+        TileEntityBase tileEntityFurnace = level.getTileEntity(x, y, z);
+        GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openFurnace"), (InventoryBase) tileEntityFurnace, new ContainerElectricFurnace(player.inventory, (TileElectricFurnace) tileEntityFurnace));
+        return true;
     }
 }

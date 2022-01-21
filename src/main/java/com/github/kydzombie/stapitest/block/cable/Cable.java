@@ -8,11 +8,14 @@ import net.minecraft.block.BlockBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.render.block.BlockRenderer;
 import net.minecraft.level.BlockView;
+import net.minecraft.level.Level;
+import net.minecraft.util.maths.Box;
 import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.client.model.block.BlockWithWorldRenderer;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockBase;
 
+import java.util.List;
 import java.util.Random;
 
 public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, Connection, Wrenchable {
@@ -40,6 +43,11 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
     }
 
     @Override
+    public Box getCollisionShape(Level level, int x, int y, int z) {
+        return Box.create(x, y, z, x + 1, y + 1, z + 1);
+    }
+
+    @Override
     public boolean isFullCube() {
         return false;
     }
@@ -47,11 +55,6 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
     @Override
     public boolean canConnect(BlockView tileView, Vec3i pos, int side) {
         return true;
-    }
-
-    @Override
-    public int getRenderType() {
-        return -1;
     }
 
     @SuppressWarnings("SuspiciousNameCombination")
@@ -65,6 +68,13 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
         this.setBoundingBox(MIN_WIDTH, MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH, MAX_WIDTH);
         tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
 
+        float minX = MIN_WIDTH;
+        float minY = MIN_WIDTH;
+        float minZ = MIN_WIDTH;
+        float maxX = MAX_WIDTH;
+        float maxY = MAX_WIDTH;
+        float maxZ = MAX_WIDTH;
+
         Vec3i check;
 
         if (connectTo == null) {
@@ -75,57 +85,49 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
             if (tileView.getTileId(check.x, check.y, check.z) == tileId) {
                 this.setBoundingBox(MAX_WIDTH, MIN_WIDTH, MIN_WIDTH, 1, MAX_WIDTH, MAX_WIDTH);
                 tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
+                maxX = 1;
             }
             check = new Vec3i(x - 1, y, z);
             if (tileView.getTileId(check.x, check.y, check.z) == tileId) {
                 this.setBoundingBox(0f, MIN_WIDTH, MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH);
                 tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
+                minX = 0;
             }
             // y
             check = new Vec3i(x, y + 1, z);
             if (tileView.getTileId(check.x, check.y, check.z) == tileId) {
                 this.setBoundingBox(MIN_WIDTH, MAX_WIDTH, MIN_WIDTH, MAX_WIDTH, 1f, MAX_WIDTH);
                 tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
+                maxY = 1;
             }
             check = new Vec3i(x, y - 1, z);
             if (tileView.getTileId(check.x, check.y, check.z) == tileId) {
                 this.setBoundingBox(MIN_WIDTH, 0f, MIN_WIDTH, MAX_WIDTH, MIN_WIDTH, MAX_WIDTH);
                 tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
+                minY = 0;
             }
             // z
             check = new Vec3i(x, y, z + 1);
             if (tileView.getTileId(check.x, check.y, check.z) == tileId) {
                 this.setBoundingBox(MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH, MAX_WIDTH, 1f);
                 tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
+                maxZ = 1;
             }
             check = new Vec3i(x, y, z - 1);
             if (tileView.getTileId(check.x, check.y, check.z) == tileId) {
                 this.setBoundingBox(MIN_WIDTH, MIN_WIDTH, 0f, MAX_WIDTH, MAX_WIDTH, MIN_WIDTH);
                 tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
+                minZ = 0;
             }
         }
         else {
-            // y
-            check = new Vec3i(x, y + 1, z);
-            if (connectTo.isInstance(WorldUtils.getBlock(tileView, check))) {
-                if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 0)) {
-                    this.setBoundingBox(MIN_WIDTH, MAX_WIDTH, MIN_WIDTH, MAX_WIDTH, 1f, MAX_WIDTH);
-                    tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
-                }
-            }
-            check = new Vec3i(x, y - 1, z);
-            if (connectTo.isInstance(WorldUtils.getBlock(tileView, check))) {
-                if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 1)) {
-                    this.setBoundingBox(MIN_WIDTH, 0f, MIN_WIDTH, MAX_WIDTH, MIN_WIDTH, MAX_WIDTH);
-                    tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
-                }
-            }
             // x
             check = new Vec3i(x + 1, y, z);
             if (connectTo.isInstance(WorldUtils.getBlock(tileView, check))) {
                 if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 4)) {
                     this.setBoundingBox(MAX_WIDTH, MIN_WIDTH, MIN_WIDTH, 1, MAX_WIDTH, MAX_WIDTH);
                     tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
+                    maxX = 1;
                 }
             }
             check = new Vec3i(x - 1, y, z);
@@ -133,6 +135,24 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
                 if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 5)) {
                     this.setBoundingBox(0f, MIN_WIDTH, MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH);
                     tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
+                    minX = 0;
+                }
+            }
+            // y
+            check = new Vec3i(x, y + 1, z);
+            if (connectTo.isInstance(WorldUtils.getBlock(tileView, check))) {
+                if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 0)) {
+                    this.setBoundingBox(MIN_WIDTH, MAX_WIDTH, MIN_WIDTH, MAX_WIDTH, 1f, MAX_WIDTH);
+                    tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
+                    maxY = 1;
+                }
+            }
+            check = new Vec3i(x, y - 1, z);
+            if (connectTo.isInstance(WorldUtils.getBlock(tileView, check))) {
+                if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 1)) {
+                    this.setBoundingBox(MIN_WIDTH, 0f, MIN_WIDTH, MAX_WIDTH, MIN_WIDTH, MAX_WIDTH);
+                    tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
+                    minY = 0;
                 }
             }
             // z
@@ -141,6 +161,7 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
                 if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 2)) {
                     this.setBoundingBox(MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH, MAX_WIDTH, 1f);
                     tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
+                    maxZ = 1;
                 }
             }
             check = new Vec3i(x, y, z - 1);
@@ -148,12 +169,102 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
                 if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 3)) {
                     this.setBoundingBox(MIN_WIDTH, MIN_WIDTH, 0f, MAX_WIDTH, MAX_WIDTH, MIN_WIDTH);
                     tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
+                    minZ = 0;
                 }
             }
         }
 
-        this.setBoundingBox(0, 0, 0, 1, 1, 1);
+        this.setBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
 
         return true;
+    }
+
+    @SuppressWarnings("SuspiciousNameCombination")
+    @Override
+    public void updateBoundingBox(BlockView tileView, int x, int y, int z) {
+
+        float minX = MIN_WIDTH;
+        float minY = MIN_WIDTH;
+        float minZ = MIN_WIDTH;
+        float maxX = MAX_WIDTH;
+        float maxY = MAX_WIDTH;
+        float maxZ = MAX_WIDTH;
+
+        Vec3i check;
+
+        if (connectTo == null) {
+            int tileId = tileView.getTileId(x, y, z);
+
+            // x
+            check = new Vec3i(x + 1, y, z);
+            if (tileView.getTileId(check.x, check.y, check.z) == tileId) {
+                maxX = 1;
+            }
+            check = new Vec3i(x - 1, y, z);
+            if (tileView.getTileId(check.x, check.y, check.z) == tileId) {
+                minX = 0;
+            }
+            // y
+            check = new Vec3i(x, y + 1, z);
+            if (tileView.getTileId(check.x, check.y, check.z) == tileId) {
+                maxY = 1;
+            }
+            check = new Vec3i(x, y - 1, z);
+            if (tileView.getTileId(check.x, check.y, check.z) == tileId) {
+                minY = 0;
+            }
+            // z
+            check = new Vec3i(x, y, z + 1);
+            if (tileView.getTileId(check.x, check.y, check.z) == tileId) {
+                maxZ = 1;
+            }
+            check = new Vec3i(x, y, z - 1);
+            if (tileView.getTileId(check.x, check.y, check.z) == tileId) {
+                minZ = 0;
+            }
+        }
+        else {
+            // x
+            check = new Vec3i(x + 1, y, z);
+            if (connectTo.isInstance(WorldUtils.getBlock(tileView, check))) {
+                if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 4)) {
+                    maxX = 1;
+                }
+            }
+            check = new Vec3i(x - 1, y, z);
+            if (connectTo.isInstance(WorldUtils.getBlock(tileView, check))) {
+                if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 5)) {
+                    minX = 0;
+                }
+            }
+            // y
+            check = new Vec3i(x, y + 1, z);
+            if (connectTo.isInstance(WorldUtils.getBlock(tileView, check))) {
+                if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 0)) {
+                    maxY = 1;
+                }
+            }
+            check = new Vec3i(x, y - 1, z);
+            if (connectTo.isInstance(WorldUtils.getBlock(tileView, check))) {
+                if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 1)) {
+                    minY = 0;
+                }
+            }
+            // z
+            check = new Vec3i(x, y, z + 1);
+            if (connectTo.isInstance(WorldUtils.getBlock(tileView, check))) {
+                if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 2)) {
+                    maxZ = 1;
+                }
+            }
+            check = new Vec3i(x, y, z - 1);
+            if (connectTo.isInstance(WorldUtils.getBlock(tileView, check))) {
+                if (((Connection) WorldUtils.getBlock(tileView, check)).canConnect(tileView, check, 3)) {
+                    minZ = 0;
+                }
+            }
+        }
+
+        this.setBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
     }
 }

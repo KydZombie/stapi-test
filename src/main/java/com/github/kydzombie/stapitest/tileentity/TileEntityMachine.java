@@ -55,6 +55,27 @@ public abstract class TileEntityMachine extends TileEntityBase implements PowerS
     }
 
     @Override
+    public int charge(int chargeAmount, int side, boolean simulate) {
+        chargeAmount = Math.min(chargeAmount, maxPower - power);
+        if (!simulate) {
+            power += chargeAmount;
+        }
+
+        return chargeAmount;
+
+    }
+
+    @Override
+    public int consume(int consumeAmount, int side, boolean simulate) {
+        consumeAmount = Math.max(power - consumeAmount, 0);
+        if (!simulate) {
+            power -= consumeAmount;
+        }
+
+        return consumeAmount;
+    }
+
+    @Override
     public void readIdentifyingData(CompoundTag tag) {
         super.readIdentifyingData(tag);
         power = tag.getInt("power");

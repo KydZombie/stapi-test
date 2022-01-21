@@ -1,21 +1,33 @@
 package com.github.kydzombie.stapitest.tileentity;
 
 import com.github.kydzombie.stapitest.util.machine.power.PowerUtils;
+import net.minecraft.item.ItemInstance;
+import net.minecraft.util.io.CompoundTag;
+import net.modificationstation.stationapi.api.item.Fuel;
 
 public class TileGenerator extends TileEntityMachine {
 
     private final int TICK_TIMER = 3;
     private int tick_timer = TICK_TIMER;
 
+    private final int GENERATION_RATE = 2;
+
+    private final int OUTPUT_AMOUNT = 30;
+
     private int fuelTime = 0;
 
     public TileGenerator() {
-        super(80, 0);
+        super(1600, 0);
     }
 
     @Override
     public void tick() {
         super.tick();
+
+        if (fuelTime > 0) {
+            power += GENERATION_RATE;
+            fuelTime--;
+        }
 
         if (tick_timer > 0) {
             tick_timer--;
@@ -25,30 +37,27 @@ public class TileGenerator extends TileEntityMachine {
             tick_timer = TICK_TIMER;
         }
 
-        if (fuelTime > 0) {
-            power++;
-            fuelTime--;
-        }
-
         if (power >= 5) {
-            power -= PowerUtils.sendPowerToConnections(connectedMachines, power, 5);
+            power -= PowerUtils.sendPowerToConnections(connectedMachines, power, OUTPUT_AMOUNT);
         }
-
-
     }
 
-    public void insertFuel(int fuelId) {
-        System.out.println("Inserted fuel");
-        fuelTime += 30;
-    }
-
-    @Override
-    public int charge(int chargeAmount, int side, boolean simulate) {
-        return 0;
+    public void insertFuel() {
+        fuelTime += 400;
+        System.out.println("Added 400");
+//        fuelTime += ((Fuel)fuel.getType()).getFuelTime(fuel) / 4;
+//        System.out.println("Added " + ((Fuel)fuel.getType()).getFuelTime(fuel) / 4);
     }
 
     @Override
-    public int consume(int consumeAmount, int side, boolean simulate) {
-        return 0;
+    public void readIdentifyingData(CompoundTag tag) {
+        super.readIdentifyingData(tag);
+        fuelTime = tag.getInt("fuelTime");
+    }
+
+    @Override
+    public void writeIdentifyingData(CompoundTag tag) {
+        super.writeIdentifyingData(tag);
+        tag.put("fuelTime", fuelTime);
     }
 }

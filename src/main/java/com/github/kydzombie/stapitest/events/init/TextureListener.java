@@ -24,5 +24,7 @@ public class TextureListener {
 
         ItemListener.cable.setTexture(Identifier.of(MOD_ID, "cable"));
         ItemListener.powerCable.setTexture(Identifier.of(MOD_ID, "cable_power"));
+
+        ItemListener.wrench.setTexture(Identifier.of(MOD_ID, "wrench"));
     }
 }

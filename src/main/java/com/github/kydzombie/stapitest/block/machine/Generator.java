@@ -15,6 +15,7 @@ import net.minecraft.level.Level;
 import net.minecraft.tileentity.TileEntityBase;
 import net.minecraft.util.maths.MathHelper;
 import net.minecraft.util.maths.Vec3i;
+import net.modificationstation.stationapi.api.item.Fuel;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
 public class Generator extends MachineBlock implements PowerConnection {
@@ -87,12 +88,17 @@ public class Generator extends MachineBlock implements PowerConnection {
 
     @Override
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
-        if (player.getHeldItem().itemId == ItemBase.coal.id) {
-            ((TileGenerator)level.getTileEntity(x, y, z)).insertFuel(player.getHeldItem().itemId);
+        if (player.getHeldItem() != null && player.getHeldItem().itemId == ItemBase.coal.id) {
+            ((TileGenerator)level.getTileEntity(x, y, z)).insertFuel();
             return true;
         }
 
-        return false;
+//        if (player.getHeldItem() != null && player.getHeldItem().getType() instanceof Fuel) {
+//            ((TileGenerator)level.getTileEntity(x, y, z)).insertFuel(player.getHeldItem());
+//            return true;
+//        }
+
+        return super.canUse(level, x, y, z, player);
     }
 
     @Override
