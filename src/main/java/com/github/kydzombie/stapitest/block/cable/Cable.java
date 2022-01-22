@@ -119,42 +119,41 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
         List<CableConnection> connections = new ArrayList<>();
 
         Vec3i check;
-        BlockBase block;
 
         // x
         check = new Vec3i(x + 1, y, z);
-        block = WorldUtils.getBlock(tileView, check);
-        if (block != null && ((connectTo != null && connectTo.isInstance(block)) || id == block.id)) {
+        if (checkConnection(tileView, check)) {
             connections.add(new CableConnection(check, new SafeBox(MAX_WIDTH, MIN_WIDTH, MIN_WIDTH, 1f, MAX_WIDTH, MAX_WIDTH)));
         }
         check = new Vec3i(x - 1, y, z);
-        block = WorldUtils.getBlock(tileView, check);
-        if (block != null && ((connectTo != null && connectTo.isInstance(block)) || id == block.id)) {
+        if (checkConnection(tileView, check)) {
             connections.add(new CableConnection(check, new SafeBox(0f, MIN_WIDTH, MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH)));
         }
         // y
         check = new Vec3i(x, y + 1, z);
-        block = WorldUtils.getBlock(tileView, check);
-        if (block != null && ((connectTo != null && connectTo.isInstance(block)) || id == block.id)) {
+        if (checkConnection(tileView, check)) {
             connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, MAX_WIDTH, MIN_WIDTH, MAX_WIDTH, 1f, MAX_WIDTH)));
         }
         check = new Vec3i(x, y - 1, z);
-        block = WorldUtils.getBlock(tileView, check);
-        if (block != null && ((connectTo != null && connectTo.isInstance(block)) || id == block.id)) {
+        if (checkConnection(tileView, check)) {
             connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, 0f, MIN_WIDTH, MAX_WIDTH, MIN_WIDTH, MAX_WIDTH)));
         }
         // z
         check = new Vec3i(x, y, z + 1);
-        block = WorldUtils.getBlock(tileView, check);
-        if (block != null && ((connectTo != null && connectTo.isInstance(block)) || id == block.id)) {
+        if (checkConnection(tileView, check)) {
             connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH, MAX_WIDTH, 1f)));
         }
         check = new Vec3i(x, y, z - 1);
-        block = WorldUtils.getBlock(tileView, check);
-        if (block != null && ((connectTo != null && connectTo.isInstance(block)) || id == block.id)) {
+        if (checkConnection(tileView, check)) {
             connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, MIN_WIDTH, 0f, MAX_WIDTH, MAX_WIDTH, MIN_WIDTH)));
         }
         return connections;
+    }
+
+    boolean checkConnection(BlockView tileView, Vec3i pos) {
+        BlockBase block = WorldUtils.getBlock(tileView, pos);
+
+        return block != null && ((connectTo != null && connectTo.isInstance(block)) || id == block.id);
     }
 
     @Override

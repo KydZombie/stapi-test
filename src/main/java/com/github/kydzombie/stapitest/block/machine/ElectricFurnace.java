@@ -2,7 +2,6 @@ package com.github.kydzombie.stapitest.block.machine;
 
 import com.github.kydzombie.stapitest.container.ContainerElectricFurnace;
 import com.github.kydzombie.stapitest.events.init.BlockListener;
-import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
 import com.github.kydzombie.stapitest.tileentity.TileElectricFurnace;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;

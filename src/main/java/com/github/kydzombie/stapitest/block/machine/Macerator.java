@@ -3,7 +3,6 @@ package com.github.kydzombie.stapitest.block.machine;
 import com.github.kydzombie.stapitest.container.ContainerMacerator;
 import com.github.kydzombie.stapitest.events.init.BlockListener;
 import com.github.kydzombie.stapitest.tileentity.TileMacerator;
-import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockBase;

@@ -1,7 +1,6 @@
 package com.github.kydzombie.stapitest.gui;
 
 import com.github.kydzombie.stapitest.tileentity.TileMachine;
-import com.github.kydzombie.stapitest.tileentity.TilePowered;
 import net.minecraft.client.gui.screen.container.ContainerBase;
 import net.minecraft.client.render.Tessellator;
 import org.lwjgl.opengl.GL11;

@@ -19,48 +19,10 @@ public class ItemCable extends Cable {
         super(identifier, Color.GREEN);
     }
 
-    @SuppressWarnings("SuspiciousNameCombination")
     @Override
-    List<CableConnection> getConnections(BlockView tileView, int x, int y, int z) {
-        List<CableConnection> connections = new ArrayList<>();
-
-        Vec3i check;
-        BlockBase block;
-
-        // x
-        check = new Vec3i(x + 1, y, z);
-        block = WorldUtils.getBlock(tileView, check);
-        if (block != null && (tileView.getTileEntity(check.x, check.y, check.z) instanceof InventoryBase || id == block.id)) {
-            connections.add(new CableConnection(check, new SafeBox(MAX_WIDTH, MIN_WIDTH, MIN_WIDTH, 1f, MAX_WIDTH, MAX_WIDTH)));
-        }
-        check = new Vec3i(x - 1, y, z);
-        block = WorldUtils.getBlock(tileView, check);
-        if (block != null && (tileView.getTileEntity(check.x, check.y, check.z) instanceof InventoryBase || id == block.id)) {
-            connections.add(new CableConnection(check, new SafeBox(0f, MIN_WIDTH, MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH)));
-        }
-        // y
-        check = new Vec3i(x, y + 1, z);
-        block = WorldUtils.getBlock(tileView, check);
-        if (block != null && (tileView.getTileEntity(check.x, check.y, check.z) instanceof InventoryBase || id == block.id)) {
-            connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, MAX_WIDTH, MIN_WIDTH, MAX_WIDTH, 1f, MAX_WIDTH)));
-        }
-        check = new Vec3i(x, y - 1, z);
-        block = WorldUtils.getBlock(tileView, check);
-        if (block != null && (tileView.getTileEntity(check.x, check.y, check.z) instanceof InventoryBase || id == block.id)) {
-            connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, 0f, MIN_WIDTH, MAX_WIDTH, MIN_WIDTH, MAX_WIDTH)));
-        }
-        // z
-        check = new Vec3i(x, y, z + 1);
-        block = WorldUtils.getBlock(tileView, check);
-        if (block != null && (tileView.getTileEntity(check.x, check.y, check.z) instanceof InventoryBase || id == block.id)) {
-            connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH, MAX_WIDTH, 1f)));
-        }
-        check = new Vec3i(x, y, z - 1);
-        block = WorldUtils.getBlock(tileView, check);
-        if (block != null && (tileView.getTileEntity(check.x, check.y, check.z) instanceof InventoryBase || id == block.id)) {
-            connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, MIN_WIDTH, 0f, MAX_WIDTH, MAX_WIDTH, MIN_WIDTH)));
-        }
-        return connections;
+    public boolean canConnect(BlockView tileView, Vec3i pos, int side) {
+        BlockBase block = WorldUtils.getBlock(tileView, pos);
+        return tileView.getTileEntity(pos.x, pos.y, pos.z) instanceof InventoryBase || block != null && id == block.id;
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.github.kydzombie.stapitest.block.machine;
 
 import com.github.kydzombie.stapitest.container.ContainerGenerator;
 import com.github.kydzombie.stapitest.events.init.BlockListener;
-import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
 import com.github.kydzombie.stapitest.tileentity.TileGenerator;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
