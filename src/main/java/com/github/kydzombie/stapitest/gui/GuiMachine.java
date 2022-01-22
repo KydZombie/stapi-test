@@ -1,15 +1,15 @@
 package com.github.kydzombie.stapitest.gui;
 
-import com.github.kydzombie.stapitest.tileentity.TileEntityMachine;
+import com.github.kydzombie.stapitest.tileentity.TilePowered;
 import net.minecraft.client.gui.screen.container.ContainerBase;
 import net.minecraft.client.render.Tessellator;
 import org.lwjgl.opengl.GL11;
 
 public abstract class GuiMachine extends ContainerBase {
 
-    TileEntityMachine tileEntity;
+    TilePowered tileEntity;
     String titleText;
-    PowerBar powerBar = new PowerBar(4, 24, 4, 70, true);
+    final PowerBar powerBar = new PowerBar(4, 24, 4, 70, true);
 
     public GuiMachine(net.minecraft.container.ContainerBase container) {
         super(container);
@@ -85,12 +85,12 @@ public abstract class GuiMachine extends ContainerBase {
 }
 
 class PowerBar {
-    int x1;
-    int x2;
-    int y1;
-    int y2;
+    final int x1;
+    final int x2;
+    final int y1;
+    final int y2;
 
-    boolean vertical;
+    final boolean vertical;
 
     public PowerBar(int x1, int x2, int y1, int y2, boolean vertical) {
         this.x1 = x1;

@@ -9,7 +9,7 @@ import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.util.io.CompoundTag;
 
-public class TileGenerator extends TileMachineWithStorage {
+public class TileGenerator extends TileMachine {
 
     private static final int GENERATION_RATE = 2;
     private static final int OUTPUT_AMOUNT = 30;
@@ -27,11 +27,11 @@ public class TileGenerator extends TileMachineWithStorage {
         super.tick();
 
         if (burnTime > 0) {
-            power += GENERATION_RATE;
+            power = Math.min(power + GENERATION_RATE, maxPower);
             burnTime--;
         }
         else {
-            if (getFuelTime(inventory[0]) > 0) {
+            if (getFuelTime(inventory[0]) > 0 && power != maxPower) {
                 fuelTime = burnTime = getFuelTime(inventory[0]);
                 takeInventoryItem(0, 1);
             }

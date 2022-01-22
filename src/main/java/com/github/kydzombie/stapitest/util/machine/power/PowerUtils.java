@@ -1,7 +1,7 @@
 package com.github.kydzombie.stapitest.util.machine.power;
 
 import com.github.kydzombie.stapitest.events.init.BlockListener;
-import com.github.kydzombie.stapitest.tileentity.TileEntityMachine;
+import com.github.kydzombie.stapitest.tileentity.TilePowered;
 import com.github.kydzombie.stapitest.util.WorldUtils;
 import com.github.kydzombie.stapitest.util.math.Vec3Facing;
 import net.minecraft.level.Level;
@@ -14,16 +14,16 @@ public class PowerUtils {
 
     public static void updateConnectedMachines(Level level, Vec3i pos) {
         System.out.println("Machine updates pushed from " + pos.x + ", " + pos.y + ", " + pos.z + ".");
-        ArrayList<TileEntityMachine> connectedMachines = PowerUtils.findMachineConnections(level, pos);
-        for (TileEntityMachine machine : connectedMachines) {
+        ArrayList<TilePowered> connectedMachines = PowerUtils.findMachineConnections(level, pos);
+        for (TilePowered machine : connectedMachines) {
             machine.updateConnections();
         }
     }
 
-    public static int sendPowerToConnections(ArrayList<TileEntityMachine> machines, int availablePower, int drainPower) {
+    public static int sendPowerToConnections(ArrayList<TilePowered> machines, int availablePower, int drainPower) {
         int powerDrained = 0;
 
-        for (TileEntityMachine machine : machines) {
+        for (TilePowered machine : machines) {
             if (availablePower - powerDrained > 0) {
                 if (machine.charge(Math.min(availablePower, drainPower), 6, true) > 0) {
                     powerDrained += machine.charge(Math.min(availablePower, drainPower), 6, false);
@@ -34,19 +34,19 @@ public class PowerUtils {
         return powerDrained;
     }
 
-    public static ArrayList<TileEntityMachine> findMachineConnections(Level level, Vec3i pos) {
+    public static ArrayList<TilePowered> findMachineConnections(Level level, Vec3i pos) {
         ArrayList<Vec3Facing> allBlockConnections = findPowerConnections(level, pos);
         allBlockConnections.removeIf(connection -> {TileEntityBase tileEntity = level.getTileEntity(connection.pos.x, connection.pos.y, connection.pos.z);
-            if (tileEntity instanceof TileEntityMachine) {
+            if (tileEntity instanceof TilePowered) {
                 return !((PowerConnection) tileEntity.getTile()).canConnect(level, connection.pos, connection.side);
             }
             return true;
         });
 
-        ArrayList<TileEntityMachine> allConnections = new ArrayList<>();
+        ArrayList<TilePowered> allConnections = new ArrayList<>();
 
         for (Vec3Facing block : allBlockConnections) {
-            allConnections.add((TileEntityMachine) level.getTileEntity(block.pos.x, block.pos.y, block.pos.z));
+            allConnections.add((TilePowered) level.getTileEntity(block.pos.x, block.pos.y, block.pos.z));
         }
 
         return allConnections;

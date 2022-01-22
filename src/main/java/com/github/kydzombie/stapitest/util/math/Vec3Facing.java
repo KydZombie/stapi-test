@@ -4,8 +4,8 @@ import net.minecraft.util.maths.Vec3i;
 
 public class Vec3Facing {
 
-    public Vec3i pos;
-    public int side;
+    public final Vec3i pos;
+    public final int side;
 
     public Vec3Facing(Vec3i pos, int side) {
         this.pos = pos;

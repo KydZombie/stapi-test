@@ -1,16 +1,16 @@
 package com.github.kydzombie.stapitest.container;
 
 import com.github.kydzombie.stapitest.events.init.ItemListener;
-import com.github.kydzombie.stapitest.tileentity.TileEntityMachine;
+import com.github.kydzombie.stapitest.tileentity.TilePowered;
 import net.minecraft.container.ContainerBase;
 import net.minecraft.container.slot.Slot;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.entity.player.PlayerInventory;
 
 public abstract class ContainerMachine extends ContainerBase {
-    TileEntityMachine tileEntity;
+    final TilePowered tileEntity;
 
-    public ContainerMachine(PlayerInventory playerInventory, TileEntityMachine tileEntity) {
+    public ContainerMachine(PlayerInventory playerInventory, TilePowered tileEntity) {
         this.tileEntity = tileEntity;
 
         int var3;

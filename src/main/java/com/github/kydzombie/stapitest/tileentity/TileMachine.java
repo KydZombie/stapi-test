@@ -5,16 +5,16 @@ import net.minecraft.item.ItemInstance;
 import net.minecraft.util.io.CompoundTag;
 import net.minecraft.util.io.ListTag;
 
-public abstract class TileMachineWithStorage extends TileEntityMachine implements InventoryBase {
+public abstract class TileMachine extends TilePowered implements InventoryBase {
     ItemInstance[] inventory;
     String containerName;
 
-    public TileMachineWithStorage(int maxPower, int inventorySize) {
+    public TileMachine(int maxPower, int inventorySize) {
         super(maxPower);
         inventory = new ItemInstance[inventorySize];
     }
 
-    public TileMachineWithStorage(int maxPower, int power, int inventorySize) {
+    public TileMachine(int maxPower, int power, int inventorySize) {
         super(maxPower, power);
         inventory = new ItemInstance[inventorySize];
     }

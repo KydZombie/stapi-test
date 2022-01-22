@@ -8,7 +8,7 @@ import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.util.io.CompoundTag;
 
-public class TileMacerator extends TileMachineWithStorage {
+public class TileMacerator extends TileMachine {
     private final int COOK_TIME = 80;
     public int cookTime = 0;
 
@@ -21,43 +21,43 @@ public class TileMacerator extends TileMachineWithStorage {
     public void tick() {
         super.tick();
 
-        if (!this.level.isClient) {
+        if (!level.isClient) {
 
-            if (this.canAcceptRecipeOutput()) {
+            if (canAcceptRecipeOutput()) {
                 if (power >= 2) {
-                    ++this.cookTime;
+                    ++cookTime;
                     power -= 2;
-                    if (this.cookTime == COOK_TIME) {
-                        this.cookTime = 0;
-                        this.craftRecipe();
+                    if (cookTime == COOK_TIME) {
+                        cookTime = 0;
+                        craftRecipe();
                     }
                 }
             } else {
-                this.cookTime = 0;
+                cookTime = 0;
             }
         }
     }
 
     @Environment(EnvType.CLIENT)
     public int getCookTimeDelta(int multiplier) {
-        return this.cookTime * multiplier / COOK_TIME;
+        return cookTime * multiplier / COOK_TIME;
     }
 
     private boolean canAcceptRecipeOutput() {
         if (inventory[0] == null) {
             return false;
         } else {
-            ItemInstance var1 = getOutput(inventory[0].getType().id);
-            if (var1 == null) {
+            ItemInstance output = getOutput(inventory[0].getType().id);
+            if (output == null) {
                 return false;
             } else if (inventory[1] == null) {
                 return true;
-            } else if (!inventory[1].isDamageAndIDIdentical(var1)) {
+            } else if (!inventory[1].isDamageAndIDIdentical(output)) {
                 return false;
-            } else if (inventory[1].count < getMaxItemCount() && inventory[1].count < inventory[1].getMaxStackSize()) {
+            } else if (inventory[1].count + output.count <= getMaxItemCount() && inventory[1].count + output.count <= inventory[1].getMaxStackSize()) {
                 return true;
             } else {
-                return inventory[1].count < var1.getMaxStackSize();
+                return inventory[1].count + output.count <= output.getMaxStackSize();
             }
         }
     }
@@ -66,15 +66,15 @@ public class TileMacerator extends TileMachineWithStorage {
         if (this.canAcceptRecipeOutput()) {
             ItemInstance output = getOutput(inventory[0].getType().id);
             if (output != null) {
-                if (this.inventory[1] == null) {
-                    this.inventory[1] = output.copy();
+                if (inventory[1] == null) {
+                    inventory[1] = output.copy();
                 } else if (this.inventory[1].itemId == output.itemId) {
-                    ++this.inventory[1].count;
+                    inventory[1].count += output.count;
                 }
 
-                --this.inventory[0].count;
-                if (this.inventory[0].count <= 0) {
-                    this.inventory[0] = null;
+                --inventory[0].count;
+                if (inventory[0].count <= 0) {
+                    inventory[0] = null;
                 }
             }
         }

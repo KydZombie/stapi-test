@@ -6,7 +6,7 @@ import net.minecraft.item.ItemInstance;
 import net.minecraft.recipe.SmeltingRecipeRegistry;
 import net.minecraft.util.io.CompoundTag;
 
-public class TileElectricFurnace extends TileMachineWithStorage {
+public class TileElectricFurnace extends TileMachine {
     private final int COOK_TIME = 30;
     public int cookTime = 0;
 

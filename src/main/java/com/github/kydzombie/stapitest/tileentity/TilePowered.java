@@ -9,20 +9,20 @@ import net.minecraft.util.maths.Vec3i;
 
 import java.util.ArrayList;
 
-public abstract class TileEntityMachine extends TileEntityBase implements PowerStorage {
+public abstract class TilePowered extends TileEntityBase implements PowerStorage {
 
-    ArrayList<TileEntityMachine> connectedMachines;
+    ArrayList<TilePowered> connectedMachines;
 
     int maxPower;
     int power;
 
-    public TileEntityMachine(int maxPower) {
+    public TilePowered(int maxPower) {
         super();
         this.maxPower = maxPower;
         this.power = 0;
     }
 
-    public TileEntityMachine(int maxPower, int power) {
+    public TilePowered(int maxPower, int power) {
         super();
         this.maxPower = maxPower;
         this.power = power;
