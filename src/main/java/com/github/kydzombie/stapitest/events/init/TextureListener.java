@@ -14,14 +14,15 @@ public class TextureListener {
 
     @EventListener
     public void registerTextures(TextureRegisterEvent event) {
-        BlockListener.electricFurnace.texture = Atlases.getStationTerrain().addTexture(Identifier.of(MOD_ID, "electric_furnace")).index;
+        BlockListener.electricFurnace.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "electric_furnace")).index;
         BlockListener.generator.texture = BlockListener.electricFurnace.texture;
 
         ItemListener.cable.setTexture(Identifier.of(MOD_ID, "cable"));
-        ItemListener.powerCable.setTexture(Identifier.of(MOD_ID, "cable_power"));
+        ItemListener.powerCable.setTexture(Identifier.of(MOD_ID, "cable"));
+        ItemListener.itemCable.setTexture(Identifier.of(MOD_ID, "cable"));
 
-        ItemListener.ironDust.setTexture(Identifier.of(MOD_ID, "iron_dust"));
-        ItemListener.goldDust.setTexture(Identifier.of(MOD_ID, "gold_dust"));
+        ItemListener.ironDust.setTexture(Identifier.of(MOD_ID, "ore_dust"));
+        ItemListener.goldDust.setTexture(Identifier.of(MOD_ID, "ore_dust"));
 
         ItemListener.wrench.setTexture(Identifier.of(MOD_ID, "wrench"));
     }

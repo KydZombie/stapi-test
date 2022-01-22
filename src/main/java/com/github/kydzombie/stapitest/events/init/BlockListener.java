@@ -1,6 +1,7 @@
 package com.github.kydzombie.stapitest.events.init;
 
 import com.github.kydzombie.stapitest.block.cable.Cable;
+import com.github.kydzombie.stapitest.block.cable.ItemCable;
 import com.github.kydzombie.stapitest.block.cable.PowerCable;
 import com.github.kydzombie.stapitest.block.machine.ElectricFurnace;
 import com.github.kydzombie.stapitest.block.machine.Generator;
@@ -17,6 +18,7 @@ public class BlockListener {
 
     public static BlockBase cable;
     public static BlockBase powerCable;
+    public static BlockBase itemCable;
     public static BlockBase electricFurnace;
     public static BlockBase generator;
     public static BlockBase macerator;
@@ -28,6 +30,7 @@ public class BlockListener {
     public void registerBlocks(BlockRegistryEvent event) {
         cable = new Cable(Identifier.of(MOD_ID, "cable"));
         powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable"));
+        itemCable = new ItemCable(Identifier.of(MOD_ID, "itemCable"));
         electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electricFurnace")).setTranslationKey(MOD_ID, "electricFurnace");
         generator = new Generator(Identifier.of(MOD_ID, "generator")).setTranslationKey(MOD_ID, "generator");
         macerator = new Macerator(Identifier.of(MOD_ID, "macerator")).setTranslationKey(MOD_ID, "macerator");

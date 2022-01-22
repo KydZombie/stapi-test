@@ -1,6 +1,7 @@
 package com.github.kydzombie.stapitest.block.cable;
 
 import com.github.kydzombie.stapitest.events.init.ItemListener;
+import com.github.kydzombie.stapitest.util.ColorConverter;
 import com.github.kydzombie.stapitest.util.WorldUtils;
 import com.github.kydzombie.stapitest.util.machine.Wrenchable;
 import com.github.kydzombie.stapitest.util.machine.power.Connection;
@@ -15,23 +16,35 @@ import net.modificationstation.stationapi.api.client.model.block.BlockWithWorldR
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockBase;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 @SuppressWarnings("SuspiciousNameCombination")
 public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, Connection, Wrenchable {
+
+    private int color;
     
-    private static final float MIN_WIDTH = .3f;
-    private static final float MAX_WIDTH = .7f;
+    static final float MIN_WIDTH = .3f;
+    static final float MAX_WIDTH = .7f;
 
     public Class<?> connectTo = null;
-    
+
     public Cable(Identifier identifier) {
         super(identifier, Material.WOOL);
         this.texture = BlockBase.WOOL.texture;
         this.setSounds(WOOL_SOUNDS);
         this.setHardness(0.8f);
+        this.color = ColorConverter.colorToInt(Color.WHITE);
+    }
+    
+    public Cable(Identifier identifier, Color color) {
+        super(identifier, Material.WOOL);
+        this.texture = BlockBase.WOOL.texture;
+        this.setSounds(WOOL_SOUNDS);
+        this.setHardness(0.8f);
+        this.color = ColorConverter.colorToInt(color);
     }
 
     @Override
@@ -102,7 +115,7 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
         this.setBoundingBox(currentBox.minX, currentBox.minY, currentBox.minZ, currentBox.maxX, currentBox.maxY, currentBox.maxZ);
     }
 
-    private List<CableConnection> getConnections(BlockView tileView, int x, int y, int z) {
+    List<CableConnection> getConnections(BlockView tileView, int x, int y, int z) {
         List<CableConnection> connections = new ArrayList<>();
 
         Vec3i check;
@@ -142,6 +155,11 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
             connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, MIN_WIDTH, 0f, MAX_WIDTH, MAX_WIDTH, MIN_WIDTH)));
         }
         return connections;
+    }
+
+    @Override
+    public int getColourMultiplier(BlockView tileView, int x, int y, int z) {
+        return color;
     }
 }
 
