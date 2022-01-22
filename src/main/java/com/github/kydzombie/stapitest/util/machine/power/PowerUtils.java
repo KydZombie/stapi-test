@@ -82,7 +82,7 @@ public class PowerUtils {
 
     public static List<Vec3Facing> findPowerConnections(Level level, Vec3i pos) {
         List<Vec3Facing> blocksChecked = new ArrayList<>();
-        List<Vec3Facing> blocksToCheck = new ArrayList<>(checkSurroundingPowerConnection(level, pos));
+        List<Vec3Facing> blocksToCheck = checkSurroundingPowerConnection(level, pos);
         blocksChecked.add(new Vec3Facing(pos.x, pos.y, pos.z, 0));
 
         List<Vec3Facing> check;
