@@ -25,5 +25,7 @@ public class TextureListener {
         ItemListener.goldDust.setTexture(Identifier.of(MOD_ID, "ore_dust"));
 
         ItemListener.wrench.setTexture(Identifier.of(MOD_ID, "wrench"));
+        ItemListener.battery.setTexture(Identifier.of(MOD_ID, "battery"));
+        ItemListener.electricPickaxe.setTexture(Identifier.of(MOD_ID, "electric_pickaxe"));
     }
 }

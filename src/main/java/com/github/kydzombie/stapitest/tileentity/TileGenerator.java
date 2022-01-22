@@ -1,5 +1,7 @@
 package com.github.kydzombie.stapitest.tileentity;
 
+import com.github.kydzombie.stapitest.item.Battery;
+import com.github.kydzombie.stapitest.util.machine.power.ItemPowerStorage;
 import com.github.kydzombie.stapitest.util.machine.power.PowerUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -13,12 +15,13 @@ public class TileGenerator extends TileMachine {
 
     private static final int GENERATION_RATE = 2;
     private static final int OUTPUT_AMOUNT = 30;
+    private static final int MAX_CHARGE = 5;
 
     private int fuelTime = 0;
     private int burnTime = 0;
 
     public TileGenerator() {
-        super(1600, 1);
+        super(1600, 2);
         this.containerName = "Generator";
     }
 
@@ -30,15 +33,24 @@ public class TileGenerator extends TileMachine {
             power = Math.min(power + GENERATION_RATE, maxPower);
             burnTime--;
         }
-        else {
+        else if (inventory[0] != null){
+
             if (getFuelTime(inventory[0]) > 0 && power != maxPower) {
                 fuelTime = burnTime = getFuelTime(inventory[0]);
                 takeInventoryItem(0, 1);
             }
+            else if (inventory[0].getType() instanceof Battery) {
+                power += PowerUtils.attemptConsumeItemPower(inventory[0], Math.min(MAX_CHARGE, maxPower - power));
+            }
         }
 
         if (power > 0) {
-            power -= PowerUtils.sendPowerToConnections(connectedMachines, power, OUTPUT_AMOUNT);
+            if (inventory[1] != null && inventory[1].getType() instanceof ItemPowerStorage) {
+                power -= PowerUtils.attemptChargeItem(inventory[1], power, OUTPUT_AMOUNT);
+            }
+            else {
+                power -= PowerUtils.sendPowerToConnections(connectedMachines, power, OUTPUT_AMOUNT);
+            }
         }
     }
 

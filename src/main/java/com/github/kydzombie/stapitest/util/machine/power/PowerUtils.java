@@ -4,6 +4,7 @@ import com.github.kydzombie.stapitest.events.init.BlockListener;
 import com.github.kydzombie.stapitest.tileentity.TilePowered;
 import com.github.kydzombie.stapitest.util.WorldUtils;
 import com.github.kydzombie.stapitest.util.math.Vec3Facing;
+import net.minecraft.item.ItemInstance;
 import net.minecraft.level.Level;
 import net.minecraft.tileentity.TileEntityBase;
 import net.minecraft.util.maths.Vec3i;
@@ -12,6 +13,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PowerUtils {
+
+    public static int attemptChargeItem(ItemInstance item, int availablePower, int drainPower) {
+        if (!(item.getType() instanceof ItemPowerStorage)) {
+            return 0;
+        }
+        ItemPowerStorage itemPowerStorage = (ItemPowerStorage) item.getType();
+        if (itemPowerStorage.charge(item, Math.min(availablePower, drainPower), true) > 0) {
+            return itemPowerStorage.charge(item, Math.min(availablePower, drainPower), false);
+        }
+        else {
+            return 0;
+        }
+    }
+
+    public static int attemptConsumeItemPower(ItemInstance item, int consumeAmount) {
+        if (!(item.getType() instanceof ItemPowerStorage)) {
+            return 0;
+        }
+        ItemPowerStorage itemPowerStorage = (ItemPowerStorage) item.getType();
+        if (itemPowerStorage.consume(item, consumeAmount, true) > 0) {
+            return itemPowerStorage.consume(item, consumeAmount, false);
+        }
+        else {
+            return 0;
+        }
+    }
 
     public static void updateConnectedMachines(Level level, Vec3i pos) {
         System.out.println("Machine updates pushed from " + pos.x + ", " + pos.y + ", " + pos.z + ".");
