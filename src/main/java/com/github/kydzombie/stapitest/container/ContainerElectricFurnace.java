@@ -8,7 +8,7 @@ import net.minecraft.entity.player.PlayerInventory;
 public class ContainerElectricFurnace extends ContainerMachine {
     public ContainerElectricFurnace(PlayerInventory playerInventory, TileElectricFurnace furnace) {
         super(playerInventory, furnace);
-        this.addSlot(new Slot(furnace, 0, 56, 17));
+        this.addSlot(new Slot(furnace, 0, 56, 35));
         this.addSlot(new FurnaceOutput(playerInventory.player, furnace, 1, 116, 35));
     }
 }

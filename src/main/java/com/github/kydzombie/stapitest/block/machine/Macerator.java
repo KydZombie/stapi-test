@@ -18,7 +18,7 @@ import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
-public class Macerator extends MachineBlock implements PowerConnection {
+public class Macerator extends MachineBlock {
     public Macerator(Identifier identifier) {
         super(identifier);
     }

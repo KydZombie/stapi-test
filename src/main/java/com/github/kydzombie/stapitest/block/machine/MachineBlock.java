@@ -3,6 +3,7 @@ package com.github.kydzombie.stapitest.block.machine;
 import com.github.kydzombie.stapitest.events.init.ItemListener;
 import com.github.kydzombie.stapitest.tileentity.TileMachine;
 import com.github.kydzombie.stapitest.util.machine.Wrenchable;
+import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Item;
 import net.minecraft.entity.player.PlayerBase;
@@ -13,7 +14,7 @@ import net.modificationstation.stationapi.api.template.block.TemplateBlockWithEn
 
 import java.util.Random;
 
-public abstract class MachineBlock extends TemplateBlockWithEntity implements Wrenchable {
+public abstract class MachineBlock extends TemplateBlockWithEntity implements Wrenchable, PowerConnection {
     private final Random rand = new Random();
 
     public MachineBlock(Identifier identifier) {

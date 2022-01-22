@@ -8,13 +8,11 @@ import org.lwjgl.opengl.GL11;
 public class GuiGenerator extends GuiMachine {
 
     public GuiGenerator(PlayerInventory playerInventory, TileGenerator tileEntity) {
-        super(new ContainerGenerator(playerInventory, tileEntity));
-        this.tileEntity = tileEntity;
-        this.titleText = "Generator";
+        super(new ContainerGenerator(playerInventory, tileEntity), tileEntity, "Generator");
     }
 
     public void renderContainerBackground(float tickDelta) {
-        int var2 = this.minecraft.textureManager.getTextureId("/gui/furnace.png");
+        int var2 = this.minecraft.textureManager.getTextureId("/assets/stapitest/stationapi/gui/generator.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.textureManager.bindTexture(var2);
         int var3 = (this.width - this.containerWidth) / 2;

@@ -8,13 +8,11 @@ import org.lwjgl.opengl.GL11;
 public class GuiElectricFurnace extends GuiMachine {
 
     public GuiElectricFurnace(PlayerInventory playerInventory, TileElectricFurnace tileEntity) {
-        super(new ContainerElectricFurnace(playerInventory, tileEntity));
-        this.tileEntity = tileEntity;
-        this.titleText = "Electric Furnace";
+        super(new ContainerElectricFurnace(playerInventory, tileEntity), tileEntity, "Electric Furnace");
     }
 
     public void renderContainerBackground(float tickDelta) {
-        int var2 = this.minecraft.textureManager.getTextureId("/gui/furnace.png");
+        int var2 = this.minecraft.textureManager.getTextureId("/assets/stapitest/stationapi/gui/basic_machine.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.textureManager.bindTexture(var2);
         int var3 = (this.width - this.containerWidth) / 2;

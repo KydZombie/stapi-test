@@ -18,7 +18,7 @@ import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
-public class ElectricFurnace extends MachineBlock implements PowerConnection {
+public class ElectricFurnace extends MachineBlock {
     public ElectricFurnace(Identifier identifier) {
         super(identifier);
     }

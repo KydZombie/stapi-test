@@ -18,7 +18,7 @@ import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
-public class Generator extends MachineBlock implements PowerConnection {
+public class Generator extends MachineBlock {
 
     public Generator(Identifier identifier) {
         super(identifier);

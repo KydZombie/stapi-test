@@ -8,13 +8,11 @@ import org.lwjgl.opengl.GL11;
 public class GuiMacerator extends GuiMachine {
 
     public GuiMacerator(PlayerInventory playerInventory, TileMacerator tileEntity) {
-        super(new ContainerMacerator(playerInventory, tileEntity));
-        this.tileEntity = tileEntity;
-        this.titleText = "Macerator";
+        super(new ContainerMacerator(playerInventory, tileEntity), tileEntity, "Macerator");
     }
 
     public void renderContainerBackground(float tickDelta) {
-        int var2 = this.minecraft.textureManager.getTextureId("/gui/furnace.png");
+        int var2 = this.minecraft.textureManager.getTextureId("/assets/stapitest/stationapi/gui/basic_machine.png");
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         this.minecraft.textureManager.bindTexture(var2);
         int var3 = (this.width - this.containerWidth) / 2;
