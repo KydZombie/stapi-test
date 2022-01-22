@@ -2,7 +2,6 @@ package com.github.kydzombie.stapitest.events.init;
 
 import com.github.kydzombie.stapitest.item.Wrench;
 import net.mine_diver.unsafeevents.listener.EventListener;
-import net.minecraft.item.SecondaryBlock;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.registry.Identifier;

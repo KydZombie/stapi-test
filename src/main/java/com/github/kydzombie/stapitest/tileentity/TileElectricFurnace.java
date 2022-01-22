@@ -5,7 +5,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.recipe.SmeltingRecipeRegistry;
 import net.minecraft.util.io.CompoundTag;
-import net.minecraft.util.io.ListTag;
 
 public class TileElectricFurnace extends TileMachineWithStorage {
     private final int COOK_TIME = 30;

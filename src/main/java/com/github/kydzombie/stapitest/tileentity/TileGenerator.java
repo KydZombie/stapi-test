@@ -11,8 +11,8 @@ import net.minecraft.util.io.CompoundTag;
 
 public class TileGenerator extends TileMachineWithStorage {
 
-    private final int GENERATION_RATE = 2;
-    private final int OUTPUT_AMOUNT = 30;
+    private static final int GENERATION_RATE = 2;
+    private static final int OUTPUT_AMOUNT = 30;
 
     private int fuelTime = 0;
     private int burnTime = 0;

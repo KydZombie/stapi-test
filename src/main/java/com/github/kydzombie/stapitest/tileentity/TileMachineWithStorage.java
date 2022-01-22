@@ -36,15 +36,13 @@ public abstract class TileMachineWithStorage extends TileEntityMachine implement
             if (inventory[index].count <= count) {
                 var3 = inventory[index];
                 inventory[index] = null;
-                return var3;
             } else {
                 var3 = inventory[index].split(count);
                 if (inventory[index].count == 0) {
                     inventory[index] = null;
                 }
-
-                return var3;
             }
+            return var3;
         } else {
             return null;
         }

@@ -1,7 +1,5 @@
 package com.github.kydzombie.stapitest.item;
 
-import com.github.kydzombie.stapitest.block.cable.Cable;
-import com.github.kydzombie.stapitest.block.machine.MachineBlock;
 import com.github.kydzombie.stapitest.util.machine.Wrenchable;
 import net.minecraft.block.BlockBase;
 import net.minecraft.entity.player.PlayerBase;

@@ -15,7 +15,6 @@ import net.modificationstation.stationapi.api.client.model.block.BlockWithWorldR
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockBase;
 
-import java.util.List;
 import java.util.Random;
 
 public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, Connection, Wrenchable {

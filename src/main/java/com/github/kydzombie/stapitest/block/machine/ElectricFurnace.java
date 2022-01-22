@@ -13,7 +13,6 @@ import net.minecraft.inventory.InventoryBase;
 import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.tileentity.TileEntityBase;
-import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.maths.MathHelper;
 import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;

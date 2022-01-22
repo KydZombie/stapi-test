@@ -1,7 +1,6 @@
 package com.github.kydzombie.stapitest.block.cable;
 
 import com.github.kydzombie.stapitest.events.init.ItemListener;
-import com.github.kydzombie.stapitest.tileentity.TileEntityMachine;
 import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
 import com.github.kydzombie.stapitest.util.machine.power.PowerUtils;
 import net.minecraft.block.BlockBase;
@@ -9,7 +8,6 @@ import net.minecraft.level.Level;
 import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class PowerCable extends Cable implements PowerConnection {
