@@ -1,21 +1,21 @@
 package com.github.kydzombie.stapitest.block.machine;
 
+import com.github.kydzombie.stapitest.container.ContainerGenerator;
+import com.github.kydzombie.stapitest.events.init.BlockListener;
 import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
 import com.github.kydzombie.stapitest.tileentity.TileGenerator;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockBase;
-import net.minecraft.block.material.Material;
 import net.minecraft.entity.Living;
 import net.minecraft.entity.player.PlayerBase;
-import net.minecraft.item.ItemBase;
-import net.minecraft.item.ItemInstance;
+import net.minecraft.inventory.InventoryBase;
 import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.tileentity.TileEntityBase;
 import net.minecraft.util.maths.MathHelper;
 import net.minecraft.util.maths.Vec3i;
-import net.modificationstation.stationapi.api.item.Fuel;
+import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
 public class Generator extends MachineBlock implements PowerConnection {
@@ -88,17 +88,10 @@ public class Generator extends MachineBlock implements PowerConnection {
 
     @Override
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
-        if (player.getHeldItem() != null && player.getHeldItem().itemId == ItemBase.coal.id) {
-            ((TileGenerator)level.getTileEntity(x, y, z)).insertFuel();
-            return true;
-        }
-
-//        if (player.getHeldItem() != null && player.getHeldItem().getType() instanceof Fuel) {
-//            ((TileGenerator)level.getTileEntity(x, y, z)).insertFuel(player.getHeldItem());
-//            return true;
-//        }
-
-        return super.canUse(level, x, y, z, player);
+        super.canUse(level, x, y, z, player);
+        TileEntityBase tileEntityGenerator = level.getTileEntity(x, y, z);
+        GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openGenerator"), (InventoryBase) tileEntityGenerator, new ContainerGenerator(player.inventory, (TileGenerator) tileEntityGenerator));
+        return true;
     }
 
     @Override
