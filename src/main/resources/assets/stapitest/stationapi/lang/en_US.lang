@@ -1,5 +1,10 @@
 item.cable.name=Basic Cable
 item.powerCable.name=Power Cable
 
+item.wrench.name=Wrench
+
+item.ironDust.name=Iron Dust
+item.goldDust.name=Gold Dust
+
 tile.generator.name=Generator
 tile.electricFurnace.name=Electric Furnace

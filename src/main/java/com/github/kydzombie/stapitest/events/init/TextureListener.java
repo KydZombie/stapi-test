@@ -20,6 +20,9 @@ public class TextureListener {
         ItemListener.cable.setTexture(Identifier.of(MOD_ID, "cable"));
         ItemListener.powerCable.setTexture(Identifier.of(MOD_ID, "cable_power"));
 
+        ItemListener.ironDust.setTexture(Identifier.of(MOD_ID, "iron_dust"));
+        ItemListener.goldDust.setTexture(Identifier.of(MOD_ID, "gold_dust"));
+
         ItemListener.wrench.setTexture(Identifier.of(MOD_ID, "wrench"));
     }
 }

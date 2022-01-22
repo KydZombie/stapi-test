@@ -12,7 +12,12 @@ import net.modificationstation.stationapi.api.util.Null;
 
 public class ItemListener {
 
+    public static TemplateItemBase ironDust;
+    public static TemplateItemBase goldDust;
+
     public static TemplateItemBase wrench;
+
+
     public static TemplateSecondaryBlock cable;
     public static TemplateSecondaryBlock powerCable;
 
@@ -21,6 +26,8 @@ public class ItemListener {
 
     @EventListener
     public void registerItems(ItemRegistryEvent event) {
+        ironDust = new TemplateItemBase(Identifier.of(MOD_ID, "ironDust")).setTranslationKey(MOD_ID, "ironDust");
+        goldDust = new TemplateItemBase(Identifier.of(MOD_ID, "goldDust")).setTranslationKey(MOD_ID, "goldDust");
         wrench = new Wrench(Identifier.of(MOD_ID, "wrench")).setTranslationKey(MOD_ID, "wrench");
         cable = new TemplateSecondaryBlock(Identifier.of(MOD_ID, "cable"), BlockListener.cable).setTranslationKey(MOD_ID, "cable");
         powerCable = new TemplateSecondaryBlock(Identifier.of(MOD_ID, "powerCable"), BlockListener.powerCable).setTranslationKey(MOD_ID, "powerCable");
