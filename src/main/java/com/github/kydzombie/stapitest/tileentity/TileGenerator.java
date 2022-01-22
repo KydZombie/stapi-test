@@ -1,9 +1,7 @@
 package com.github.kydzombie.stapitest.tileentity;
 
 import com.github.kydzombie.stapitest.util.machine.power.PowerUtils;
-import net.minecraft.item.ItemInstance;
 import net.minecraft.util.io.CompoundTag;
-import net.modificationstation.stationapi.api.item.Fuel;
 
 public class TileGenerator extends TileEntityMachine {
 
@@ -51,5 +49,10 @@ public class TileGenerator extends TileEntityMachine {
     public void writeIdentifyingData(CompoundTag tag) {
         super.writeIdentifyingData(tag);
         tag.put("fuelTime", fuelTime);
+    }
+
+    @Override
+    public int charge(int chargeAmount, int side, boolean simulate) {
+        return 0;
     }
 }

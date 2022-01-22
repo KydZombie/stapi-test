@@ -5,7 +5,7 @@ import net.minecraft.client.gui.screen.container.ContainerBase;
 import net.minecraft.client.render.Tessellator;
 import org.lwjgl.opengl.GL11;
 
-public class GuiMachine extends ContainerBase {
+public abstract class GuiMachine extends ContainerBase {
 
     TileEntityMachine tileEntity;
     String titleText;

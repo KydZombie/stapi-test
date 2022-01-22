@@ -2,6 +2,7 @@ package com.github.kydzombie.stapitest.tileentity;
 
 import com.github.kydzombie.stapitest.util.machine.power.PowerStorage;
 import com.github.kydzombie.stapitest.util.machine.power.PowerUtils;
+import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.tileentity.TileEntityBase;
 import net.minecraft.util.io.CompoundTag;
 import net.minecraft.util.maths.Vec3i;
@@ -73,6 +74,14 @@ public abstract class TileEntityMachine extends TileEntityBase implements PowerS
         }
 
         return consumeAmount;
+    }
+
+    public boolean canPlayerUse(PlayerBase player) {
+        if (this.level.getTileEntity(this.x, this.y, this.z) != this) {
+            return false;
+        } else {
+            return !(player.squaredDistanceTo((double)this.x + 0.5D, (double)this.y + 0.5D, (double)this.z + 0.5D) > 64.0D);
+        }
     }
 
     @Override

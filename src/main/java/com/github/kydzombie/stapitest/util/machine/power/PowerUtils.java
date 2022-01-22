@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.util.machine.power;
 
-import com.github.kydzombie.stapitest.block.machine.MachineBlock;
+import com.github.kydzombie.stapitest.events.init.BlockListener;
 import com.github.kydzombie.stapitest.tileentity.TileEntityMachine;
 import com.github.kydzombie.stapitest.util.WorldUtils;
 import com.github.kydzombie.stapitest.util.math.Vec3Facing;
@@ -59,6 +59,11 @@ public class PowerUtils extends WorldUtils {
 
         ArrayList<Vec3Facing> check;
         while (blocksToCheck.size() > 0) {
+            if (getBlock(level, blocksToCheck.get(0).pos) != BlockListener.powerCable){
+                blocksChecked.add(blocksToCheck.get(0));
+                blocksToCheck.remove(0);
+                continue;
+            }
 
             check = checkSurroundingPowerConnection(level, blocksToCheck.get(0).pos);
 

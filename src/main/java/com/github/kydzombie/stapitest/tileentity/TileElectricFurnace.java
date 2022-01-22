@@ -2,7 +2,6 @@ package com.github.kydzombie.stapitest.tileentity;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.inventory.InventoryBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.recipe.SmeltingRecipeRegistry;
@@ -90,14 +89,7 @@ public class TileElectricFurnace extends TileEntityMachine implements InventoryB
         return 64;
     }
 
-    @Override
-    public boolean canPlayerUse(PlayerBase player) {
-        if (this.level.getTileEntity(this.x, this.y, this.z) != this) {
-            return false;
-        } else {
-            return !(player.squaredDistanceTo((double)this.x + 0.5D, (double)this.y + 0.5D, (double)this.z + 0.5D) > 64.0D);
-        }
-    }
+
 
     @Environment(EnvType.CLIENT)
     public int getCookTimeDelta(int multiplier) {
