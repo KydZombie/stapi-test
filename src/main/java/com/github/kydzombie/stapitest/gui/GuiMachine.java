@@ -42,7 +42,7 @@ public class GuiMachine extends ContainerBase {
         // bottom is 70, top is 4
         int range = 66;
 
-        int aboveTop = Math.round((float) range * ((float)power / (float)maxPower));
+        int aboveTop = Math.round((float) range * ((float) power / (float) maxPower));
 
         return 70 - aboveTop;
 
