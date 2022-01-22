@@ -29,15 +29,7 @@ public class TileGenerator extends TileEntityMachine {
             fuelTime--;
         }
 
-        if (tick_timer > 0) {
-            tick_timer--;
-            return;
-        }
-        else {
-            tick_timer = TICK_TIMER;
-        }
-
-        if (power >= 5) {
+        if (power > 0) {
             power -= PowerUtils.sendPowerToConnections(connectedMachines, power, OUTPUT_AMOUNT);
         }
     }

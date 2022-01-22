@@ -2,15 +2,11 @@ package com.github.kydzombie.stapitest.container;
 
 import com.github.kydzombie.stapitest.events.init.ItemListener;
 import com.github.kydzombie.stapitest.tileentity.TileElectricFurnace;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.container.ContainerBase;
-import net.minecraft.container.ContainerListener;
 import net.minecraft.container.slot.FurnaceOutput;
 import net.minecraft.container.slot.Slot;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.entity.player.PlayerInventory;
-import net.minecraft.item.ItemInstance;
 
 public class ContainerElectricFurnace extends ContainerBase {
     private TileElectricFurnace furnace;

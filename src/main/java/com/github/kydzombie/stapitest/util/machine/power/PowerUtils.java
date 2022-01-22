@@ -25,8 +25,8 @@ public class PowerUtils extends WorldUtils {
 
         for (TileEntityMachine machine : machines) {
             if (availablePower - powerDrained > 0) {
-                if (machine.charge(drainPower, 6, true) > 0) {
-                    powerDrained += machine.charge(drainPower, 6, false);
+                if (machine.charge(Math.min(availablePower, drainPower), 6, true) > 0) {
+                    powerDrained += machine.charge(Math.min(availablePower, drainPower), 6, false);
                 }
             }
         }
