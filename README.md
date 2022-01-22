@@ -1,13 +1,3 @@
-# Fabric Example Mod with StationAPI and BIN Mappings for beta 1.7.3 server + client
+# StationAPI Tech-Test
 
-## Setup
-
-[See the StationAPI wiki.](https://github.com/ModificationStation/StationAPI)
-
-## Common Issues
-
-[Here.](https://github.com/calmilamsy/BIN-fabric-example-mod#common-issues)
-
-## License
-
-This template is available under the CC0 license. Feel free to learn from it and incorporate it in your own projects.
+I don't know what to put here for now but at least it isn't the default.

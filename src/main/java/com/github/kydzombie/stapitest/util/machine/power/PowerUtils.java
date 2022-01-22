@@ -10,7 +10,7 @@ import net.minecraft.util.maths.Vec3i;
 
 import java.util.ArrayList;
 
-public class PowerUtils extends WorldUtils {
+public class PowerUtils {
 
     public static void updateConnectedMachines(Level level, Vec3i pos) {
         System.out.println("Machine updates pushed from " + pos.x + ", " + pos.y + ", " + pos.z + ".");
@@ -59,7 +59,7 @@ public class PowerUtils extends WorldUtils {
 
         ArrayList<Vec3Facing> check;
         while (blocksToCheck.size() > 0) {
-            if (getBlock(level, blocksToCheck.get(0).pos) != BlockListener.powerCable){
+            if (WorldUtils.getBlock(level, blocksToCheck.get(0).pos) != BlockListener.powerCable){
                 blocksChecked.add(blocksToCheck.get(0));
                 blocksToCheck.remove(0);
                 continue;
@@ -84,38 +84,38 @@ public class PowerUtils extends WorldUtils {
         Vec3i check;
 
         check = new Vec3i(pos.x + 1, pos.y, pos.z);
-        if (getBlock(level, check) instanceof PowerConnection) {
-            if (((Connection)getBlock(level, check)).canConnect(level, check, 4)) {
+        if (WorldUtils.getBlock(level, check) instanceof PowerConnection) {
+            if (((Connection)WorldUtils.getBlock(level, check)).canConnect(level, check, 4)) {
                 foundBlocks.add(new Vec3Facing(check, 4));
             }
         }
         check = new Vec3i(pos.x - 1, pos.y, pos.z);
-        if (getBlock(level, check) instanceof PowerConnection) {
-            if (((Connection)getBlock(level, check)).canConnect(level, check, 5)) {
+        if (WorldUtils.getBlock(level, check) instanceof PowerConnection) {
+            if (((Connection)WorldUtils.getBlock(level, check)).canConnect(level, check, 5)) {
                 foundBlocks.add(new Vec3Facing(check, 5));
             }
         }
         check = new Vec3i(pos.x, pos.y + 1, pos.z);
-        if (getBlock(level, check) instanceof PowerConnection) {
-            if (((Connection)getBlock(level, check)).canConnect(level, check, 0)) {
+        if (WorldUtils.getBlock(level, check) instanceof PowerConnection) {
+            if (((Connection)WorldUtils.getBlock(level, check)).canConnect(level, check, 0)) {
                 foundBlocks.add(new Vec3Facing(check, 0));
             }
         }
         check = new Vec3i(pos.x, pos.y - 1, pos.z);
-        if (getBlock(level, check) instanceof PowerConnection) {
-            if (((Connection)getBlock(level, check)).canConnect(level, check, 1)) {
+        if (WorldUtils.getBlock(level, check) instanceof PowerConnection) {
+            if (((Connection)WorldUtils.getBlock(level, check)).canConnect(level, check, 1)) {
                 foundBlocks.add(new Vec3Facing(check, 1));
             }
         }
         check = new Vec3i(pos.x, pos.y, pos.z + 1);
-        if (getBlock(level, check) instanceof PowerConnection) {
-            if (((Connection)getBlock(level, check)).canConnect(level, check, 2)) {
+        if (WorldUtils.getBlock(level, check) instanceof PowerConnection) {
+            if (((Connection)WorldUtils.getBlock(level, check)).canConnect(level, check, 2)) {
                 foundBlocks.add(new Vec3Facing(check, 2));
             }
         }
         check = new Vec3i(pos.x, pos.y, pos.z - 1);
-        if (getBlock(level, check) instanceof PowerConnection) {
-            if (((Connection)getBlock(level, check)).canConnect(level, check, 3)) {
+        if (WorldUtils.getBlock(level, check) instanceof PowerConnection) {
+            if (((Connection)WorldUtils.getBlock(level, check)).canConnect(level, check, 3)) {
                 foundBlocks.add(new Vec3Facing(check, 3));
             }
         }

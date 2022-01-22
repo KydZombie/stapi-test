@@ -3,14 +3,13 @@
   "id": "stapitest",
   "version": "${version}",
 
-  "name": "Example Mod",
-  "description": "This is an example description! Tell everyone what your mod is about!",
+  "name": "Stapi Tech-Test",
+  "description": "Testing out machines before machine-utils is out",
   "authors": [
-    "Me!"
+    "KydZombie"
   ],
   "contact": {
-    "homepage": "https://glass-launcher.net/",
-    "sources": "https://github.com/calmilamsy/BIN-fabric-example-mod"
+    "sources": "https://https://github.com/KydZombie/stapi-test"
   },
 
   "license": "CC0-1.0",
