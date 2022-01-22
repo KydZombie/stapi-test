@@ -9,18 +9,19 @@ import net.minecraft.tileentity.TileEntityBase;
 import net.minecraft.util.maths.Vec3i;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class PowerUtils {
 
     public static void updateConnectedMachines(Level level, Vec3i pos) {
         System.out.println("Machine updates pushed from " + pos.x + ", " + pos.y + ", " + pos.z + ".");
-        ArrayList<TilePowered> connectedMachines = PowerUtils.findMachineConnections(level, pos);
+        List<TilePowered> connectedMachines = PowerUtils.findMachineConnections(level, pos);
         for (TilePowered machine : connectedMachines) {
             machine.updateConnections();
         }
     }
 
-    public static int sendPowerToConnections(ArrayList<TilePowered> machines, int availablePower, int drainPower) {
+    public static int sendPowerToConnections(List<TilePowered> machines, int availablePower, int drainPower) {
         int powerDrained = 0;
 
         for (TilePowered machine : machines) {
@@ -34,8 +35,8 @@ public class PowerUtils {
         return powerDrained;
     }
 
-    public static ArrayList<TilePowered> findMachineConnections(Level level, Vec3i pos) {
-        ArrayList<Vec3Facing> allBlockConnections = findPowerConnections(level, pos);
+    public static List<TilePowered> findMachineConnections(Level level, Vec3i pos) {
+        List<Vec3Facing> allBlockConnections = findPowerConnections(level, pos);
         allBlockConnections.removeIf(connection -> {TileEntityBase tileEntity = level.getTileEntity(connection.pos.x, connection.pos.y, connection.pos.z);
             if (tileEntity instanceof TilePowered) {
                 return !((PowerConnection) tileEntity.getTile()).canConnect(level, connection.pos, connection.side);
@@ -43,7 +44,7 @@ public class PowerUtils {
             return true;
         });
 
-        ArrayList<TilePowered> allConnections = new ArrayList<>();
+        List<TilePowered> allConnections = new ArrayList<>();
 
         for (Vec3Facing block : allBlockConnections) {
             allConnections.add((TilePowered) level.getTileEntity(block.pos.x, block.pos.y, block.pos.z));
@@ -52,12 +53,12 @@ public class PowerUtils {
         return allConnections;
     }
 
-    public static ArrayList<Vec3Facing> findPowerConnections(Level level, Vec3i pos) {
-        ArrayList<Vec3Facing> blocksChecked = new ArrayList<>();
-        ArrayList<Vec3Facing> blocksToCheck = new ArrayList<>(checkSurroundingPowerConnection(level, pos));
+    public static List<Vec3Facing> findPowerConnections(Level level, Vec3i pos) {
+        List<Vec3Facing> blocksChecked = new ArrayList<>();
+        List<Vec3Facing> blocksToCheck = new ArrayList<>(checkSurroundingPowerConnection(level, pos));
         blocksChecked.add(new Vec3Facing(pos.x, pos.y, pos.z, 0));
 
-        ArrayList<Vec3Facing> check;
+        List<Vec3Facing> check;
         while (blocksToCheck.size() > 0) {
             if (WorldUtils.getBlock(level, blocksToCheck.get(0).pos) != BlockListener.powerCable){
                 blocksChecked.add(blocksToCheck.get(0));
@@ -79,8 +80,8 @@ public class PowerUtils {
         return blocksChecked;
     }
 
-    public static ArrayList<Vec3Facing> checkSurroundingPowerConnection(Level level, Vec3i pos) {
-        ArrayList<Vec3Facing> foundBlocks = new ArrayList<>();
+    public static List<Vec3Facing> checkSurroundingPowerConnection(Level level, Vec3i pos) {
+        List<Vec3Facing> foundBlocks = new ArrayList<>();
         Vec3i check;
 
         check = new Vec3i(pos.x + 1, pos.y, pos.z);

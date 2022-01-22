@@ -7,11 +7,11 @@ import net.minecraft.tileentity.TileEntityBase;
 import net.minecraft.util.io.CompoundTag;
 import net.minecraft.util.maths.Vec3i;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class TilePowered extends TileEntityBase implements PowerStorage {
 
-    ArrayList<TilePowered> connectedMachines;
+    List<TilePowered> connectedMachines;
 
     int maxPower;
     int power;
