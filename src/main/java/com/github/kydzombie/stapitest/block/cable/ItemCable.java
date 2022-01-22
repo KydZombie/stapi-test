@@ -9,8 +9,6 @@ import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class ItemCable extends Cable {
@@ -20,9 +18,9 @@ public class ItemCable extends Cable {
     }
 
     @Override
-    public boolean canConnect(BlockView tileView, Vec3i pos, int side) {
+    public boolean checkConnection(BlockView tileView, Vec3i pos, int side) {
         BlockBase block = WorldUtils.getBlock(tileView, pos);
-        return tileView.getTileEntity(pos.x, pos.y, pos.z) instanceof InventoryBase || block != null && id == block.id;
+        return WorldUtils.getTileEntity(tileView, pos) instanceof InventoryBase || block != null && id == block.id;
     }
 
     @Override

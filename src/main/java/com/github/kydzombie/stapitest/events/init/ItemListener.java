@@ -6,6 +6,7 @@ import com.github.kydzombie.stapitest.item.Dust;
 import com.github.kydzombie.stapitest.item.Wrench;
 import com.github.kydzombie.stapitest.item.tool.ElectricPickaxe;
 import net.mine_diver.unsafeevents.listener.EventListener;
+import net.minecraft.block.BlockBase;
 import net.minecraft.item.tool.ToolMaterial;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
