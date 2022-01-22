@@ -8,7 +8,7 @@ import java.awt.*;
 
 public class Dust extends TemplateItemBase {
 
-    private int color;
+    private final int color;
 
     public Dust(Identifier identifier, Color color) {
         super(identifier);

@@ -24,7 +24,7 @@ import java.util.Random;
 @SuppressWarnings("SuspiciousNameCombination")
 public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, Connection, Wrenchable {
 
-    private int color;
+    private final int color;
     
     static final float MIN_WIDTH = .3f;
     static final float MAX_WIDTH = .7f;

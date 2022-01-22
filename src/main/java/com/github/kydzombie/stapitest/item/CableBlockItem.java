@@ -8,7 +8,7 @@ import net.modificationstation.stationapi.api.template.item.TemplateSecondaryBlo
 import java.awt.*;
 
 public class CableBlockItem extends TemplateSecondaryBlock {
-    private int color;
+    private final int color;
     public CableBlockItem(Identifier identifier, BlockBase tile, Color color) {
         super(identifier, tile);
         this.color = ColorConverter.colorToInt(color);

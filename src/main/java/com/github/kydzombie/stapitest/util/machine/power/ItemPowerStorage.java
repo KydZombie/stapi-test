@@ -74,10 +74,10 @@ public interface ItemPowerStorage extends CustomTooltipProvider, CustomItemOverl
     default void method_1485(Tessellator arg, int i, int j, int k, int i1, int i2) {
         arg.start();
         arg.colour(i2);
-        arg.addVertex((double)(i + 0), (double)(j + 0), 0.0D);
-        arg.addVertex((double)(i + 0), (double)(j + i1), 0.0D);
-        arg.addVertex((double)(i + k), (double)(j + i1), 0.0D);
-        arg.addVertex((double)(i + k), (double)(j + 0), 0.0D);
+        arg.addVertex(i + 0, j + 0, 0.0D);
+        arg.addVertex(i + 0, j + i1, 0.0D);
+        arg.addVertex(i + k, j + i1, 0.0D);
+        arg.addVertex(i + k, j + 0, 0.0D);
         arg.draw();
     }
 
