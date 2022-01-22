@@ -1,9 +1,9 @@
 package com.github.kydzombie.stapitest.block.machine;
 
-import com.github.kydzombie.stapitest.container.ContainerElectricFurnace;
+import com.github.kydzombie.stapitest.container.ContainerMacerator;
 import com.github.kydzombie.stapitest.events.init.BlockListener;
+import com.github.kydzombie.stapitest.tileentity.TileMacerator;
 import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
-import com.github.kydzombie.stapitest.tileentity.TileElectricFurnace;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockBase;
@@ -18,14 +18,14 @@ import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
-public class ElectricFurnace extends MachineBlock implements PowerConnection {
-    public ElectricFurnace(Identifier identifier) {
+public class Macerator extends MachineBlock implements PowerConnection {
+    public Macerator(Identifier identifier) {
         super(identifier);
     }
 
     @Override
     protected TileEntityBase createTileEntity() {
-        return new TileElectricFurnace();
+        return new TileMacerator();
     }
 
     @Override
@@ -93,8 +93,8 @@ public class ElectricFurnace extends MachineBlock implements PowerConnection {
     @Override
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
         super.canUse(level, x, y, z, player);
-        TileEntityBase tileFurnace = level.getTileEntity(x, y, z);
-        GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openFurnace"), (InventoryBase) tileFurnace, new ContainerElectricFurnace(player.inventory, (TileElectricFurnace) tileFurnace));
+        TileEntityBase tileMacerator = level.getTileEntity(x, y, z);
+        GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openMacerator"), (InventoryBase) tileMacerator, new ContainerMacerator(player.inventory, (TileMacerator) tileMacerator));
         return true;
     }
 }

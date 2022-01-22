@@ -4,6 +4,7 @@ import com.github.kydzombie.stapitest.block.cable.Cable;
 import com.github.kydzombie.stapitest.block.cable.PowerCable;
 import com.github.kydzombie.stapitest.block.machine.ElectricFurnace;
 import com.github.kydzombie.stapitest.block.machine.Generator;
+import com.github.kydzombie.stapitest.block.machine.Macerator;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
 import net.modificationstation.stationapi.api.event.registry.BlockRegistryEvent;
@@ -18,15 +19,17 @@ public class BlockListener {
     public static BlockBase powerCable;
     public static BlockBase electricFurnace;
     public static BlockBase generator;
+    public static BlockBase macerator;
 
     @Entrypoint.ModID
     public static final ModID MOD_ID = Null.get();
 
     @EventListener
     public void registerBlocks(BlockRegistryEvent event) {
-        cable = new Cable(Identifier.of(MOD_ID, "cable")); // .setTranslationKey(MOD_ID, "cable")
-        powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable")); // .setTranslationKey(MOD_ID, "power_cable")
+        cable = new Cable(Identifier.of(MOD_ID, "cable"));
+        powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable"));
         electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electricFurnace")).setTranslationKey(MOD_ID, "electricFurnace");
         generator = new Generator(Identifier.of(MOD_ID, "generator")).setTranslationKey(MOD_ID, "generator");
+        macerator = new Macerator(Identifier.of(MOD_ID, "macerator")).setTranslationKey(MOD_ID, "macerator");
     }
 }
