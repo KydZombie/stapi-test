@@ -6,7 +6,6 @@ import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
-import net.minecraft.recipe.SmeltingRecipeRegistry;
 import net.minecraft.util.io.CompoundTag;
 
 public class TileMacerator extends TileMachineWithStorage {
