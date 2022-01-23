@@ -15,7 +15,7 @@ public class ElectricTool extends PoweredItem implements ToolLevel {
     public ElectricTool(Identifier identifier, ToolMaterial mat) {
         super(identifier, mat.getDurability());
         toolMaterial = mat;
-        dead = ToolMaterialFactory.create("dead_" + mat.name(), 0, mat.getDurability(), 0f, 0);
+        dead = ToolMaterialFactory.create("dead_" + getTranslationKey(), 0, mat.getDurability(), 0f, 0);
     }
 
     @Override

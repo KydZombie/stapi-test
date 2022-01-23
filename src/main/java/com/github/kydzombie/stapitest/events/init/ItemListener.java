@@ -32,11 +32,13 @@ public class ItemListener {
 
     public static TemplateToolBase electricPickaxe;
 
+    public static ToolMaterial basePowerTool;
+    public static ToolMaterial diamondPowerTool;
+
     public static TemplateItemBase drill;
     public static TemplateItemBase diamondDrill;
     public static TemplateItemBase saw;
     public static TemplateItemBase diamondSaw;
-
 
     public static TemplateSecondaryBlock cable;
     public static TemplateSecondaryBlock powerCable;
@@ -51,11 +53,14 @@ public class ItemListener {
 
         electricPickaxe = new ElectricPickaxe(Identifier.of(MOD_ID, "electricPickaxe"), ToolMaterial.IRON, 800).setTranslationKey(MOD_ID, "electricPickaxe");
 
-        drill = new ElectricTool(Identifier.of(MOD_ID, "drill"), ToolMaterialFactory.create("drill", 2, 1200, 8.0F, 2)).setTranslationKey(MOD_ID, "drill");
-        diamondDrill = new ElectricTool(Identifier.of(MOD_ID, "diamondDrill"), ToolMaterialFactory.create("diamond_drill", 3, 2400, 14.0F, 3)).setTranslationKey(MOD_ID, "diamondDrill");
+        basePowerTool = ToolMaterialFactory.create("drill", 2, 1200, 8.0F, 2);
+        diamondPowerTool = ToolMaterialFactory.create("diamond_drill", 3, 2400, 14.0F, 3);
 
-        saw = new ElectricTool(Identifier.of(MOD_ID, "saw"), ToolMaterialFactory.create("saw", 2, 1200, 8.0F, 2)).setTranslationKey(MOD_ID, "saw");
-        diamondSaw = new ElectricTool(Identifier.of(MOD_ID, "diamondSaw"), ToolMaterialFactory.create("diamond_saw", 3, 2400, 14.0F, 3)).setTranslationKey(MOD_ID, "diamondSaw");
+        drill = new ElectricTool(Identifier.of(MOD_ID, "drill"), basePowerTool).setTranslationKey(MOD_ID, "drill");
+        diamondDrill = new ElectricTool(Identifier.of(MOD_ID, "diamondDrill"), diamondPowerTool).setTranslationKey(MOD_ID, "diamondDrill");
+
+        saw = new ElectricTool(Identifier.of(MOD_ID, "saw"), basePowerTool).setTranslationKey(MOD_ID, "saw");
+        diamondSaw = new ElectricTool(Identifier.of(MOD_ID, "diamondSaw"), diamondPowerTool).setTranslationKey(MOD_ID, "diamondSaw");
 
         TagRegistry.INSTANCE.register(Identifier.of("items/tools/pickaxes"), e -> e.itemId == electricPickaxe.id);
 
