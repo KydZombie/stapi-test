@@ -1,16 +1,21 @@
 package com.github.kydzombie.stapitest.block.machine;
 
 import com.github.kydzombie.stapitest.events.init.ItemListener;
+import com.github.kydzombie.stapitest.events.init.TextureListener;
 import com.github.kydzombie.stapitest.tileentity.TileMachine;
 import com.github.kydzombie.stapitest.util.ColorConverter;
 import com.github.kydzombie.stapitest.util.machine.Wrenchable;
 import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Item;
+import net.minecraft.entity.Living;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
+import net.minecraft.util.maths.MathHelper;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockWithEntity;
 
@@ -29,6 +34,26 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
     public void onBlockPlaced(Level level, int x, int y, int z) {
         super.onBlockPlaced(level, x, y, z);
         ((TileMachine)level.getTileEntity(x, y, z)).updateAllConnections();
+    }
+
+    @Override
+    public void afterPlaced(Level level, int x, int y, int z, Living living) {
+        int var6 = MathHelper.floor((double)(living.yaw * 4.0F / 360.0F) + 0.5D) & 3;
+        if (var6 == 0) {
+            level.setTileMeta(x, y, z, 2);
+        }
+
+        if (var6 == 1) {
+            level.setTileMeta(x, y, z, 5);
+        }
+
+        if (var6 == 2) {
+            level.setTileMeta(x, y, z, 3);
+        }
+
+        if (var6 == 3) {
+            level.setTileMeta(x, y, z, 4);
+        }
     }
 
     @Override
@@ -61,6 +86,36 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
         }
 
         super.onBlockRemoved(level, x, y, z);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public int getTextureForSide(int side, int meta) {
+        if (meta != 0) {
+            if (side == meta) {
+                return texture;
+            }
+            switch (side) {
+                case 0:
+                    return TextureListener.machineBottom;
+                case 1:
+                    return TextureListener.machineTop;
+                default:
+                    return TextureListener.machineSide;
+            }
+        }
+        else {
+            switch (side) {
+                case 0:
+                    return TextureListener.machineBottom;
+                case 1:
+                    return TextureListener.machineTop;
+                case 3:
+                    return texture;
+                default:
+                    return TextureListener.machineSide;
+
+            }
+        }
     }
 
     @Override

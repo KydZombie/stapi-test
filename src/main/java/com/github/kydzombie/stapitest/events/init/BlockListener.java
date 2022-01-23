@@ -31,8 +31,8 @@ public class BlockListener {
         cable = new Cable(Identifier.of(MOD_ID, "cable"));
         powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable"));
         itemCable = new ItemCable(Identifier.of(MOD_ID, "itemCable"));
-        electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electricFurnace")).setTranslationKey(MOD_ID, "electricFurnace");
         generator = new Generator(Identifier.of(MOD_ID, "generator")).setTranslationKey(MOD_ID, "generator");
+        electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electricFurnace")).setTranslationKey(MOD_ID, "electricFurnace");
         macerator = new Macerator(Identifier.of(MOD_ID, "macerator")).setTranslationKey(MOD_ID, "macerator");
     }
 }

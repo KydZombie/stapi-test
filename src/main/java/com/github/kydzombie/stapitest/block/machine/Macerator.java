@@ -50,7 +50,7 @@ public class Macerator extends MachineBlock {
 
     @Override
     public boolean canConnect(BlockView tileView, Vec3i pos, int side) {
-        return side != tileView.getTileMeta(pos.x, pos.y, pos.z);
+        return side != 1;
     }
 
     @Override
