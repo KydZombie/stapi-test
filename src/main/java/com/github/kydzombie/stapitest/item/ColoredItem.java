@@ -6,11 +6,11 @@ import net.modificationstation.stationapi.api.template.item.TemplateItemBase;
 
 import java.awt.*;
 
-public class Dust extends TemplateItemBase {
+public class ColoredItem extends TemplateItemBase {
 
     private final int color;
 
-    public Dust(Identifier identifier, Color color) {
+    public ColoredItem(Identifier identifier, Color color) {
         super(identifier);
         this.color = ColorConverter.colorToInt(color);
     }

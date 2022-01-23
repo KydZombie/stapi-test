@@ -25,10 +25,12 @@ public class TextureListener {
 
         BlockListener.electricFurnace.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "electric_furnace")).index;
 
+        BlockListener.generator.texture = BlockListener.electricFurnace.texture;
+
         BlockListener.grinder.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "grinder_top")).index;
         Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "grinder_side"));
 
-        BlockListener.generator.texture = BlockListener.electricFurnace.texture;
+        BlockListener.press.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "press")).index;
 
         ItemListener.cable.setTexture(Identifier.of(MOD_ID, "cable"));
         ItemListener.powerCable.setTexture(Identifier.of(MOD_ID, "cable"));
@@ -36,6 +38,18 @@ public class TextureListener {
 
         ItemListener.ironDust.setTexture(Identifier.of(MOD_ID, "ore_dust"));
         ItemListener.goldDust.setTexture(Identifier.of(MOD_ID, "ore_dust"));
+
+        ItemListener.ironPlate.setTexture(Identifier.of(MOD_ID, "plate"));
+        ItemListener.goldPlate.setTexture(Identifier.of(MOD_ID, "plate"));
+
+        ItemListener.ironGear.setTexture(Identifier.of(MOD_ID, "gear"));
+        ItemListener.goldGear.setTexture(Identifier.of(MOD_ID, "gear"));
+
+        ItemListener.powerToolHandle.setTexture(Identifier.of(MOD_ID, "power_tool_handle"));
+        ItemListener.drillHead.setTexture(Identifier.of(MOD_ID, "drill_head"));
+        ItemListener.sawHead.setTexture(Identifier.of(MOD_ID, "saw_head"));
+        ItemListener.diamondDrillHead.setTexture(Identifier.of(MOD_ID, "diamond_drill_head"));
+        ItemListener.diamondSawHead.setTexture(Identifier.of(MOD_ID, "diamond_saw_head"));
 
         ItemListener.wrench.setTexture(Identifier.of(MOD_ID, "wrench"));
         ItemListener.battery.setTexture(Identifier.of(MOD_ID, "battery"));

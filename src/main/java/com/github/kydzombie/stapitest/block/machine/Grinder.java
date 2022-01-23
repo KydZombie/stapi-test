@@ -7,6 +7,7 @@ import com.github.kydzombie.stapitest.events.init.TextureListener;
 import com.github.kydzombie.stapitest.tileentity.TileGrinder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.minecraft.entity.Living;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.inventory.InventoryBase;
 import net.minecraft.level.BlockView;
@@ -27,6 +28,9 @@ public class Grinder extends MachineBlock implements BlockWorldModelProvider {
     protected TileEntityBase createTileEntity() {
         return new TileGrinder();
     }
+
+    @Override
+    public void afterPlaced(Level level, int x, int y, int z, Living living) { }
 
     @Environment(EnvType.CLIENT)
     public int getTextureForSide(BlockView tileView, int x, int y, int z, int meta) {
@@ -59,8 +63,8 @@ public class Grinder extends MachineBlock implements BlockWorldModelProvider {
     @Override
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
         super.canUse(level, x, y, z, player);
-        TileEntityBase tileMacerator = level.getTileEntity(x, y, z);
-        GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openGrinder"), (InventoryBase) tileMacerator, new ContainerGrinder(player.inventory, (TileGrinder) tileMacerator));
+        TileEntityBase tileGrinder = level.getTileEntity(x, y, z);
+        GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openGrinder"), (InventoryBase) tileGrinder, new ContainerGrinder(player.inventory, (TileGrinder) tileGrinder));
         return true;
     }
 

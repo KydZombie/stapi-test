@@ -3,20 +3,19 @@ package com.github.kydzombie.stapitest.tileentity;
 import com.github.kydzombie.stapitest.events.init.ItemListener;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.util.io.CompoundTag;
 
-public class TileGrinder extends TileMachine {
-    private final int COOK_TIME = 80;
+public class TilePress extends TileMachine {
+    private final int COOK_TIME = 120;
     public int cookTime = 0;
 
-    private int powerUsage = 2;
+    private int powerUsage = 4;
 
-    public TileGrinder() {
-        super(1200, 2);
-        this.containerName = "Grinder";
+    public TilePress() {
+        super(1800, 2);
+        this.containerName = "Press";
     }
 
     @Override
@@ -83,11 +82,17 @@ public class TileGrinder extends TileMachine {
     }
 
     private ItemInstance getOutput(int itemId) {
-        if (itemId == BlockBase.IRON_ORE.id || itemId == ItemBase.ironIngot.id) {
-            return new ItemInstance(ItemListener.ironDust, 2);
+        if (itemId == ItemBase.ironIngot.id) {
+            return new ItemInstance(ItemListener.ironPlate);
         }
-        else if (itemId == BlockBase.GOLD_ORE.id || itemId == ItemBase.goldIngot.id) {
-            return new ItemInstance(ItemListener.goldDust, 2);
+        else if (itemId == ItemBase.goldIngot.id) {
+            return new ItemInstance(ItemListener.goldPlate);
+        }
+        else if (itemId == ItemListener.ironPlate.id) {
+            return new ItemInstance(ItemListener.ironGear);
+        }
+        else if (itemId == ItemListener.goldPlate.id) {
+            return new ItemInstance(ItemListener.goldGear);
         }
         return null;
     }

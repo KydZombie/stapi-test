@@ -16,6 +16,7 @@ import net.minecraft.item.ItemInstance;
 import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.util.maths.MathHelper;
+import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockWithEntity;
 
@@ -90,7 +91,7 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
 
     @Environment(EnvType.CLIENT)
     public int getTextureForSide(int side, int meta) {
-        if (meta != 0) {
+        if (meta > 0 && meta < 6) {
             if (side == meta) {
                 return texture;
             }
@@ -116,6 +117,11 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
 
             }
         }
+    }
+
+    @Override
+    public boolean canConnect(BlockView tileView, Vec3i pos, int side) {
+        return side != tileView.getTileMeta(pos.x, pos.y, pos.z);
     }
 
     @Override

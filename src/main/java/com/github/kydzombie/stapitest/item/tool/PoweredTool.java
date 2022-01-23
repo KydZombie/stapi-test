@@ -11,7 +11,7 @@ import net.modificationstation.stationapi.api.template.item.tool.TemplateToolBas
 
 public abstract class PoweredTool extends TemplateToolBase implements ItemPowerStorage, ToolLevel {
 
-    int maxPower;
+    final int maxPower;
 
     public PoweredTool(Identifier identifier, ToolMaterial arg, int maxPower) {
         super(identifier, 0, arg, new BlockBase[]{});

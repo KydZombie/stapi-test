@@ -3,6 +3,7 @@ package com.github.kydzombie.stapitest.events.init;
 import com.github.kydzombie.stapitest.tileentity.TileElectricFurnace;
 import com.github.kydzombie.stapitest.tileentity.TileGenerator;
 import com.github.kydzombie.stapitest.tileentity.TileGrinder;
+import com.github.kydzombie.stapitest.tileentity.TilePress;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.modificationstation.stationapi.api.event.tileentity.TileEntityRegisterEvent;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
@@ -20,6 +21,7 @@ public class TileEntityListener {
         event.register(TileElectricFurnace.class, Identifier.of(MOD_ID, "electric_furnace_entity").toString());
         event.register(TileGenerator.class, Identifier.of(MOD_ID, "generator_entity").toString());
         event.register(TileGrinder.class, Identifier.of(MOD_ID, "grinder_entity").toString());
+        event.register(TilePress.class, Identifier.of(MOD_ID, "press_entity").toString());
     }
 
 }

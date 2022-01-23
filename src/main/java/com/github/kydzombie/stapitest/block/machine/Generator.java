@@ -9,7 +9,6 @@ import net.minecraft.inventory.InventoryBase;
 import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.tileentity.TileEntityBase;
-import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
@@ -32,11 +31,6 @@ public class Generator extends MachineBlock {
         TileEntityBase tileEntityGenerator = level.getTileEntity(x, y, z);
         GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openGenerator"), (InventoryBase) tileEntityGenerator, new ContainerGenerator(player.inventory, (TileGenerator) tileEntityGenerator));
         return true;
-    }
-
-    @Override
-    public boolean canConnect(BlockView tileView, Vec3i pos, int side) {
-        return side != tileView.getTileMeta(pos.x, pos.y, pos.z);
     }
 
     @Override
