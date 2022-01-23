@@ -25,8 +25,8 @@ public class TextureListener {
 
         BlockListener.electricFurnace.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "electric_furnace")).index;
 
-        BlockListener.macerator.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "crusher_top")).index;
-        Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "crusher_side"));
+        BlockListener.grinder.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "grinder_top")).index;
+        Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "grinder_side"));
 
         BlockListener.generator.texture = BlockListener.electricFurnace.texture;
 

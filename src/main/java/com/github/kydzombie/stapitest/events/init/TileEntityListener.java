@@ -19,7 +19,7 @@ public class TileEntityListener {
     public void registerTileEntities(TileEntityRegisterEvent event) {
         event.register(TileElectricFurnace.class, Identifier.of(MOD_ID, "electric_furnace_entity").toString());
         event.register(TileGenerator.class, Identifier.of(MOD_ID, "generator_entity").toString());
-        event.register(TileMacerator.class, Identifier.of(MOD_ID, "macerator_entity").toString());
+        event.register(TileMacerator.class, Identifier.of(MOD_ID, "grinder_entity").toString());
     }
 
 }

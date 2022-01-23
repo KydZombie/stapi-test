@@ -5,8 +5,8 @@ import com.github.kydzombie.stapitest.tileentity.TileMacerator;
 import net.minecraft.container.slot.Slot;
 import net.minecraft.entity.player.PlayerInventory;
 
-public class ContainerMacerator extends ContainerMachine {
-    public ContainerMacerator(PlayerInventory playerInventory, TileMacerator furnace) {
+public class ContainerGrinder extends ContainerMachine {
+    public ContainerGrinder(PlayerInventory playerInventory, TileMacerator furnace) {
         super(playerInventory, furnace);
         this.addSlot(new Slot(furnace, 0, 56, 35));
         this.addSlot(new MaceratorOutput(playerInventory.player, furnace, 1, 116, 35));

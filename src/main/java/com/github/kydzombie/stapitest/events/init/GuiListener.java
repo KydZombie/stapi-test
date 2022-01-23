@@ -2,7 +2,7 @@ package com.github.kydzombie.stapitest.events.init;
 
 import com.github.kydzombie.stapitest.gui.GuiElectricFurnace;
 import com.github.kydzombie.stapitest.gui.GuiGenerator;
-import com.github.kydzombie.stapitest.gui.GuiMacerator;
+import com.github.kydzombie.stapitest.gui.GuiGrinder;
 import com.github.kydzombie.stapitest.tileentity.TileElectricFurnace;
 import com.github.kydzombie.stapitest.tileentity.TileGenerator;
 import com.github.kydzombie.stapitest.tileentity.TileMacerator;
@@ -31,7 +31,7 @@ public class GuiListener {
         GuiHandlerRegistry registry = event.registry;
         registry.registerValueNoMessage(Identifier.of(MOD_ID, "openFurnace"), BiTuple.of(this::openFurnace, TileElectricFurnace::new));
         registry.registerValueNoMessage(Identifier.of(MOD_ID, "openGenerator"), BiTuple.of(this::openGenerator, TileGenerator::new));
-        registry.registerValueNoMessage(Identifier.of(MOD_ID, "openMacerator"), BiTuple.of(this::openMacerator, TileMacerator::new));
+        registry.registerValueNoMessage(Identifier.of(MOD_ID, "openGrinder"), BiTuple.of(this::openGrinder, TileMacerator::new));
     }
 
     @Environment(EnvType.CLIENT)
@@ -45,8 +45,8 @@ public class GuiListener {
     }
 
     @Environment(EnvType.CLIENT)
-    public ScreenBase openMacerator(PlayerBase player, InventoryBase inventoryBase) {
-        return new GuiMacerator(player.inventory, (TileMacerator) inventoryBase);
+    public ScreenBase openGrinder(PlayerBase player, InventoryBase inventoryBase) {
+        return new GuiGrinder(player.inventory, (TileMacerator) inventoryBase);
     }
 
 }

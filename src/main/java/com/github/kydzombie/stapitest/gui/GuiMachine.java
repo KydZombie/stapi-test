@@ -19,7 +19,7 @@ public abstract class GuiMachine extends ContainerBase {
 
     @Override
     protected void renderForeground() {
-        this.textManager.drawText(titleText, 50, 6, 4210752);
+        this.textManager.drawText(titleText, 26, 6, 4210752);
 
         int power = tileEntity.getCurrentPower();
         int maxPower = tileEntity.getMaxPower();

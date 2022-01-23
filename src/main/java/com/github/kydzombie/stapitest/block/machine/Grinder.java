@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.block.machine;
 
-import com.github.kydzombie.stapitest.container.ContainerMacerator;
+import com.github.kydzombie.stapitest.container.ContainerGrinder;
 import com.github.kydzombie.stapitest.events.init.BlockListener;
 import com.github.kydzombie.stapitest.events.init.TextureListener;
 import com.github.kydzombie.stapitest.tileentity.TileMacerator;
@@ -15,8 +15,8 @@ import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
-public class Macerator extends MachineBlock {
-    public Macerator(Identifier identifier) {
+public class Grinder extends MachineBlock {
+    public Grinder(Identifier identifier) {
         super(identifier);
     }
 
@@ -57,7 +57,7 @@ public class Macerator extends MachineBlock {
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
         super.canUse(level, x, y, z, player);
         TileEntityBase tileMacerator = level.getTileEntity(x, y, z);
-        GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openMacerator"), (InventoryBase) tileMacerator, new ContainerMacerator(player.inventory, (TileMacerator) tileMacerator));
+        GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openGrinder"), (InventoryBase) tileMacerator, new ContainerGrinder(player.inventory, (TileMacerator) tileMacerator));
         return true;
     }
 }

@@ -1,14 +1,14 @@
 package com.github.kydzombie.stapitest.gui;
 
-import com.github.kydzombie.stapitest.container.ContainerMacerator;
+import com.github.kydzombie.stapitest.container.ContainerGrinder;
 import com.github.kydzombie.stapitest.tileentity.TileMacerator;
 import net.minecraft.entity.player.PlayerInventory;
 import org.lwjgl.opengl.GL11;
 
-public class GuiMacerator extends GuiMachine {
+public class GuiGrinder extends GuiMachine {
 
-    public GuiMacerator(PlayerInventory playerInventory, TileMacerator tileEntity) {
-        super(new ContainerMacerator(playerInventory, tileEntity), tileEntity, "Macerator");
+    public GuiGrinder(PlayerInventory playerInventory, TileMacerator tileEntity) {
+        super(new ContainerGrinder(playerInventory, tileEntity), tileEntity, "Grinder");
     }
 
     public void renderContainerBackground(float tickDelta) {
