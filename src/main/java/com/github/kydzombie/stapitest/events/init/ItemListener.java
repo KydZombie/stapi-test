@@ -4,11 +4,12 @@ import com.github.kydzombie.stapitest.item.Battery;
 import com.github.kydzombie.stapitest.item.CableBlockItem;
 import com.github.kydzombie.stapitest.item.Dust;
 import com.github.kydzombie.stapitest.item.Wrench;
+import com.github.kydzombie.stapitest.item.tool.ElectricTool;
 import com.github.kydzombie.stapitest.item.tool.ElectricPickaxe;
 import net.mine_diver.unsafeevents.listener.EventListener;
-import net.minecraft.block.BlockBase;
 import net.minecraft.item.tool.ToolMaterial;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
+import net.modificationstation.stationapi.api.item.tool.ToolMaterialFactory;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.registry.ModID;
@@ -31,6 +32,12 @@ public class ItemListener {
 
     public static TemplateToolBase electricPickaxe;
 
+    public static TemplateItemBase drill;
+    public static TemplateItemBase diamondDrill;
+    public static TemplateItemBase saw;
+    public static TemplateItemBase diamondSaw;
+
+
     public static TemplateSecondaryBlock cable;
     public static TemplateSecondaryBlock powerCable;
     public static TemplateSecondaryBlock itemCable;
@@ -42,10 +49,23 @@ public class ItemListener {
     public void registerItems(ItemRegistryEvent event) {
         wrench = new Wrench(Identifier.of(MOD_ID, "wrench")).setTranslationKey(MOD_ID, "wrench");
 
-        electricPickaxe = new ElectricPickaxe(Identifier.of(MOD_ID, "electricPickaxe"), ToolMaterial.IRON, 800).setTranslationKey("electric_pickaxe");
+        electricPickaxe = new ElectricPickaxe(Identifier.of(MOD_ID, "electricPickaxe"), ToolMaterial.IRON, 800).setTranslationKey(MOD_ID, "electricPickaxe");
+
+        drill = new ElectricTool(Identifier.of(MOD_ID, "drill"), ToolMaterialFactory.create("drill", 2, 1200, 8.0F, 2)).setTranslationKey(MOD_ID, "drill");
+        diamondDrill = new ElectricTool(Identifier.of(MOD_ID, "diamondDrill"), ToolMaterialFactory.create("diamond_drill", 3, 2400, 14.0F, 3)).setTranslationKey(MOD_ID, "diamondDrill");
+
+        saw = new ElectricTool(Identifier.of(MOD_ID, "saw"), ToolMaterialFactory.create("saw", 2, 1200, 8.0F, 2)).setTranslationKey(MOD_ID, "saw");
+        diamondSaw = new ElectricTool(Identifier.of(MOD_ID, "diamondSaw"), ToolMaterialFactory.create("diamond_saw", 3, 2400, 14.0F, 3)).setTranslationKey(MOD_ID, "diamondSaw");
 
         TagRegistry.INSTANCE.register(Identifier.of("items/tools/pickaxes"), e -> e.itemId == electricPickaxe.id);
-//        TagRegistry.INSTANCE.register(Identifier.of("items/tools/shovels"), e -> e.itemId == electricPickaxe.id);
+
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/pickaxes"), e -> e.itemId == drill.id);
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/shovels"), e -> e.itemId == drill.id);
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/pickaxes"), e -> e.itemId == diamondDrill.id);
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/shovels"), e -> e.itemId == diamondDrill.id);
+
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/axes"), e -> e.itemId == saw.id);
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/axes"), e -> e.itemId == diamondSaw.id);
 
         battery = new Battery(Identifier.of(MOD_ID, "battery"), 400).setTranslationKey(MOD_ID, "battery");
 

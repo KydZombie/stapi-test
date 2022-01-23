@@ -5,15 +5,16 @@ import net.minecraft.block.BlockBase;
 import net.minecraft.entity.Living;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.item.tool.ToolMaterial;
+import net.modificationstation.stationapi.api.item.tool.ToolLevel;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.template.item.tool.TemplateToolBase;
 
-public class PoweredTool extends TemplateToolBase implements ItemPowerStorage {
+public abstract class PoweredTool extends TemplateToolBase implements ItemPowerStorage, ToolLevel {
 
     int maxPower;
 
-    public PoweredTool(Identifier identifier, int j, ToolMaterial arg, BlockBase[] effectiveBlocks, int maxPower) {
-        super(identifier, j, arg, effectiveBlocks);
+    public PoweredTool(Identifier identifier, ToolMaterial arg, int maxPower) {
+        super(identifier, 0, arg, new BlockBase[]{});
         this.maxPower = maxPower;
     }
 

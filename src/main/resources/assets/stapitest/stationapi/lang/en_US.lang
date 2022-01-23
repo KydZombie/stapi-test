@@ -5,6 +5,12 @@ item.battery.name=Battery
 
 item.wrench.name=Wrench
 
+item.electricPickaxe.name=Electric Pickaxe
+item.drill.name=Drill
+item.diamondDrill.name=Diamond-Tipped Drill
+item.saw.name=Chainsaw
+item.diamondSaw.name=Diamond-Edged Chainsaw
+
 item.ironDust.name=Iron Dust
 item.goldDust.name=Gold Dust
 

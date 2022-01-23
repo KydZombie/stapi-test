@@ -39,6 +39,12 @@ public class TextureListener {
 
         ItemListener.wrench.setTexture(Identifier.of(MOD_ID, "wrench"));
         ItemListener.battery.setTexture(Identifier.of(MOD_ID, "battery"));
+
         ItemListener.electricPickaxe.setTexture(Identifier.of(MOD_ID, "electric_pickaxe"));
+
+        ItemListener.drill.setTexture(Identifier.of(MOD_ID, "drill"));
+        ItemListener.diamondDrill.setTexture(Identifier.of(MOD_ID, "diamond_drill"));
+        ItemListener.saw.setTexture(Identifier.of(MOD_ID, "saw"));
+        ItemListener.diamondSaw.setTexture(Identifier.of(MOD_ID, "diamond_saw"));
     }
 }

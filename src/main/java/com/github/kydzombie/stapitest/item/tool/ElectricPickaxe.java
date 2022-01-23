@@ -12,7 +12,7 @@ public class ElectricPickaxe extends PoweredTool implements ToolLevel {
     private static ToolMaterial empowered;
 
     public ElectricPickaxe(Identifier identifier, ToolMaterial toolMaterial, int maxPower) {
-        super(identifier, 0, toolMaterial, new BlockBase[]{}, maxPower);
+        super(identifier, toolMaterial, maxPower);
         empowered = ToolMaterialFactory.create("empoweredPickaxe", 2, 250, 10.0F, 2);
     }
 
