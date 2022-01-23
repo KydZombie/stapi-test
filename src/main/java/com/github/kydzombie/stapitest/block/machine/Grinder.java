@@ -2,8 +2,9 @@ package com.github.kydzombie.stapitest.block.machine;
 
 import com.github.kydzombie.stapitest.container.ContainerGrinder;
 import com.github.kydzombie.stapitest.events.init.BlockListener;
+import com.github.kydzombie.stapitest.events.init.ModelListener;
 import com.github.kydzombie.stapitest.events.init.TextureListener;
-import com.github.kydzombie.stapitest.tileentity.TileMacerator;
+import com.github.kydzombie.stapitest.tileentity.TileGrinder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.player.PlayerBase;
@@ -12,17 +13,19 @@ import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.tileentity.TileEntityBase;
 import net.minecraft.util.maths.Vec3i;
+import net.modificationstation.stationapi.api.client.model.Model;
+import net.modificationstation.stationapi.api.client.model.block.BlockWorldModelProvider;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
-public class Grinder extends MachineBlock {
+public class Grinder extends MachineBlock implements BlockWorldModelProvider {
     public Grinder(Identifier identifier) {
         super(identifier);
     }
 
     @Override
     protected TileEntityBase createTileEntity() {
-        return new TileMacerator();
+        return new TileGrinder();
     }
 
     @Environment(EnvType.CLIENT)
@@ -57,7 +60,12 @@ public class Grinder extends MachineBlock {
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
         super.canUse(level, x, y, z, player);
         TileEntityBase tileMacerator = level.getTileEntity(x, y, z);
-        GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openGrinder"), (InventoryBase) tileMacerator, new ContainerGrinder(player.inventory, (TileMacerator) tileMacerator));
+        GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openGrinder"), (InventoryBase) tileMacerator, new ContainerGrinder(player.inventory, (TileGrinder) tileMacerator));
         return true;
+    }
+
+    @Override
+    public Model getCustomWorldModel(BlockView blockView, int x, int y, int z) {
+        return ModelListener.grinder;
     }
 }

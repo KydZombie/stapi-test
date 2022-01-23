@@ -5,8 +5,8 @@ import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.inventory.InventoryBase;
 import net.minecraft.item.ItemInstance;
 
-public class MaceratorOutput extends Slot {
-    public MaceratorOutput(PlayerBase arg, InventoryBase arg1, int i, int j, int k) {
+public class GrinderOutput extends Slot {
+    public GrinderOutput(PlayerBase arg, InventoryBase arg1, int i, int j, int k) {
         super(arg1, i, j, k);
     }
 

@@ -5,7 +5,7 @@ import com.github.kydzombie.stapitest.gui.GuiGenerator;
 import com.github.kydzombie.stapitest.gui.GuiGrinder;
 import com.github.kydzombie.stapitest.tileentity.TileElectricFurnace;
 import com.github.kydzombie.stapitest.tileentity.TileGenerator;
-import com.github.kydzombie.stapitest.tileentity.TileMacerator;
+import com.github.kydzombie.stapitest.tileentity.TileGrinder;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.mine_diver.unsafeevents.listener.EventListener;
@@ -31,7 +31,7 @@ public class GuiListener {
         GuiHandlerRegistry registry = event.registry;
         registry.registerValueNoMessage(Identifier.of(MOD_ID, "openFurnace"), BiTuple.of(this::openFurnace, TileElectricFurnace::new));
         registry.registerValueNoMessage(Identifier.of(MOD_ID, "openGenerator"), BiTuple.of(this::openGenerator, TileGenerator::new));
-        registry.registerValueNoMessage(Identifier.of(MOD_ID, "openGrinder"), BiTuple.of(this::openGrinder, TileMacerator::new));
+        registry.registerValueNoMessage(Identifier.of(MOD_ID, "openGrinder"), BiTuple.of(this::openGrinder, TileGrinder::new));
     }
 
     @Environment(EnvType.CLIENT)
@@ -46,7 +46,7 @@ public class GuiListener {
 
     @Environment(EnvType.CLIENT)
     public ScreenBase openGrinder(PlayerBase player, InventoryBase inventoryBase) {
-        return new GuiGrinder(player.inventory, (TileMacerator) inventoryBase);
+        return new GuiGrinder(player.inventory, (TileGrinder) inventoryBase);
     }
 
 }

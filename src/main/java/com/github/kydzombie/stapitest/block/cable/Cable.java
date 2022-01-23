@@ -15,7 +15,6 @@ import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.client.model.block.BlockWithWorldRenderer;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockBase;
-import net.modificationstation.stationapi.api.util.math.Direction;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -162,8 +161,8 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
 }
 
 class CableConnection {
-    Vec3i pos;
-    SafeBox boundingBox;
+    final Vec3i pos;
+    final SafeBox boundingBox;
 
     CableConnection(Vec3i pos, SafeBox boundingBox) {
         this.pos = pos;

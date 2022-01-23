@@ -8,11 +8,11 @@ import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.util.io.CompoundTag;
 
-public class TileMacerator extends TileMachine {
+public class TileGrinder extends TileMachine {
     private final int COOK_TIME = 80;
     public int cookTime = 0;
 
-    public TileMacerator() {
+    public TileGrinder() {
         super(1200, 2);
         this.containerName = "Macerator";
     }

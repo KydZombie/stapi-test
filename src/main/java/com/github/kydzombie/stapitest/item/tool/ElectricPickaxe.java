@@ -1,6 +1,5 @@
 package com.github.kydzombie.stapitest.item.tool;
 
-import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.item.tool.ToolMaterial;
 import net.modificationstation.stationapi.api.item.tool.ToolLevel;

@@ -9,8 +9,8 @@ import net.modificationstation.stationapi.api.item.tool.ToolMaterialFactory;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
 public class ElectricTool extends PoweredItem implements ToolLevel {
-    private ToolMaterial toolMaterial;
-    private ToolMaterial dead;
+    private final ToolMaterial toolMaterial;
+    private final ToolMaterial dead;
 
     public ElectricTool(Identifier identifier, ToolMaterial mat) {
         super(identifier, mat.getDurability());

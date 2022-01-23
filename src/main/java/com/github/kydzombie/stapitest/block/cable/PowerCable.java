@@ -5,10 +5,8 @@ import com.github.kydzombie.stapitest.util.WorldUtils;
 import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
 import com.github.kydzombie.stapitest.util.machine.power.PowerUtils;
 import net.minecraft.block.BlockBase;
-import net.minecraft.inventory.InventoryBase;
 import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
-import net.minecraft.tileentity.TileEntityBase;
 import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.registry.Identifier;
 

@@ -7,8 +7,8 @@ import org.lwjgl.opengl.GL11;
 
 public abstract class GuiMachine extends ContainerBase {
 
-    TileMachine tileEntity;
-    String titleText;
+    final TileMachine tileEntity;
+    final String titleText;
     final PowerBar powerBar = new PowerBar(4, 24, 4, 70, true);
 
     public GuiMachine(net.minecraft.container.ContainerBase container, TileMachine tileEntityMachine, String titleText) {
