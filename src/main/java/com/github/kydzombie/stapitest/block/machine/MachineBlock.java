@@ -2,16 +2,19 @@ package com.github.kydzombie.stapitest.block.machine;
 
 import com.github.kydzombie.stapitest.events.init.ItemListener;
 import com.github.kydzombie.stapitest.tileentity.TileMachine;
+import com.github.kydzombie.stapitest.util.ColorConverter;
 import com.github.kydzombie.stapitest.util.machine.Wrenchable;
 import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Item;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.item.ItemInstance;
+import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockWithEntity;
 
+import java.awt.*;
 import java.util.Random;
 
 public abstract class MachineBlock extends TemplateBlockWithEntity implements Wrenchable, PowerConnection {
@@ -68,5 +71,10 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
             return true;
         }
         return super.canUse(level, x, y, z, player);
+    }
+
+    @Override
+    public int getColourMultiplier(BlockView tileView, int x, int y, int z) {
+        return ColorConverter.colorToInt(new Color(0xD8FFED));
     }
 }

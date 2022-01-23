@@ -2,7 +2,9 @@ package com.github.kydzombie.stapitest.block.machine;
 
 import com.github.kydzombie.stapitest.container.ContainerGenerator;
 import com.github.kydzombie.stapitest.events.init.BlockListener;
+import com.github.kydzombie.stapitest.events.init.TextureListener;
 import com.github.kydzombie.stapitest.tileentity.TileGenerator;
+import com.github.kydzombie.stapitest.util.ColorConverter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockBase;
@@ -16,6 +18,8 @@ import net.minecraft.util.maths.MathHelper;
 import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.registry.Identifier;
+
+import java.awt.*;
 
 public class Generator extends MachineBlock {
 
@@ -51,38 +55,31 @@ public class Generator extends MachineBlock {
 
     @Environment(EnvType.CLIENT)
     public int getTextureForSide(BlockView tileView, int x, int y, int z, int meta) {
-        if (meta == 1) {
-            return BlockBase.GOLD_BLOCK.getTextureForSide(0);
-        } else if (meta == 0) {
-            return BlockBase.GOLD_BLOCK.getTextureForSide(0);
-        } else {
-            int var6 = tileView.getTileMeta(x, y, z);
-            if (meta != var6) {
-                return BlockBase.GOLD_BLOCK.getTextureForSide(0);
-            } else {
-                return this.texture;
-            }
-        }
+        return getTextureForSide(meta, tileView.getTileMeta(x, y, z));
     }
 
     @Environment(EnvType.CLIENT)
     public int getTextureForSide(int side, int meta) {
-        if (side == 3) {
-            return this.texture;
+        if (meta == 0 && side == 3) {
+            return texture;
+        }
+        if (meta == side) {
+            return texture;
+        }
+        else if (side == 1) {
+            return TextureListener.machineTop;
+        }
+        else if (side == 0) {
+            return TextureListener.machineBottom;
         }
         else {
-            return BlockBase.GOLD_BLOCK.getTextureForSide(0);
+            return TextureListener.machineSide;
         }
     }
 
     @Environment(EnvType.CLIENT)
     public int getTextureForSide(int side) {
-        if (side == 3) {
-            return this.texture;
-        }
-        else {
-            return BlockBase.GOLD_BLOCK.getTextureForSide(0);
-        }
+        return getTextureForSide(side, 0);
     }
 
     @Override
@@ -96,5 +93,10 @@ public class Generator extends MachineBlock {
     @Override
     public boolean canConnect(BlockView tileView, Vec3i pos, int side) {
         return side != tileView.getTileMeta(pos.x, pos.y, pos.z);
+    }
+
+    @Override
+    public int getColourMultiplier(BlockView tileView, int x, int y, int z) {
+        return ColorConverter.colorToInt(new Color(0xFF7B60));
     }
 }

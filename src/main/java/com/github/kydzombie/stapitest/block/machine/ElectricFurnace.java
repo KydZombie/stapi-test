@@ -2,10 +2,10 @@ package com.github.kydzombie.stapitest.block.machine;
 
 import com.github.kydzombie.stapitest.container.ContainerElectricFurnace;
 import com.github.kydzombie.stapitest.events.init.BlockListener;
+import com.github.kydzombie.stapitest.events.init.TextureListener;
 import com.github.kydzombie.stapitest.tileentity.TileElectricFurnace;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockBase;
 import net.minecraft.entity.Living;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.inventory.InventoryBase;
@@ -50,39 +50,33 @@ public class ElectricFurnace extends MachineBlock {
 
     @Environment(EnvType.CLIENT)
     public int getTextureForSide(BlockView tileView, int x, int y, int z, int meta) {
-        if (meta == 1) {
-            return BlockBase.IRON_BLOCK.getTextureForSide(0);
-        } else if (meta == 0) {
-            return BlockBase.IRON_BLOCK.getTextureForSide(0);
-        } else {
-            int var6 = tileView.getTileMeta(x, y, z);
-            if (meta != var6) {
-                return BlockBase.IRON_BLOCK.getTextureForSide(0);
-            } else {
-                return this.texture;
-            }
-        }
+        return getTextureForSide(meta, tileView.getTileMeta(x, y, z));
     }
 
     @Environment(EnvType.CLIENT)
     public int getTextureForSide(int side, int meta) {
-        if (side == 3) {
-            return this.texture;
+        if (meta == 0 && side == 3) {
+            return texture;
+        }
+        if (meta == side) {
+            return texture;
+        }
+        else if (side == 1) {
+            return TextureListener.machineTop;
+        }
+        else if (side == 0) {
+            return TextureListener.machineBottom;
         }
         else {
-            return BlockBase.IRON_BLOCK.getTextureForSide(0);
+            return TextureListener.machineSide;
         }
     }
 
     @Environment(EnvType.CLIENT)
     public int getTextureForSide(int side) {
-        if (side == 3) {
-            return this.texture;
-        }
-        else {
-            return BlockBase.IRON_BLOCK.getTextureForSide(0);
-        }
+        return getTextureForSide(side, 0);
     }
+
 
     @Override
     public boolean canConnect(BlockView tileView, Vec3i pos, int side) {

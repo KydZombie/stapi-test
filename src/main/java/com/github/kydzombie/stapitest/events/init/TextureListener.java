@@ -9,12 +9,25 @@ import net.modificationstation.stationapi.api.registry.ModID;
 import net.modificationstation.stationapi.api.util.Null;
 
 public class TextureListener {
+
+    public static int machineTop;
+    public static int machineSide;
+    public static int machineBottom;
+
     @Entrypoint.ModID
     public static final ModID MOD_ID = Null.get();
 
     @EventListener
     public void registerTextures(TextureRegisterEvent event) {
+        machineTop = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "machine_top")).index;
+        machineSide = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "machine_side")).index;
+        machineBottom = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "machine_bottom")).index;
+
         BlockListener.electricFurnace.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "electric_furnace")).index;
+
+        BlockListener.macerator.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "crusher_top")).index;
+        Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "crusher_side"));
+
         BlockListener.generator.texture = BlockListener.electricFurnace.texture;
 
         ItemListener.cable.setTexture(Identifier.of(MOD_ID, "cable"));
