@@ -46,6 +46,10 @@ repositories {
 		name = "Jitpack"
 		url "https://jitpack.io/"
 	}
+	maven {
+		name = "GlassRepo"
+		url "http://glass-launcher.net:8082/snapshots"
+	}
 }
 
 minecraft {
@@ -91,7 +95,9 @@ dependencies {
 
 	modImplementation "com.github.minecraft-cursed-legacy:cursed-fabric-loader:${project.loader_version}"
 
-	modImplementation "com.github.ModificationStation:StationAPI:${project.stapi_version}"
+	modImplementation("net.modificationstation:StationAPI:${project.stapi_version}") {
+		exclude module: 'cursed-fabric-loader'
+	}
 
 	modImplementation('com.github.calmilamsy:HowManyItems-Fabric-Unofficial:6af40ed18d') {
 		exclude group: 'com.github.ModificationStation', module: 'StationAPI'

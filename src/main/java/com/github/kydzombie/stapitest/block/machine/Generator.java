@@ -37,4 +37,9 @@ public class Generator extends MachineBlock {
     public int getColourMultiplier(BlockView tileView, int x, int y, int z) {
         return ColorConverter.colorToInt(new Color(0xFF7B60));
     }
+
+    @Override
+    public int getBaseColour(int i) {
+        return ColorConverter.colorToInt(new Color(0xFF7B60));
+    }
 }

@@ -8,6 +8,7 @@ import com.github.kydzombie.stapitest.item.tool.ElectricTool;
 import com.github.kydzombie.stapitest.item.tool.ElectricPickaxe;
 import com.github.kydzombie.stapitest.item.tool.ToolPart;
 import net.mine_diver.unsafeevents.listener.EventListener;
+import net.minecraft.item.ItemInstance;
 import net.minecraft.item.tool.ToolMaterial;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.item.tool.ToolMaterialFactory;
@@ -77,15 +78,15 @@ public class ItemListener {
         saw = new ElectricTool(Identifier.of(MOD_ID, "saw"), basePowerTool).setTranslationKey(MOD_ID, "saw");
         diamondSaw = new ElectricTool(Identifier.of(MOD_ID, "diamondSaw"), diamondPowerTool).setTranslationKey(MOD_ID, "diamondSaw");
 
-        TagRegistry.INSTANCE.register(Identifier.of("items/tools/pickaxes"), e -> e.itemId == electricPickaxe.id);
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/pickaxes"), new ItemInstance(electricPickaxe), e -> e.itemId == electricPickaxe.id);
 
-        TagRegistry.INSTANCE.register(Identifier.of("items/tools/pickaxes"), e -> e.itemId == drill.id);
-        TagRegistry.INSTANCE.register(Identifier.of("items/tools/shovels"), e -> e.itemId == drill.id);
-        TagRegistry.INSTANCE.register(Identifier.of("items/tools/pickaxes"), e -> e.itemId == diamondDrill.id);
-        TagRegistry.INSTANCE.register(Identifier.of("items/tools/shovels"), e -> e.itemId == diamondDrill.id);
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/pickaxes"), new ItemInstance(drill), e -> e.itemId == drill.id);
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/shovels"), new ItemInstance(drill), e -> e.itemId == drill.id);
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/pickaxes"), new ItemInstance(diamondDrill), e -> e.itemId == diamondDrill.id);
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/shovels"), new ItemInstance(diamondDrill), e -> e.itemId == diamondDrill.id);
 
-        TagRegistry.INSTANCE.register(Identifier.of("items/tools/axes"), e -> e.itemId == saw.id);
-        TagRegistry.INSTANCE.register(Identifier.of("items/tools/axes"), e -> e.itemId == diamondSaw.id);
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/axes"), new ItemInstance(saw), e -> e.itemId == saw.id);
+        TagRegistry.INSTANCE.register(Identifier.of("items/tools/axes"), new ItemInstance(diamondSaw), e -> e.itemId == diamondSaw.id);
 
         battery = new Battery(Identifier.of(MOD_ID, "battery"), 400).setTranslationKey(MOD_ID, "battery");
 
