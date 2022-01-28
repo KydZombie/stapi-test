@@ -3,10 +3,7 @@ package com.github.kydzombie.stapitest.events.init;
 import com.github.kydzombie.stapitest.block.cable.Cable;
 import com.github.kydzombie.stapitest.block.cable.ItemCable;
 import com.github.kydzombie.stapitest.block.cable.PowerCable;
-import com.github.kydzombie.stapitest.block.machine.ElectricFurnace;
-import com.github.kydzombie.stapitest.block.machine.Generator;
-import com.github.kydzombie.stapitest.block.machine.Grinder;
-import com.github.kydzombie.stapitest.block.machine.Press;
+import com.github.kydzombie.stapitest.block.machine.*;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
 import net.modificationstation.stationapi.api.event.registry.BlockRegistryEvent;
@@ -21,6 +18,7 @@ public class BlockListener {
     public static BlockBase electricFurnace;
     public static BlockBase grinder;
     public static BlockBase press;
+    public static BlockBase battery;
 
     public static BlockBase cable;
     public static BlockBase powerCable;
@@ -36,6 +34,7 @@ public class BlockListener {
         electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electricFurnace")).setTranslationKey(MOD_ID, "electricFurnace");
         grinder = new Grinder(Identifier.of(MOD_ID, "grinder")).setTranslationKey(MOD_ID, "grinder");
         press = new Press(Identifier.of(MOD_ID, "press")).setTranslationKey(MOD_ID, "press");
+        battery = new BatteryBlock(Identifier.of(MOD_ID, "batteryBlock")).setTranslationKey(MOD_ID, "batteryBlock");
 
         cable = new Cable(Identifier.of(MOD_ID, "cable"));
         powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable"));

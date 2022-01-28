@@ -1,13 +1,13 @@
 {
 	"credit": "Made with Blockbench",
 	"textures": {
-		"0": "stapitest:grinder_model_top",
-		"1": "stapitest:grinder_model_bottom",
+		"0": "stapitest:grinder_top",
+		"1": "stapitest:machine_bottom",
 		"2": "stapitest:grinder_model_gear1",
 		"3": "stapitest:grinder_model_gear2",
-		"4": "stapitest:grinder_model_side",
-		"5": "stapitest:grinder_model_inside",
-		"particle": "stapitest:grinder_model_top"
+		"4": "stapitest:machine_side",
+		"5": "stapitest:grinder_inside",
+		"particle": "stapitest:grinder_top"
 	},
 	"elements": [
 		{

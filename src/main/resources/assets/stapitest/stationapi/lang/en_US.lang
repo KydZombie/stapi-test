@@ -30,3 +30,4 @@ tile.generator.name=Generator
 tile.electricFurnace.name=Electric Furnace
 tile.grinder.name=Grinder
 tile.press.name=Press
+tile.batteryBlock.name=Battery

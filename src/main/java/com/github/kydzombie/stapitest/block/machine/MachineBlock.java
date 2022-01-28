@@ -136,11 +136,11 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
 
     @Override
     public int getColourMultiplier(BlockView tileView, int x, int y, int z) {
-        return ColorConverter.colorToInt(new Color(0xD8FFED));
+        return getBaseColour(tileView.getTileMeta(x, y, z));
     }
 
     @Override
     public int getBaseColour(int i) {
-        return ColorConverter.colorToInt(new Color(0xD8FFED));
+        return ColorConverter.colorToInt(new Color(0xB7FFDC));
     }
 }

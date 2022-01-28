@@ -20,8 +20,6 @@ public class ElectricFurnace extends MachineBlock {
         return new TileElectricFurnace();
     }
 
-
-
     @Override
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
         super.canUse(level, x, y, z, player);

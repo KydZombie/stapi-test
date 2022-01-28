@@ -32,6 +32,8 @@ public class TextureListener {
 
         BlockListener.press.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "press")).index;
 
+        BlockListener.battery.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "battery_side")).index;
+
         ItemListener.cable.setTexture(Identifier.of(MOD_ID, "cable"));
         ItemListener.powerCable.setTexture(Identifier.of(MOD_ID, "cable"));
         ItemListener.itemCable.setTexture(Identifier.of(MOD_ID, "cable"));

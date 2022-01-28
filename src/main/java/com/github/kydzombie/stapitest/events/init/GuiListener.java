@@ -1,13 +1,7 @@
 package com.github.kydzombie.stapitest.events.init;
 
-import com.github.kydzombie.stapitest.gui.GuiElectricFurnace;
-import com.github.kydzombie.stapitest.gui.GuiGenerator;
-import com.github.kydzombie.stapitest.gui.GuiGrinder;
-import com.github.kydzombie.stapitest.gui.GuiPress;
-import com.github.kydzombie.stapitest.tileentity.TileElectricFurnace;
-import com.github.kydzombie.stapitest.tileentity.TileGenerator;
-import com.github.kydzombie.stapitest.tileentity.TileGrinder;
-import com.github.kydzombie.stapitest.tileentity.TilePress;
+import com.github.kydzombie.stapitest.gui.*;
+import com.github.kydzombie.stapitest.tileentity.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.mine_diver.unsafeevents.listener.EventListener;
@@ -35,6 +29,7 @@ public class GuiListener {
         registry.registerValueNoMessage(Identifier.of(MOD_ID, "openGenerator"), BiTuple.of(this::openGenerator, TileGenerator::new));
         registry.registerValueNoMessage(Identifier.of(MOD_ID, "openGrinder"), BiTuple.of(this::openGrinder, TileGrinder::new));
         registry.registerValueNoMessage(Identifier.of(MOD_ID, "openPress"), BiTuple.of(this::openPress, TilePress::new));
+        registry.registerValueNoMessage(Identifier.of(MOD_ID, "openBattery"), BiTuple.of(this::openBattery, TileBattery::new));
     }
 
     @Environment(EnvType.CLIENT)
@@ -55,6 +50,11 @@ public class GuiListener {
     @Environment(EnvType.CLIENT)
     public ScreenBase openPress(PlayerBase player, InventoryBase inventoryBase) {
         return new GuiPress(player.inventory, (TilePress) inventoryBase);
+    }
+
+    @Environment(EnvType.CLIENT)
+    public ScreenBase openBattery(PlayerBase player, InventoryBase inventoryBase) {
+        return new GuiBattery(player.inventory, (TileBattery) inventoryBase);
     }
 
 }
