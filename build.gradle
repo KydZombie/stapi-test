@@ -48,7 +48,7 @@ repositories {
 	}
 	maven {
 		name = "GlassRepo"
-		url "http://glass-launcher.net:8082/snapshots"
+		url "https://maven.glass-launcher.net/snapshots"
 	}
 }
 
@@ -71,12 +71,15 @@ dependencies {
 	implementation 'org.ow2.asm:asm-tree:9.0'
 	implementation 'org.ow2.asm:asm-util:9.0'
 
-	implementation "com.github.jhalterman:typetools:87240d6"
-	implementation "com.github.mineLdiver:expressions:2fa66db"
-	implementation "com.github.mineLdiver:UnsafeEvents:7efec57"
-
-	implementation "com.github.ben-manes.caffeine:caffeine:${project.caffeine_version}"
+	implementation "org.apache.commons:commons-lang3:3.5"
+	implementation "commons-io:commons-io:2.5"
+	implementation "com.github.jhalterman:typetools:${project.typetools_version}"
+	implementation "com.github.mineLdiver:expressions:${project.expressions_version}"
+	implementation "com.github.mineLdiver:UnsafeEvents:${project.unsafeevents_version}"
 	implementation "it.unimi.dsi:fastutil:${project.fastutil_version}"
+	//noinspection GradlePackageUpdate
+	implementation "com.github.ben-manes.caffeine:caffeine:${project.caffeine_version}"
+	implementation "com.mojang:datafixerupper:${project.dfu_version}"
 
 	// to change the versions see the gradle.properties file
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
@@ -99,8 +102,9 @@ dependencies {
 		exclude module: 'cursed-fabric-loader'
 	}
 
-	modImplementation('com.github.calmilamsy:HowManyItems-Fabric-Unofficial:6af40ed18d') {
-		exclude group: 'com.github.ModificationStation', module: 'StationAPI'
+	compile "blue.endless:jankson:1.2.1"
+	modImplementation('com.github.calmilamsy:HowManyItems-Fabric-Unofficial:f72ba3a') {
+		exclude module: 'StationAPI'
 	}
 
 	modImplementation "com.github.calmilamsy:ModMenu:03023e1"

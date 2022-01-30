@@ -22,8 +22,7 @@
       "com.github.kydzombie.stapitest.events.init.ItemListener",
       "com.github.kydzombie.stapitest.events.init.RecipeListener",
       "com.github.kydzombie.stapitest.events.init.TileEntityListener",
-      "com.github.kydzombie.stapitest.events.init.GuiListener",
-      "com.github.kydzombie.stapitest.events.init.ModelListener"
+      "com.github.kydzombie.stapitest.events.init.GuiListener"
     ],
     "stationapi:event_bus_client": [
       "com.github.kydzombie.stapitest.events.init.TextureListener"
