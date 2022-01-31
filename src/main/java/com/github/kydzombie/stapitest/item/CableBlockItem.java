@@ -15,7 +15,7 @@ public class CableBlockItem extends TemplateSecondaryBlock {
     }
 
     @Override
-    public int getNameColour(int i) {
+    public int getColourMultiplier(int i) {
         return color;
     }
 }

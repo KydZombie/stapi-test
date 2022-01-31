@@ -16,7 +16,7 @@ public class ColoredItem extends TemplateItemBase {
     }
 
     @Override
-    public int getNameColour(int i) {
+    public int getColourMultiplier(int i) {
         return color;
     }
 }
