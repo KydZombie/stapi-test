@@ -4,6 +4,7 @@ import com.github.kydzombie.stapitest.container.ContainerGrinder;
 import com.github.kydzombie.stapitest.events.init.BlockListener;
 import com.github.kydzombie.stapitest.events.init.TextureListener;
 import com.github.kydzombie.stapitest.tileentity.TileGrinder;
+import com.github.kydzombie.stapitest.util.ColorConverter;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.entity.Living;
@@ -17,6 +18,8 @@ import net.modificationstation.stationapi.api.client.model.Model;
 import net.modificationstation.stationapi.api.client.model.block.BlockWorldModelProvider;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;
 import net.modificationstation.stationapi.api.registry.Identifier;
+
+import java.awt.*;
 
 public class Grinder extends MachineBlock {
     public Grinder(Identifier identifier) {
@@ -66,9 +69,4 @@ public class Grinder extends MachineBlock {
         GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openGrinder"), (InventoryBase) tileGrinder, new ContainerGrinder(player.inventory, (TileGrinder) tileGrinder));
         return true;
     }
-
-//    @Override
-//    public int getBaseColour(int i) {
-//        return ColorConverter.colorToInt(Color.white);
-//    }
 }
