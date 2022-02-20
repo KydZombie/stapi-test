@@ -18,7 +18,7 @@ public class TileBattery extends TileMachine {
 
     public TileBattery() {
         super(3200, 2);
-        this.containerName = "Battery";
+        containerName = "Battery";
     }
 
     // TODO make stacked batteries work

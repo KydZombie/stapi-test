@@ -19,7 +19,7 @@ public abstract class TilePowered extends TileEntityBase implements PowerStorage
     public TilePowered(int maxPower) {
         super();
         this.maxPower = maxPower;
-        this.power = 0;
+        power = 0;
     }
 
     public TilePowered(int maxPower, int power) {
@@ -77,10 +77,10 @@ public abstract class TilePowered extends TileEntityBase implements PowerStorage
     }
 
     public boolean canPlayerUse(PlayerBase player) {
-        if (this.level.getTileEntity(this.x, this.y, this.z) != this) {
+        if (level.getTileEntity(x, y, z) != this) {
             return false;
         } else {
-            return !(player.squaredDistanceTo((double)this.x + 0.5D, (double)this.y + 0.5D, (double)this.z + 0.5D) > 64.0D);
+            return !(player.squaredDistanceTo((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D) > 64.0D);
         }
     }
 

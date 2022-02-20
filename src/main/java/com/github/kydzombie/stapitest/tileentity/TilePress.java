@@ -22,7 +22,7 @@ public class TilePress extends TileMachine {
     public void tick() {
         super.tick();
 
-        if (!level.isClient) {
+        if (!level.isServerSide) {
 
             if (canAcceptRecipeOutput()) {
                 if (power >= powerUsage) {

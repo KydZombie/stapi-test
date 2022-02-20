@@ -10,6 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.util.io.CompoundTag;
+import net.modificationstation.stationapi.api.recipe.SmeltingRegistry;
 
 public class TileGenerator extends TileMachine {
 
@@ -22,7 +23,7 @@ public class TileGenerator extends TileMachine {
 
     public TileGenerator() {
         super(1600, 2);
-        this.containerName = "Generator";
+        containerName = "Generator";
     }
 
     @Override
@@ -35,8 +36,8 @@ public class TileGenerator extends TileMachine {
         }
         else if (inventory[0] != null){
 
-            if (getFuelTime(inventory[0]) > 0 && power != maxPower) {
-                fuelTime = burnTime = getFuelTime(inventory[0]);
+            if (SmeltingRegistry.getFuelTime(inventory[0]) > 0 && power != maxPower) {
+                fuelTime = burnTime = SmeltingRegistry.getFuelTime(inventory[0]);
                 takeInventoryItem(0, 1);
             }
             else if (inventory[0].getType() instanceof Battery) {
@@ -69,35 +70,16 @@ public class TileGenerator extends TileMachine {
     }
 
     public boolean isBurning() {
-        return this.burnTime > 0;
-    }
-
-    public static int getFuelTime(ItemInstance stack) {
-        if (stack == null) {
-            return 0;
-        } else {
-            int var2 = stack.getType().id;
-            if (var2 < 256 && BlockBase.BY_ID[var2].material == Material.WOOD) {
-                return 75;
-            } else if (var2 == ItemBase.stick.id) {
-                return 25;
-            } else if (var2 == ItemBase.coal.id) {
-                return 400;
-            } else if (var2 == ItemBase.lavaBucket.id) {
-                return 5000;
-            } else {
-                return var2 == BlockBase.SAPLING.id ? 25 : 0;
-            }
-        }
+        return burnTime > 0;
     }
 
     @Environment(EnvType.CLIENT)
     public int getFuelTimeDelta(int multiplier) {
-        if (this.fuelTime == 0) {
-            this.fuelTime = 200;
+        if (fuelTime == 0) {
+            fuelTime = 200;
         }
 
-        return this.burnTime * multiplier / this.fuelTime;
+        return burnTime * multiplier / fuelTime;
     }
 
     @Override

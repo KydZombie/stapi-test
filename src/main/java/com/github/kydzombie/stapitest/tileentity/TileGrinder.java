@@ -16,14 +16,14 @@ public class TileGrinder extends TileMachine {
 
     public TileGrinder() {
         super(1200, 2);
-        this.containerName = "Grinder";
+        containerName = "Grinder";
     }
 
     @Override
     public void tick() {
         super.tick();
 
-        if (!level.isClient) {
+        if (!level.isServerSide) {
 
             if (canAcceptRecipeOutput()) {
                 if (power >= powerUsage) {
@@ -65,12 +65,12 @@ public class TileGrinder extends TileMachine {
     }
 
     public void craftRecipe() {
-        if (this.canAcceptRecipeOutput()) {
+        if (canAcceptRecipeOutput()) {
             ItemInstance output = getOutput(inventory[0].getType().id);
             if (output != null) {
                 if (inventory[1] == null) {
                     inventory[1] = output.copy();
-                } else if (this.inventory[1].itemId == output.itemId) {
+                } else if (inventory[1].itemId == output.itemId) {
                     inventory[1].count += output.count;
                 }
 

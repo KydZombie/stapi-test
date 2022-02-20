@@ -71,7 +71,7 @@ public abstract class TileMachine extends TilePowered implements InventoryBase {
         super.readIdentifyingData(tag);
 
         ListTag var2 = tag.getListTag("Items");
-        inventory = new ItemInstance[this.getInventorySize()];
+        inventory = new ItemInstance[getInventorySize()];
         for(int var3 = 0; var3 < var2.size(); ++var3) {
             CompoundTag var4 = (CompoundTag)var2.get(var3);
             byte var5 = var4.getByte("Slot");

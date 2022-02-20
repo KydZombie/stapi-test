@@ -20,6 +20,7 @@ public class ElectricTool extends PoweredItem implements ToolLevel {
 
     @Override
     public ToolMaterial getMaterial(ItemInstance item) {
+        System.out.println("checking");
         if (getCurrentPower(item) >= 5) {
             return toolMaterial;
         }
