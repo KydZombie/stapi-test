@@ -28,7 +28,7 @@ public class PowerCable extends Cable implements PowerConnection {
 
     @Override
     public void onBlockRemoved(Level level, int x, int y, int z) {
-        super.onBlockPlaced(level, x, y, z);
+        super.onBlockRemoved(level, x, y, z);
         PowerUtils.updateConnectedMachines(level, new Vec3i(x, y, z));
     }
 

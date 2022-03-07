@@ -2,6 +2,7 @@ package com.github.kydzombie.stapitest.tileentity;
 
 import com.github.kydzombie.stapitest.util.machine.power.PowerStorage;
 import com.github.kydzombie.stapitest.util.machine.power.PowerUtils;
+import net.minecraft.block.BlockBase;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.tileentity.TileEntityBase;
 import net.minecraft.util.io.CompoundTag;
@@ -13,6 +14,8 @@ public abstract class TilePowered extends TileEntityBase implements PowerStorage
 
     List<TilePowered> connectedMachines;
 
+    boolean dirty;
+
     final int maxPower;
     int power;
 
@@ -20,6 +23,7 @@ public abstract class TilePowered extends TileEntityBase implements PowerStorage
         super();
         this.maxPower = maxPower;
         power = 0;
+        dirty = true;
     }
 
     public TilePowered(int maxPower, int power) {
@@ -34,15 +38,21 @@ public abstract class TilePowered extends TileEntityBase implements PowerStorage
     }
 
     public void updateConnections() {
+        System.out.println("Updated a " + BlockBase.BY_ID[level.getTileId(x, y, z)].getTranslatedName());
         connectedMachines = PowerUtils.findMachineConnections(level, new Vec3i(x, y, z));
     }
 
     @Override
     public void tick() {
         super.tick();
-        if (connectedMachines == null) {
+        if (connectedMachines == null || dirty) {
             connectedMachines = PowerUtils.findMachineConnections(level, new Vec3i(x, y, z));
+            dirty = false;
         }
+    }
+
+    public void markDirty() {
+        dirty = true;
     }
 
     @Override

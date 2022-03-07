@@ -42,7 +42,7 @@ public class PowerUtils {
         System.out.println("Machine updates pushed from " + pos.x + ", " + pos.y + ", " + pos.z + ".");
         List<TilePowered> connectedMachines = PowerUtils.findMachineConnections(level, pos);
         for (TilePowered machine : connectedMachines) {
-            machine.updateConnections();
+            machine.markDirty();
         }
     }
 
