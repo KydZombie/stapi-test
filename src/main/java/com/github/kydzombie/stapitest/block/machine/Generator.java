@@ -1,7 +1,8 @@
 package com.github.kydzombie.stapitest.block.machine;
 
 import com.github.kydzombie.stapitest.container.ContainerGenerator;
-import com.github.kydzombie.stapitest.events.init.BlockListener;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.tileentity.TileGenerator;
 import com.github.kydzombie.stapitest.util.ColorConverter;
 import net.minecraft.entity.player.PlayerBase;
@@ -29,7 +30,7 @@ public class Generator extends MachineBlock {
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
         super.canUse(level, x, y, z, player);
         TileEntityBase tileEntityGenerator = level.getTileEntity(x, y, z);
-        GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openGenerator"), (InventoryBase) tileEntityGenerator, new ContainerGenerator(player.inventory, (TileGenerator) tileEntityGenerator));
+        GuiHelper.openGUI(player, Identifier.of(StapiTest.MOD_ID, "openGenerator"), (InventoryBase) tileEntityGenerator, new ContainerGenerator(player.inventory, (TileGenerator) tileEntityGenerator));
         return true;
     }
 

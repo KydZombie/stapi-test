@@ -18,8 +18,7 @@
   "environment": "*",
   "entrypoints": {
     "stationapi:event_bus": [
-      "com.github.kydzombie.stapitest.events.init.BlockListener",
-      "com.github.kydzombie.stapitest.events.init.ItemListener",
+      "com.github.kydzombie.stapitest.events.init.StapiTest",
       "com.github.kydzombie.stapitest.events.init.RecipeListener",
       "com.github.kydzombie.stapitest.events.init.TileEntityListener",
       "com.github.kydzombie.stapitest.events.init.GuiListener"

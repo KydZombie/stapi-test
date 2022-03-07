@@ -1,15 +1,21 @@
 package com.github.kydzombie.stapitest.events.init;
 
+import com.github.kydzombie.stapitest.block.cable.Cable;
+import com.github.kydzombie.stapitest.block.cable.ItemCable;
+import com.github.kydzombie.stapitest.block.cable.PowerCable;
+import com.github.kydzombie.stapitest.block.machine.*;
 import com.github.kydzombie.stapitest.item.Battery;
 import com.github.kydzombie.stapitest.item.CableBlockItem;
 import com.github.kydzombie.stapitest.item.ColoredItem;
 import com.github.kydzombie.stapitest.item.Wrench;
-import com.github.kydzombie.stapitest.item.tool.ElectricTool;
 import com.github.kydzombie.stapitest.item.tool.ElectricPickaxe;
+import com.github.kydzombie.stapitest.item.tool.ElectricTool;
 import com.github.kydzombie.stapitest.item.tool.ToolPart;
 import net.mine_diver.unsafeevents.listener.EventListener;
+import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.item.tool.ToolMaterial;
+import net.modificationstation.stationapi.api.event.registry.BlockRegistryEvent;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.item.tool.ToolMaterialFactory;
 import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
@@ -23,7 +29,34 @@ import net.modificationstation.stationapi.api.util.Null;
 
 import java.awt.*;
 
-public class ItemListener {
+public class StapiTest {
+
+    public static BlockBase generator;
+    public static BlockBase electricFurnace;
+    public static BlockBase grinder;
+    public static BlockBase press;
+    public static BlockBase battery;
+
+    public static BlockBase cable;
+    public static BlockBase powerCable;
+    public static BlockBase itemCable;
+
+    @Entrypoint.ModID
+    public static final ModID MOD_ID = Null.get();
+
+    @EventListener
+    public void registerBlocks(BlockRegistryEvent event) {
+
+        generator = new Generator(Identifier.of(MOD_ID, "generator")).setTranslationKey(MOD_ID, "generator");
+        electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electricFurnace")).setTranslationKey(MOD_ID, "electricFurnace");
+        grinder = new Grinder(Identifier.of(MOD_ID, "grinder")).setTranslationKey(MOD_ID, "grinder");
+        press = new Press(Identifier.of(MOD_ID, "press")).setTranslationKey(MOD_ID, "press");
+        battery = new BatteryBlock(Identifier.of(MOD_ID, "batteryBlock")).setTranslationKey(MOD_ID, "batteryBlock");
+
+        cable = new Cable(Identifier.of(MOD_ID, "cable"));
+        powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable"));
+        itemCable = new ItemCable(Identifier.of(MOD_ID, "itemCable"));
+    }
 
     public static TemplateItemBase ironDust;
     public static TemplateItemBase goldDust;
@@ -42,7 +75,7 @@ public class ItemListener {
 
     public static TemplateItemBase wrench;
 
-    public static TemplateItemBase battery;
+    public static TemplateItemBase batteryItem;
 
     public static TemplateToolBase electricPickaxe;
 
@@ -54,12 +87,9 @@ public class ItemListener {
     public static TemplateItemBase saw;
     public static TemplateItemBase diamondSaw;
 
-    public static TemplateSecondaryBlock cable;
-    public static TemplateSecondaryBlock powerCable;
-    public static TemplateSecondaryBlock itemCable;
-
-    @Entrypoint.ModID
-    public static final ModID MOD_ID = Null.get();
+    public static TemplateSecondaryBlock cableItem;
+    public static TemplateSecondaryBlock powerCableItem;
+    public static TemplateSecondaryBlock itemCableItem;
 
     @EventListener
     public void registerItems(ItemRegistryEvent event) {
@@ -88,7 +118,7 @@ public class ItemListener {
         TagRegistry.INSTANCE.register(Identifier.of("tools/axes"), new ItemInstance(saw), e -> e.itemId == saw.id);
         TagRegistry.INSTANCE.register(Identifier.of("tools/axes"), new ItemInstance(diamondSaw), e -> e.itemId == diamondSaw.id);
 
-        battery = new Battery(Identifier.of(MOD_ID, "battery"), 400).setTranslationKey(MOD_ID, "battery");
+        batteryItem = new Battery(Identifier.of(MOD_ID, "battery"), 400).setTranslationKey(MOD_ID, "battery");
 
         ironDust = new ColoredItem(Identifier.of(MOD_ID, "ironDust"), Color.WHITE).setTranslationKey(MOD_ID, "ironDust");
         goldDust = new ColoredItem(Identifier.of(MOD_ID, "goldDust"), goldColor).setTranslationKey(MOD_ID, "goldDust");
@@ -106,8 +136,9 @@ public class ItemListener {
         diamondSawHead = new ToolPart(Identifier.of(MOD_ID, "diamondSawHead")).setTranslationKey(MOD_ID, "diamondSawHead");
 
         // Secondary Blocks (BlockItems)
-        cable = new CableBlockItem(Identifier.of(MOD_ID, "cable"), BlockListener.cable, Color.WHITE).setTranslationKey(MOD_ID, "cable");
-        powerCable = new CableBlockItem(Identifier.of(MOD_ID, "powerCable"), BlockListener.powerCable, new Color(37, 33, 33, 255)).setTranslationKey(MOD_ID, "powerCable");
-        itemCable = new CableBlockItem(Identifier.of(MOD_ID, "itemCable"), BlockListener.itemCable, Color.GREEN).setTranslationKey(MOD_ID, "itemCable");
+        cableItem = new CableBlockItem(Identifier.of(MOD_ID, "cable"), StapiTest.cable, Color.WHITE).setTranslationKey(MOD_ID, "cable");
+        powerCableItem = new CableBlockItem(Identifier.of(MOD_ID, "powerCable"), StapiTest.powerCable, new Color(37, 33, 33, 255)).setTranslationKey(MOD_ID, "powerCable");
+        itemCableItem = new CableBlockItem(Identifier.of(MOD_ID, "itemCable"), StapiTest.itemCable, Color.GREEN).setTranslationKey(MOD_ID, "itemCable");
     }
+
 }

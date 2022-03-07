@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.tileentity;
 
-import com.github.kydzombie.stapitest.events.init.ItemListener;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemBase;
@@ -83,16 +83,16 @@ public class TilePress extends TileMachine {
 
     private ItemInstance getOutput(int itemId) {
         if (itemId == ItemBase.ironIngot.id) {
-            return new ItemInstance(ItemListener.ironPlate);
+            return new ItemInstance(StapiTest.ironPlate);
         }
         else if (itemId == ItemBase.goldIngot.id) {
-            return new ItemInstance(ItemListener.goldPlate);
+            return new ItemInstance(StapiTest.goldPlate);
         }
-        else if (itemId == ItemListener.ironPlate.id) {
-            return new ItemInstance(ItemListener.ironGear);
+        else if (itemId == StapiTest.ironPlate.id) {
+            return new ItemInstance(StapiTest.ironGear);
         }
-        else if (itemId == ItemListener.goldPlate.id) {
-            return new ItemInstance(ItemListener.goldGear);
+        else if (itemId == StapiTest.goldPlate.id) {
+            return new ItemInstance(StapiTest.goldGear);
         }
         return null;
     }

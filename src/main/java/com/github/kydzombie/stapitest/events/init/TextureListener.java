@@ -23,44 +23,44 @@ public class TextureListener {
         machineSide = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "machine_side")).index;
         machineBottom = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "machine_bottom")).index;
 
-        BlockListener.electricFurnace.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "electric_furnace")).index;
+        StapiTest.electricFurnace.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "electric_furnace")).index;
 
-        BlockListener.generator.texture = BlockListener.electricFurnace.texture;
+        StapiTest.generator.texture = StapiTest.electricFurnace.texture;
 
-        BlockListener.grinder.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "grinder_top")).index;
+        StapiTest.grinder.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "grinder_top")).index;
         Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "grinder_side"));
 
-        BlockListener.press.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "press")).index;
+        StapiTest.press.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "press")).index;
 
-        BlockListener.battery.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "battery_side")).index;
+        StapiTest.battery.texture = Atlases.getTerrain().addTexture(Identifier.of(MOD_ID, "battery_side")).index;
 
-        ItemListener.cable.setTexture(Identifier.of(MOD_ID, "cable"));
-        ItemListener.powerCable.setTexture(Identifier.of(MOD_ID, "cable"));
-        ItemListener.itemCable.setTexture(Identifier.of(MOD_ID, "cable"));
+        StapiTest.cableItem.setTexture(Identifier.of(MOD_ID, "cable"));
+        StapiTest.powerCableItem.setTexture(Identifier.of(MOD_ID, "cable"));
+        StapiTest.itemCableItem.setTexture(Identifier.of(MOD_ID, "cable"));
 
-        ItemListener.ironDust.setTexture(Identifier.of(MOD_ID, "ore_dust"));
-        ItemListener.goldDust.setTexture(Identifier.of(MOD_ID, "ore_dust"));
+        StapiTest.ironDust.setTexture(Identifier.of(MOD_ID, "ore_dust"));
+        StapiTest.goldDust.setTexture(Identifier.of(MOD_ID, "ore_dust"));
 
-        ItemListener.ironPlate.setTexture(Identifier.of(MOD_ID, "plate"));
-        ItemListener.goldPlate.setTexture(Identifier.of(MOD_ID, "plate"));
+        StapiTest.ironPlate.setTexture(Identifier.of(MOD_ID, "plate"));
+        StapiTest.goldPlate.setTexture(Identifier.of(MOD_ID, "plate"));
 
-        ItemListener.ironGear.setTexture(Identifier.of(MOD_ID, "gear"));
-        ItemListener.goldGear.setTexture(Identifier.of(MOD_ID, "gear"));
+        StapiTest.ironGear.setTexture(Identifier.of(MOD_ID, "gear"));
+        StapiTest.goldGear.setTexture(Identifier.of(MOD_ID, "gear"));
 
-        ItemListener.powerToolHandle.setTexture(Identifier.of(MOD_ID, "power_tool_handle"));
-        ItemListener.drillHead.setTexture(Identifier.of(MOD_ID, "drill_head"));
-        ItemListener.sawHead.setTexture(Identifier.of(MOD_ID, "saw_head"));
-        ItemListener.diamondDrillHead.setTexture(Identifier.of(MOD_ID, "diamond_drill_head"));
-        ItemListener.diamondSawHead.setTexture(Identifier.of(MOD_ID, "diamond_saw_head"));
+        StapiTest.powerToolHandle.setTexture(Identifier.of(MOD_ID, "power_tool_handle"));
+        StapiTest.drillHead.setTexture(Identifier.of(MOD_ID, "drill_head"));
+        StapiTest.sawHead.setTexture(Identifier.of(MOD_ID, "saw_head"));
+        StapiTest.diamondDrillHead.setTexture(Identifier.of(MOD_ID, "diamond_drill_head"));
+        StapiTest.diamondSawHead.setTexture(Identifier.of(MOD_ID, "diamond_saw_head"));
 
-        ItemListener.wrench.setTexture(Identifier.of(MOD_ID, "wrench"));
-        ItemListener.battery.setTexture(Identifier.of(MOD_ID, "battery"));
+        StapiTest.wrench.setTexture(Identifier.of(MOD_ID, "wrench"));
+        StapiTest.batteryItem.setTexture(Identifier.of(MOD_ID, "battery"));
 
-        ItemListener.electricPickaxe.setTexture(Identifier.of(MOD_ID, "electric_pickaxe"));
+        StapiTest.electricPickaxe.setTexture(Identifier.of(MOD_ID, "electric_pickaxe"));
 
-        ItemListener.drill.setTexture(Identifier.of(MOD_ID, "drill"));
-        ItemListener.diamondDrill.setTexture(Identifier.of(MOD_ID, "diamond_drill"));
-        ItemListener.saw.setTexture(Identifier.of(MOD_ID, "saw"));
-        ItemListener.diamondSaw.setTexture(Identifier.of(MOD_ID, "diamond_saw"));
+        StapiTest.drill.setTexture(Identifier.of(MOD_ID, "drill"));
+        StapiTest.diamondDrill.setTexture(Identifier.of(MOD_ID, "diamond_drill"));
+        StapiTest.saw.setTexture(Identifier.of(MOD_ID, "saw"));
+        StapiTest.diamondSaw.setTexture(Identifier.of(MOD_ID, "diamond_saw"));
     }
 }

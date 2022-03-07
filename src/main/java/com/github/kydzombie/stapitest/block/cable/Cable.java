@@ -1,6 +1,7 @@
 package com.github.kydzombie.stapitest.block.cable;
 
-import com.github.kydzombie.stapitest.events.init.ItemListener;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.util.ColorConverter;
 import com.github.kydzombie.stapitest.util.WorldUtils;
 import com.github.kydzombie.stapitest.util.machine.Wrenchable;
@@ -49,7 +50,7 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
 
     @Override
     public int getDropId(int meta, Random rand) {
-        return ItemListener.cable.id;
+        return StapiTest.cableItem.id;
     }
 
     @Override

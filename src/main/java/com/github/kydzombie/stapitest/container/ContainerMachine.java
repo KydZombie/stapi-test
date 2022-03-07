@@ -1,6 +1,7 @@
 package com.github.kydzombie.stapitest.container;
 
-import com.github.kydzombie.stapitest.events.init.ItemListener;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.tileentity.TilePowered;
 import net.minecraft.container.ContainerBase;
 import net.minecraft.container.slot.Slot;
@@ -28,7 +29,7 @@ public abstract class ContainerMachine extends ContainerBase {
 
     @Override
     public boolean canUse(PlayerBase player) {
-        if (player.getHeldItem() != null && player.getHeldItem().itemId == ItemListener.wrench.id) {
+        if (player.getHeldItem() != null && player.getHeldItem().itemId == StapiTest.wrench.id) {
             return false;
         }
         return this.tileEntity.canPlayerUse(player);

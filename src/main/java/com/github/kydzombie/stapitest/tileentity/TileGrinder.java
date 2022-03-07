@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.tileentity;
 
-import com.github.kydzombie.stapitest.events.init.ItemListener;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockBase;
@@ -84,10 +84,10 @@ public class TileGrinder extends TileMachine {
 
     private ItemInstance getOutput(int itemId) {
         if (itemId == BlockBase.IRON_ORE.id || itemId == ItemBase.ironIngot.id) {
-            return new ItemInstance(ItemListener.ironDust, 2);
+            return new ItemInstance(StapiTest.ironDust, 2);
         }
         else if (itemId == BlockBase.GOLD_ORE.id || itemId == ItemBase.goldIngot.id) {
-            return new ItemInstance(ItemListener.goldDust, 2);
+            return new ItemInstance(StapiTest.goldDust, 2);
         }
         return null;
     }

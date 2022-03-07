@@ -1,6 +1,7 @@
 package com.github.kydzombie.stapitest.block.machine;
 
-import com.github.kydzombie.stapitest.events.init.ItemListener;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.events.init.TextureListener;
 import com.github.kydzombie.stapitest.tileentity.TileMachine;
 import com.github.kydzombie.stapitest.util.ColorConverter;
@@ -95,27 +96,19 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
             if (side == meta) {
                 return texture;
             }
-            switch (side) {
-                case 0:
-                    return TextureListener.machineBottom;
-                case 1:
-                    return TextureListener.machineTop;
-                default:
-                    return TextureListener.machineSide;
-            }
+            return switch (side) {
+                case 0 -> TextureListener.machineBottom;
+                case 1 -> TextureListener.machineTop;
+                default -> TextureListener.machineSide;
+            };
         }
         else {
-            switch (side) {
-                case 0:
-                    return TextureListener.machineBottom;
-                case 1:
-                    return TextureListener.machineTop;
-                case 3:
-                    return texture;
-                default:
-                    return TextureListener.machineSide;
-
-            }
+            return switch (side) {
+                case 0 -> TextureListener.machineBottom;
+                case 1 -> TextureListener.machineTop;
+                case 3 -> texture;
+                default -> TextureListener.machineSide;
+            };
         }
     }
 
@@ -126,7 +119,7 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
 
     @Override
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
-        if (player.getHeldItem() != null && player.getHeldItem().itemId == ItemListener.wrench.id) {
+        if (player.getHeldItem() != null && player.getHeldItem().itemId == StapiTest.wrench.id) {
             level.setTile(x, y, z, 0);
             this.drop(level, x, y, z, level.getTileMeta(x, y, z));
             return true;

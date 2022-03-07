@@ -1,6 +1,7 @@
 package com.github.kydzombie.stapitest.block.cable;
 
-import com.github.kydzombie.stapitest.events.init.ItemListener;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.util.WorldUtils;
 import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
 import com.github.kydzombie.stapitest.util.machine.power.PowerUtils;
@@ -40,6 +41,6 @@ public class PowerCable extends Cable implements PowerConnection {
 
     @Override
     public int getDropId(int meta, Random rand) {
-        return ItemListener.powerCable.id;
+        return StapiTest.powerCableItem.id;
     }
 }

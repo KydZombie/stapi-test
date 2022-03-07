@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.util.machine.power;
 
-import com.github.kydzombie.stapitest.events.init.BlockListener;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.tileentity.TilePowered;
 import com.github.kydzombie.stapitest.util.WorldUtils;
 import com.github.kydzombie.stapitest.util.math.Vec3Facing;
@@ -15,10 +15,9 @@ import java.util.List;
 public class PowerUtils {
 
     public static int attemptChargeItem(ItemInstance item, int availablePower, int drainPower) {
-        if (!(item.getType() instanceof ItemPowerStorage)) {
+        if (!(item.getType() instanceof ItemPowerStorage itemPowerStorage)) {
             return 0;
         }
-        ItemPowerStorage itemPowerStorage = (ItemPowerStorage) item.getType();
         if (itemPowerStorage.charge(item, Math.min(availablePower, drainPower), true) > 0) {
             return itemPowerStorage.charge(item, Math.min(availablePower, drainPower), false);
         }
@@ -28,10 +27,9 @@ public class PowerUtils {
     }
 
     public static int attemptConsumeItemPower(ItemInstance item, int consumeAmount) {
-        if (!(item.getType() instanceof ItemPowerStorage)) {
+        if (!(item.getType() instanceof ItemPowerStorage itemPowerStorage)) {
             return 0;
         }
-        ItemPowerStorage itemPowerStorage = (ItemPowerStorage) item.getType();
         if (itemPowerStorage.consume(item, consumeAmount, true) > 0) {
             return itemPowerStorage.consume(item, consumeAmount, false);
         }
@@ -87,7 +85,7 @@ public class PowerUtils {
 
         List<Vec3Facing> check;
         while (blocksToCheck.size() > 0) {
-            if (WorldUtils.getBlock(level, blocksToCheck.get(0).pos) != BlockListener.powerCable){
+            if (WorldUtils.getBlock(level, blocksToCheck.get(0).pos) != StapiTest.powerCable){
                 blocksChecked.add(blocksToCheck.get(0));
                 blocksToCheck.remove(0);
                 continue;

@@ -1,6 +1,7 @@
 package com.github.kydzombie.stapitest.block.cable;
 
-import com.github.kydzombie.stapitest.events.init.ItemListener;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.util.WorldUtils;
 import net.minecraft.block.BlockBase;
 import net.minecraft.inventory.InventoryBase;
@@ -25,6 +26,6 @@ public class ItemCable extends Cable {
 
     @Override
     public int getDropId(int meta, Random rand) {
-        return ItemListener.itemCable.id;
+        return StapiTest.itemCableItem.id;
     }
 }

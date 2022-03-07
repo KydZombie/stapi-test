@@ -1,7 +1,8 @@
 package com.github.kydzombie.stapitest.block.machine;
 
 import com.github.kydzombie.stapitest.container.ContainerGrinder;
-import com.github.kydzombie.stapitest.events.init.BlockListener;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.events.init.TextureListener;
 import com.github.kydzombie.stapitest.tileentity.TileGrinder;
 import com.github.kydzombie.stapitest.util.ColorConverter;
@@ -66,7 +67,7 @@ public class Grinder extends MachineBlock {
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
         super.canUse(level, x, y, z, player);
         TileEntityBase tileGrinder = level.getTileEntity(x, y, z);
-        GuiHelper.openGUI(player, Identifier.of(BlockListener.MOD_ID, "openGrinder"), (InventoryBase) tileGrinder, new ContainerGrinder(player.inventory, (TileGrinder) tileGrinder));
+        GuiHelper.openGUI(player, Identifier.of(StapiTest.MOD_ID, "openGrinder"), (InventoryBase) tileGrinder, new ContainerGrinder(player.inventory, (TileGrinder) tileGrinder));
         return true;
     }
 }
