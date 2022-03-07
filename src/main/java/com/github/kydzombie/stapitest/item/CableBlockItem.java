@@ -12,6 +12,7 @@ public class CableBlockItem extends TemplateSecondaryBlock {
     public CableBlockItem(Identifier identifier, BlockBase tile, Color color) {
         super(identifier, tile);
         this.color = ColorConverter.colorToInt(color);
+        setTranslationKey(identifier.toString());
     }
 
     @Override

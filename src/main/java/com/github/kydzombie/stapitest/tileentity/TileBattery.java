@@ -3,13 +3,6 @@ package com.github.kydzombie.stapitest.tileentity;
 import com.github.kydzombie.stapitest.item.Battery;
 import com.github.kydzombie.stapitest.util.machine.power.ItemPowerStorage;
 import com.github.kydzombie.stapitest.util.machine.power.PowerUtils;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockBase;
-import net.minecraft.block.material.Material;
-import net.minecraft.item.ItemBase;
-import net.minecraft.item.ItemInstance;
-import net.minecraft.util.io.CompoundTag;
 
 public class TileBattery extends TileMachine {
 

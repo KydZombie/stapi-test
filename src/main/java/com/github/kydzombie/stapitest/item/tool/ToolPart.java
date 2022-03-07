@@ -7,5 +7,6 @@ public class ToolPart extends TemplateItemBase {
     public ToolPart(Identifier identifier) {
         super(identifier);
         setMaxStackSize(1);
+        setTranslationKey(identifier.toString());
     }
 }

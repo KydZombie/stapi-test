@@ -1,7 +1,6 @@
 package com.github.kydzombie.stapitest.block.cable;
 
 import com.github.kydzombie.stapitest.events.init.StapiTest;
-import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.util.WorldUtils;
 import net.minecraft.block.BlockBase;
 import net.minecraft.inventory.InventoryBase;

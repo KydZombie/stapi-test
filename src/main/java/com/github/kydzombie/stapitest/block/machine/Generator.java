@@ -2,12 +2,10 @@ package com.github.kydzombie.stapitest.block.machine;
 
 import com.github.kydzombie.stapitest.container.ContainerGenerator;
 import com.github.kydzombie.stapitest.events.init.StapiTest;
-import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.tileentity.TileGenerator;
 import com.github.kydzombie.stapitest.util.ColorConverter;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.inventory.InventoryBase;
-import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.tileentity.TileEntityBase;
 import net.modificationstation.stationapi.api.gui.screen.container.GuiHelper;

@@ -12,7 +12,7 @@ public class TileGrinder extends TileMachine {
     private final int COOK_TIME = 80;
     public int cookTime = 0;
 
-    private int powerUsage = 2;
+    private final int powerUsage = 2;
 
     public TileGrinder() {
         super(1200, 2);

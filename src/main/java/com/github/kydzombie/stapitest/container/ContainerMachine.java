@@ -1,7 +1,6 @@
 package com.github.kydzombie.stapitest.container;
 
 import com.github.kydzombie.stapitest.events.init.StapiTest;
-import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.tileentity.TilePowered;
 import net.minecraft.container.ContainerBase;
 import net.minecraft.container.slot.Slot;

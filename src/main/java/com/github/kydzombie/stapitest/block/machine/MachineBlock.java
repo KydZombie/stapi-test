@@ -1,7 +1,6 @@
 package com.github.kydzombie.stapitest.block.machine;
 
 import com.github.kydzombie.stapitest.events.init.StapiTest;
-import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.events.init.TextureListener;
 import com.github.kydzombie.stapitest.tileentity.TileMachine;
 import com.github.kydzombie.stapitest.util.ColorConverter;
@@ -30,6 +29,7 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
     public MachineBlock(Identifier identifier) {
         super(identifier, Material.METAL);
         this.hardness = 3.5f;
+        setTranslationKey(identifier.toString());
     }
 
     @Override

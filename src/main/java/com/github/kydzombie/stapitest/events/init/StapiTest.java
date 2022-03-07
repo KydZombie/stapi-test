@@ -47,11 +47,11 @@ public class StapiTest {
     @EventListener
     public void registerBlocks(BlockRegistryEvent event) {
 
-        generator = new Generator(Identifier.of(MOD_ID, "generator")).setTranslationKey(MOD_ID, "generator");
-        electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electricFurnace")).setTranslationKey(MOD_ID, "electricFurnace");
-        grinder = new Grinder(Identifier.of(MOD_ID, "grinder")).setTranslationKey(MOD_ID, "grinder");
-        press = new Press(Identifier.of(MOD_ID, "press")).setTranslationKey(MOD_ID, "press");
-        battery = new BatteryBlock(Identifier.of(MOD_ID, "batteryBlock")).setTranslationKey(MOD_ID, "batteryBlock");
+        generator = new Generator(Identifier.of(MOD_ID, "generator"));
+        electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electricFurnace"));
+        grinder = new Grinder(Identifier.of(MOD_ID, "grinder"));
+        press = new Press(Identifier.of(MOD_ID, "press"));
+        battery = new BatteryBlock(Identifier.of(MOD_ID, "batteryBlock"));
 
         cable = new Cable(Identifier.of(MOD_ID, "cable"));
         powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable"));
@@ -95,18 +95,18 @@ public class StapiTest {
     public void registerItems(ItemRegistryEvent event) {
         Color goldColor = new Color(255, 255, 11);
 
-        wrench = new Wrench(Identifier.of(MOD_ID, "wrench")).setTranslationKey(MOD_ID, "wrench");
+        wrench = new Wrench(Identifier.of(MOD_ID, "wrench"));
 
-        electricPickaxe = new ElectricPickaxe(Identifier.of(MOD_ID, "electricPickaxe"), ToolMaterial.IRON, 800).setTranslationKey(MOD_ID, "electricPickaxe");
+        electricPickaxe = new ElectricPickaxe(Identifier.of(MOD_ID, "electricPickaxe"), ToolMaterial.IRON, 800);
 
         basePowerTool = ToolMaterialFactory.create("drill", 2, 1200, 8.0F, 2);
         diamondPowerTool = ToolMaterialFactory.create("diamondDrill", 3, 2400, 14.0F, 3);
 
-        drill = new ElectricTool(Identifier.of(MOD_ID, "drill"), basePowerTool).setTranslationKey(MOD_ID, "drill");
-        diamondDrill = new ElectricTool(Identifier.of(MOD_ID, "diamondDrill"), diamondPowerTool).setTranslationKey(MOD_ID, "diamondDrill");
+        drill = new ElectricTool(Identifier.of(MOD_ID, "drill"), basePowerTool);
+        diamondDrill = new ElectricTool(Identifier.of(MOD_ID, "diamondDrill"), diamondPowerTool);
 
-        saw = new ElectricTool(Identifier.of(MOD_ID, "saw"), basePowerTool).setTranslationKey(MOD_ID, "saw");
-        diamondSaw = new ElectricTool(Identifier.of(MOD_ID, "diamondSaw"), diamondPowerTool).setTranslationKey(MOD_ID, "diamondSaw");
+        saw = new ElectricTool(Identifier.of(MOD_ID, "saw"), basePowerTool);
+        diamondSaw = new ElectricTool(Identifier.of(MOD_ID, "diamondSaw"), diamondPowerTool);
 
         TagRegistry.INSTANCE.register(Identifier.of("tools/pickaxes"), new ItemInstance(electricPickaxe), e -> e.itemId == electricPickaxe.id);
 
@@ -118,27 +118,27 @@ public class StapiTest {
         TagRegistry.INSTANCE.register(Identifier.of("tools/axes"), new ItemInstance(saw), e -> e.itemId == saw.id);
         TagRegistry.INSTANCE.register(Identifier.of("tools/axes"), new ItemInstance(diamondSaw), e -> e.itemId == diamondSaw.id);
 
-        batteryItem = new Battery(Identifier.of(MOD_ID, "battery"), 400).setTranslationKey(MOD_ID, "battery");
+        batteryItem = new Battery(Identifier.of(MOD_ID, "battery"), 400);
 
-        ironDust = new ColoredItem(Identifier.of(MOD_ID, "ironDust"), Color.WHITE).setTranslationKey(MOD_ID, "ironDust");
-        goldDust = new ColoredItem(Identifier.of(MOD_ID, "goldDust"), goldColor).setTranslationKey(MOD_ID, "goldDust");
+        ironDust = new ColoredItem(Identifier.of(MOD_ID, "ironDust"), Color.WHITE);
+        goldDust = new ColoredItem(Identifier.of(MOD_ID, "goldDust"), goldColor);
 
-        ironPlate = new ColoredItem(Identifier.of(MOD_ID, "ironPlate"), Color.WHITE).setTranslationKey(MOD_ID, "ironPlate");
-        goldPlate = new ColoredItem(Identifier.of(MOD_ID, "goldPlate"), goldColor).setTranslationKey(MOD_ID, "goldPlate");
+        ironPlate = new ColoredItem(Identifier.of(MOD_ID, "ironPlate"), Color.WHITE);
+        goldPlate = new ColoredItem(Identifier.of(MOD_ID, "goldPlate"), goldColor);
 
-        ironGear = new ColoredItem(Identifier.of(MOD_ID, "ironGear"), Color.WHITE).setTranslationKey(MOD_ID, "ironGear");
-        goldGear = new ColoredItem(Identifier.of(MOD_ID, "goldGear"), goldColor).setTranslationKey(MOD_ID, "goldGear");
+        ironGear = new ColoredItem(Identifier.of(MOD_ID, "ironGear"), Color.WHITE);
+        goldGear = new ColoredItem(Identifier.of(MOD_ID, "goldGear"), goldColor);
 
-        powerToolHandle = new ToolPart(Identifier.of(MOD_ID, "powerToolHandle")).setTranslationKey(MOD_ID, "powerToolHandle");
-        drillHead = new ToolPart(Identifier.of(MOD_ID, "drillHead")).setTranslationKey(MOD_ID, "drillHead");
-        sawHead = new ToolPart(Identifier.of(MOD_ID, "sawHead")).setTranslationKey(MOD_ID, "sawHead");
-        diamondDrillHead = new ToolPart(Identifier.of(MOD_ID, "diamondDrillHead")).setTranslationKey(MOD_ID, "diamondDrillHead");
-        diamondSawHead = new ToolPart(Identifier.of(MOD_ID, "diamondSawHead")).setTranslationKey(MOD_ID, "diamondSawHead");
+        powerToolHandle = new ToolPart(Identifier.of(MOD_ID, "powerToolHandle"));
+        drillHead = new ToolPart(Identifier.of(MOD_ID, "drillHead"));
+        sawHead = new ToolPart(Identifier.of(MOD_ID, "sawHead"));
+        diamondDrillHead = new ToolPart(Identifier.of(MOD_ID, "diamondDrillHead"));
+        diamondSawHead = new ToolPart(Identifier.of(MOD_ID, "diamondSawHead"));
 
         // Secondary Blocks (BlockItems)
-        cableItem = new CableBlockItem(Identifier.of(MOD_ID, "cable"), StapiTest.cable, Color.WHITE).setTranslationKey(MOD_ID, "cable");
-        powerCableItem = new CableBlockItem(Identifier.of(MOD_ID, "powerCable"), StapiTest.powerCable, new Color(37, 33, 33, 255)).setTranslationKey(MOD_ID, "powerCable");
-        itemCableItem = new CableBlockItem(Identifier.of(MOD_ID, "itemCable"), StapiTest.itemCable, Color.GREEN).setTranslationKey(MOD_ID, "itemCable");
+        cableItem = new CableBlockItem(Identifier.of(MOD_ID, "cable"), StapiTest.cable, Color.WHITE);
+        powerCableItem = new CableBlockItem(Identifier.of(MOD_ID, "powerCable"), StapiTest.powerCable, new Color(37, 33, 33, 255));
+        itemCableItem = new CableBlockItem(Identifier.of(MOD_ID, "itemCable"), StapiTest.itemCable, Color.GREEN);
     }
 
 }

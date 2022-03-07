@@ -15,6 +15,7 @@ public abstract class PoweredItem extends TemplateItemBase implements ItemPowerS
         super(identifier);
         this.setMaxStackSize(1);
         setDurability(maxPower);
+        setTranslationKey(identifier.toString());
     }
 
     @Override

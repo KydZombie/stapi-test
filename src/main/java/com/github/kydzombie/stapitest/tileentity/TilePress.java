@@ -11,7 +11,7 @@ public class TilePress extends TileMachine {
     private final int COOK_TIME = 120;
     public int cookTime = 0;
 
-    private int powerUsage = 4;
+    private final int powerUsage = 4;
 
     public TilePress() {
         super(1800, 2);

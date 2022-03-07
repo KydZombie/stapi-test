@@ -13,6 +13,7 @@ public class Wrench extends TemplateItemBase {
     public Wrench(Identifier identifier) {
         super(identifier);
         this.maxStackSize = 1;
+        setTranslationKey(identifier.toString());
     }
 
     @Override

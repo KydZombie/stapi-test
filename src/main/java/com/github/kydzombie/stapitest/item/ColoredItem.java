@@ -13,6 +13,7 @@ public class ColoredItem extends TemplateItemBase {
     public ColoredItem(Identifier identifier, Color color) {
         super(identifier);
         this.color = ColorConverter.colorToInt(color);
+        this.setTranslationKey(identifier.toString());
     }
 
     @Override

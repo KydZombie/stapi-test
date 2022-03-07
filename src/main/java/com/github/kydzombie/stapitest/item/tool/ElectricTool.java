@@ -16,11 +16,11 @@ public class ElectricTool extends PoweredItem implements ToolLevel {
         super(identifier, mat.getDurability());
         toolMaterial = mat;
         dead = ToolMaterialFactory.create("dead_" + getTranslationKey(), 0, mat.getDurability(), 0f, 0);
+        setTranslationKey(identifier.toString());
     }
 
     @Override
     public ToolMaterial getMaterial(ItemInstance item) {
-        System.out.println("checking");
         if (getCurrentPower(item) >= 5) {
             return toolMaterial;
         }

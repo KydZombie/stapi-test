@@ -16,6 +16,7 @@ public abstract class PoweredTool extends TemplateToolBase implements ItemPowerS
     public PoweredTool(Identifier identifier, ToolMaterial arg, int maxPower) {
         super(identifier, 0, arg, new BlockBase[]{});
         this.maxPower = maxPower;
+        setTranslationKey(identifier.toString());
     }
 
     @Override
