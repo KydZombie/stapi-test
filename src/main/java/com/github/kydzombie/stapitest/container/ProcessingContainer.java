@@ -5,7 +5,7 @@ import com.github.kydzombie.stapitest.tileentity.ProcessingMachine;
 import net.minecraft.container.slot.Slot;
 import net.minecraft.entity.player.PlayerInventory;
 
-public abstract class ProcessingContainer extends ContainerMachine {
+public class ProcessingContainer extends ContainerMachine {
     public ProcessingContainer(PlayerInventory playerInventory, ProcessingMachine machine) {
         super(playerInventory, machine);
         this.addSlot(new Slot(machine, 0, 56, 35));

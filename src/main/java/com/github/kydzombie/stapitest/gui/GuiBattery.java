@@ -1,6 +1,7 @@
 package com.github.kydzombie.stapitest.gui;
 
 import com.github.kydzombie.stapitest.container.ContainerBattery;
+import com.github.kydzombie.stapitest.container.PowerStorageContainer;
 import com.github.kydzombie.stapitest.tileentity.TileBattery;
 import net.minecraft.entity.player.PlayerInventory;
 import org.lwjgl.opengl.GL11;
@@ -8,7 +9,7 @@ import org.lwjgl.opengl.GL11;
 public class GuiBattery extends GuiMachine {
 
     public GuiBattery(PlayerInventory playerInventory, TileBattery tileEntity) {
-        super(new ContainerBattery(playerInventory, tileEntity), tileEntity, "Battery");
+        super(new PowerStorageContainer(playerInventory, tileEntity), tileEntity, "Battery");
     }
 
     public void renderContainerBackground(float tickDelta) {

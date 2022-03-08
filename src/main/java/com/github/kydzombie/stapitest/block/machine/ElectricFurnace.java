@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.block.machine;
 
-import com.github.kydzombie.stapitest.container.ContainerElectricFurnace;
+import com.github.kydzombie.stapitest.container.ProcessingContainer;
 import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.tileentity.TileElectricFurnace;
 import net.minecraft.entity.player.PlayerBase;
@@ -24,7 +24,7 @@ public class ElectricFurnace extends MachineBlock {
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
         super.canUse(level, x, y, z, player);
         TileEntityBase tileFurnace = level.getTileEntity(x, y, z);
-        GuiHelper.openGUI(player, Identifier.of(StapiTest.MOD_ID, "openFurnace"), (InventoryBase) tileFurnace, new ContainerElectricFurnace(player.inventory, (TileElectricFurnace) tileFurnace));
+        GuiHelper.openGUI(player, Identifier.of(StapiTest.MOD_ID, "openFurnace"), (InventoryBase) tileFurnace, new ProcessingContainer(player.inventory, (TileElectricFurnace) tileFurnace));
         return true;
     }
 }

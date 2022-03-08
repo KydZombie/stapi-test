@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.gui;
 
-import com.github.kydzombie.stapitest.container.ContainerGenerator;
+import com.github.kydzombie.stapitest.container.PowerStorageContainer;
 import com.github.kydzombie.stapitest.tileentity.TileGenerator;
 import net.minecraft.entity.player.PlayerInventory;
 import org.lwjgl.opengl.GL11;
@@ -8,7 +8,7 @@ import org.lwjgl.opengl.GL11;
 public class GuiGenerator extends GuiMachine {
 
     public GuiGenerator(PlayerInventory playerInventory, TileGenerator tileEntity) {
-        super(new ContainerGenerator(playerInventory, tileEntity), tileEntity, "Generator");
+        super(new PowerStorageContainer(playerInventory, tileEntity), tileEntity, "Generator");
     }
 
     public void renderContainerBackground(float tickDelta) {
