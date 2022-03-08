@@ -26,7 +26,7 @@ public interface ItemPowerStorage extends CustomTooltipProvider, CustomItemOverl
     int getMaxPower(ItemInstance item);
 
     default int charge(ItemInstance item, int chargeAmount, boolean simulate) {
-        PoweredTool poweredTool = ((PoweredTool)item.getType());
+        PoweredTool poweredTool = ((PoweredTool) item.getType());
         chargeAmount = Math.min(chargeAmount, poweredTool.getMaxPower(item) - poweredTool.getCurrentPower(item));
         if (!simulate) {
             StationNBT.cast(item).getStationNBT().put("power", poweredTool.getCurrentPower(item) + chargeAmount);
@@ -36,7 +36,7 @@ public interface ItemPowerStorage extends CustomTooltipProvider, CustomItemOverl
     }
 
     default int consume(ItemInstance item, int consumeAmount, boolean simulate) {
-        PoweredTool poweredTool = ((PoweredTool)item.getType());
+        PoweredTool poweredTool = ((PoweredTool) item.getType());
         consumeAmount = Math.min(poweredTool.getCurrentPower(item), consumeAmount);
         if (!simulate) {
             StationNBT.cast(item).getStationNBT().put("power", poweredTool.getCurrentPower(item) - consumeAmount);
@@ -53,15 +53,15 @@ public interface ItemPowerStorage extends CustomTooltipProvider, CustomItemOverl
     }
 
     default void renderItemOverlay(ItemRenderer itemRenderer, int itemX, int itemY, ItemInstance itemInstance, TextRenderer textRenderer, TextureManager textureManager) {
-        int barLength = (int)Math.round((((double)getCurrentPower(itemInstance) / (double)getMaxPower(itemInstance)) * 13));
-        int colourOffset = 255-(int)Math.round((((double)getCurrentPower(itemInstance) / (double)getMaxPower(itemInstance)) * 225));
+        int barLength = (int) Math.round((((double) getCurrentPower(itemInstance) / (double) getMaxPower(itemInstance)) * 13));
+        int colourOffset = 255 - (int) Math.round((((double) getCurrentPower(itemInstance) / (double) getMaxPower(itemInstance)) * 225));
         GL11.glDisable(2896);
         GL11.glDisable(2929);
         GL11.glDisable(3553);
         Tessellator var8 = Tessellator.INSTANCE;
-        int barColour = Math.max((colourOffset/8) - 130, 100) << 16 | (233-colourOffset) << 8 | 255-(colourOffset/4);
+        int barColour = Math.max((colourOffset / 8) - 130, 100) << 16 | (233 - colourOffset) << 8 | 255 - (colourOffset / 4);
         int backgroundColour = (255 - colourOffset) / 4 << 16 | 16128;
-        int barOffset = itemInstance.isDamaged()? 2 : 0;
+        int barOffset = itemInstance.isDamaged() ? 2 : 0;
         method_1485(var8, itemX + 2, itemY + 13 - barOffset, 13, 2, 0);
         method_1485(var8, itemX + 2, itemY + 13 - barOffset, 12, 1, backgroundColour);
         method_1485(var8, itemX + 2, itemY + 13 - barOffset, barLength, 1, barColour);

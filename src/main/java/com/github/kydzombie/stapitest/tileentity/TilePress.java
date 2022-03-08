@@ -15,14 +15,11 @@ public class TilePress extends ProcessingMachine {
         int itemId = input.itemId;
         if (itemId == ItemBase.ironIngot.id) {
             return new ItemInstance(StapiTest.ironPlate);
-        }
-        else if (itemId == ItemBase.goldIngot.id) {
+        } else if (itemId == ItemBase.goldIngot.id) {
             return new ItemInstance(StapiTest.goldPlate);
-        }
-        else if (itemId == StapiTest.ironPlate.id) {
+        } else if (itemId == StapiTest.ironPlate.id) {
             return new ItemInstance(StapiTest.ironGear);
-        }
-        else if (itemId == StapiTest.goldPlate.id) {
+        } else if (itemId == StapiTest.goldPlate.id) {
             return new ItemInstance(StapiTest.goldGear);
         }
         return null;

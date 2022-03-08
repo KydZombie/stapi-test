@@ -73,8 +73,8 @@ public abstract class TileMachine extends TilePowered implements InventoryBase {
 
         ListTag var2 = tag.getListTag("Items");
         inventory = new ItemInstance[getInventorySize()];
-        for(int var3 = 0; var3 < var2.size(); ++var3) {
-            CompoundTag var4 = (CompoundTag)var2.get(var3);
+        for (int var3 = 0; var3 < var2.size(); ++var3) {
+            CompoundTag var4 = (CompoundTag) var2.get(var3);
             byte var5 = var4.getByte("Slot");
             if (var5 >= 0 && var5 < inventory.length) {
                 inventory[var5] = new ItemInstance(var4);
@@ -87,10 +87,10 @@ public abstract class TileMachine extends TilePowered implements InventoryBase {
         super.writeIdentifyingData(tag);
 
         ListTag var2 = new ListTag();
-        for(int var3 = 0; var3 < inventory.length; ++var3) {
+        for (int var3 = 0; var3 < inventory.length; ++var3) {
             if (inventory[var3] != null) {
                 CompoundTag var4 = new CompoundTag();
-                var4.put("Slot", (byte)var3);
+                var4.put("Slot", (byte) var3);
                 inventory[var3].toTag(var4);
                 var2.add(var4);
             }

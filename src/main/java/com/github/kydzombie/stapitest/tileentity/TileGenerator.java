@@ -28,14 +28,12 @@ public class TileGenerator extends TileMachine {
         if (burnTime > 0) {
             power = Math.min(power + GENERATION_RATE, maxPower);
             burnTime--;
-        }
-        else if (inventory[0] != null){
+        } else if (inventory[0] != null) {
 
             if (SmeltingRegistry.getFuelTime(inventory[0]) > 0 && power != maxPower) {
                 fuelTime = burnTime = SmeltingRegistry.getFuelTime(inventory[0]);
                 takeInventoryItem(0, 1);
-            }
-            else if (inventory[0].getType() instanceof Battery) {
+            } else if (inventory[0].getType() instanceof Battery) {
                 power += PowerUtils.attemptConsumeItemPower(inventory[0], Math.min(MAX_CHARGE, maxPower - power));
             }
         }
@@ -43,8 +41,7 @@ public class TileGenerator extends TileMachine {
         if (power > 0) {
             if (inventory[1] != null && inventory[1].getType() instanceof ItemPowerStorage) {
                 power -= PowerUtils.attemptChargeItem(inventory[1], power, OUTPUT_AMOUNT);
-            }
-            else {
+            } else {
                 power -= PowerUtils.sendPowerToConnections(connectedMachines, power, OUTPUT_AMOUNT);
             }
         }

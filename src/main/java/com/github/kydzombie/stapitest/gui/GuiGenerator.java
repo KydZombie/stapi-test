@@ -19,8 +19,8 @@ public class GuiGenerator extends GuiMachine {
         int var4 = (this.height - this.containerHeight) / 2;
         this.blit(var3, var4, 0, 0, this.containerWidth, this.containerHeight);
         int var5;
-        if (((TileGenerator)tileEntity).isBurning()) {
-            var5 = ((TileGenerator)tileEntity).getFuelTimeDelta(12);
+        if (((TileGenerator) tileEntity).isBurning()) {
+            var5 = ((TileGenerator) tileEntity).getFuelTimeDelta(12);
             this.blit(var3 + 56, var4 + 36 + 12 - var5, 176, 12 - var5, 14, var5 + 2);
         }
     }

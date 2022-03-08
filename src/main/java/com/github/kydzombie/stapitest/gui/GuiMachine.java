@@ -39,8 +39,7 @@ public abstract class GuiMachine extends ContainerBase {
         if (powerBar.vertical) {
             this.drawBox(powerBar.x1, powerBar.x2, powerBar.y1, powerBar.y2, .2f, 0f, 0f, 1f);
             this.drawBox(powerBar.x1, powerBar.x2, getPowerHeight(power, maxPower), powerBar.y2, .7f, 0f, 0f, 1f);
-        }
-        else {
+        } else {
             System.out.println("Horizontal power bar unimplemented");
         }
     }

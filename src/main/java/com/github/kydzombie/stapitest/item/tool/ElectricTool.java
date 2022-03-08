@@ -23,8 +23,7 @@ public class ElectricTool extends PoweredItem implements ToolLevel {
     public ToolMaterial getMaterial(ItemInstance item) {
         if (getCurrentPower(item) >= 5) {
             return toolMaterial;
-        }
-        else {
+        } else {
             return dead;
         }
     }

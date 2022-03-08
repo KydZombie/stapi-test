@@ -1,6 +1,5 @@
 package com.github.kydzombie.stapitest.gui;
 
-import com.github.kydzombie.stapitest.container.ContainerBattery;
 import com.github.kydzombie.stapitest.container.PowerStorageContainer;
 import com.github.kydzombie.stapitest.tileentity.TileBattery;
 import net.minecraft.entity.player.PlayerInventory;

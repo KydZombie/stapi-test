@@ -11,11 +11,9 @@ import java.util.List;
 
 public abstract class TilePowered extends TileEntityBase implements PowerStorage {
 
-    List<TilePowered> connectedMachines;
-
-    boolean dirty;
-
     final int maxPower;
+    List<TilePowered> connectedMachines;
+    boolean dirty;
     int power;
 
     public TilePowered(int maxPower) {
@@ -84,7 +82,7 @@ public abstract class TilePowered extends TileEntityBase implements PowerStorage
         if (level.getTileEntity(x, y, z) != this) {
             return false;
         } else {
-            return !(player.squaredDistanceTo((double)x + 0.5D, (double)y + 0.5D, (double)z + 0.5D) > 64.0D);
+            return !(player.squaredDistanceTo((double) x + 0.5D, (double) y + 0.5D, (double) z + 0.5D) > 64.0D);
         }
     }
 

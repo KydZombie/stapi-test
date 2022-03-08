@@ -8,9 +8,8 @@ import net.minecraft.util.io.CompoundTag;
 public abstract class ProcessingMachine extends TileMachine {
 
     final int COOK_TIME;
-    public int cookTime = 0;
-
     final int POWER_USAGE;
+    public int cookTime = 0;
 
     public ProcessingMachine(int maxPower, int inventorySize, String containerName, int cookTime, int powerUsage) {
         super(maxPower, inventorySize, containerName);
@@ -112,6 +111,6 @@ public abstract class ProcessingMachine extends TileMachine {
     @Override
     public void writeIdentifyingData(CompoundTag tag) {
         super.writeIdentifyingData(tag);
-        tag.put("cookTime", (short)cookTime);
+        tag.put("cookTime", (short) cookTime);
     }
 }

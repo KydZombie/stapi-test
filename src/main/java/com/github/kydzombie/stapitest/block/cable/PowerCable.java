@@ -35,7 +35,7 @@ public class PowerCable extends Cable implements PowerConnection {
     boolean checkConnection(BlockView tileView, Vec3i pos, int side) {
         BlockBase block = WorldUtils.getBlock(tileView, pos);
 
-        return ((block instanceof PowerConnection && ((PowerConnection)block).canConnect(tileView, pos, side)) || block != null && id == block.id);
+        return ((block instanceof PowerConnection && ((PowerConnection) block).canConnect(tileView, pos, side)) || block != null && id == block.id);
     }
 
     @Override

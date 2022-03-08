@@ -10,12 +10,11 @@ import net.modificationstation.stationapi.api.util.Null;
 
 public class TextureListener {
 
+    @Entrypoint.ModID
+    public static final ModID MOD_ID = Null.get();
     public static int machineTop;
     public static int machineSide;
     public static int machineBottom;
-
-    @Entrypoint.ModID
-    public static final ModID MOD_ID = Null.get();
 
     @EventListener
     public void registerTextures(TextureRegisterEvent event) {

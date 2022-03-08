@@ -1,6 +1,5 @@
 package com.github.kydzombie.stapitest.block.machine;
 
-import com.github.kydzombie.stapitest.container.ContainerBattery;
 import com.github.kydzombie.stapitest.container.PowerStorageContainer;
 import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.tileentity.TileBattery;
@@ -57,8 +56,7 @@ public class BatteryBlock extends MachineBlock {
     public int getTextureForSide(int side, int meta) {
         if (side == 0 || side == 1) {
             return BlockBase.WOOD.texture;
-        }
-        else {
+        } else {
             return this.texture;
         }
     }

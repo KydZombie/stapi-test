@@ -18,7 +18,7 @@ public abstract class ProcessingGui extends GuiMachine {
         int var3 = (this.width - this.containerWidth) / 2;
         int var4 = (this.height - this.containerHeight) / 2;
         this.blit(var3, var4, 0, 0, this.containerWidth, this.containerHeight);
-        int var5 = ((ProcessingMachine)tileEntity).getCookTimeDelta(24);
+        int var5 = ((ProcessingMachine) tileEntity).getCookTimeDelta(24);
         this.blit(var3 + 79, var4 + 34, 176, 14, var5 + 1, 16);
     }
 }

@@ -40,7 +40,7 @@ public abstract class PoweredItem extends TemplateItemBase implements ItemPowerS
 
     @Override
     public int consume(ItemInstance item, int consumeAmount, boolean simulate) {
-        consumeAmount = Math.min(((PoweredItem)item.getType()).getCurrentPower(item), consumeAmount);
+        consumeAmount = Math.min(((PoweredItem) item.getType()).getCurrentPower(item), consumeAmount);
         if (!simulate) {
             item.setDamage(item.getDamage() + consumeAmount);
         }
@@ -50,13 +50,13 @@ public abstract class PoweredItem extends TemplateItemBase implements ItemPowerS
 
     @Override
     public void renderItemOverlay(ItemRenderer itemRenderer, int itemX, int itemY, ItemInstance itemInstance, TextRenderer textRenderer, TextureManager textureManager) {
-        int barLength = (int)Math.round((((double)getCurrentPower(itemInstance) / (double)getMaxPower(itemInstance)) * 13));
-        int colourOffset = 255-(int)Math.round((((double)getCurrentPower(itemInstance) / (double)getMaxPower(itemInstance)) * 225));
+        int barLength = (int) Math.round((((double) getCurrentPower(itemInstance) / (double) getMaxPower(itemInstance)) * 13));
+        int colourOffset = 255 - (int) Math.round((((double) getCurrentPower(itemInstance) / (double) getMaxPower(itemInstance)) * 225));
         GL11.glDisable(2896);
         GL11.glDisable(2929);
         GL11.glDisable(3553);
         Tessellator var8 = Tessellator.INSTANCE;
-        int barColour = Math.max((colourOffset/8) - 130, 100) << 16 | (233-colourOffset) << 8 | 255-(colourOffset/4);
+        int barColour = Math.max((colourOffset / 8) - 130, 100) << 16 | (233 - colourOffset) << 8 | 255 - (colourOffset / 4);
         int backgroundColour = (255 - colourOffset) / 4 << 16 | 16128;
         int barOffset = 0;
         method_1485(var8, itemX + 2, itemY + 13 - barOffset, 13, 2, 0);

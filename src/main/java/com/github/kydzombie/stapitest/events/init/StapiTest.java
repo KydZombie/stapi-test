@@ -31,18 +31,39 @@ import java.awt.*;
 
 public class StapiTest {
 
+    @Entrypoint.ModID
+    public static final ModID MOD_ID = Null.get();
     public static BlockBase generator;
     public static BlockBase electricFurnace;
     public static BlockBase grinder;
     public static BlockBase press;
     public static BlockBase battery;
-
     public static BlockBase cable;
     public static BlockBase powerCable;
     public static BlockBase itemCable;
-
-    @Entrypoint.ModID
-    public static final ModID MOD_ID = Null.get();
+    public static TemplateItemBase ironDust;
+    public static TemplateItemBase goldDust;
+    public static TemplateItemBase ironPlate;
+    public static TemplateItemBase goldPlate;
+    public static TemplateItemBase ironGear;
+    public static TemplateItemBase goldGear;
+    public static TemplateItemBase powerToolHandle;
+    public static TemplateItemBase drillHead;
+    public static TemplateItemBase sawHead;
+    public static TemplateItemBase diamondDrillHead;
+    public static TemplateItemBase diamondSawHead;
+    public static TemplateItemBase wrench;
+    public static TemplateItemBase batteryItem;
+    public static TemplateToolBase electricPickaxe;
+    public static ToolMaterial basePowerTool;
+    public static ToolMaterial diamondPowerTool;
+    public static TemplateItemBase drill;
+    public static TemplateItemBase diamondDrill;
+    public static TemplateItemBase saw;
+    public static TemplateItemBase diamondSaw;
+    public static TemplateSecondaryBlock cableItem;
+    public static TemplateSecondaryBlock powerCableItem;
+    public static TemplateSecondaryBlock itemCableItem;
 
     @EventListener
     public void registerBlocks(BlockRegistryEvent event) {
@@ -57,39 +78,6 @@ public class StapiTest {
         powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable"));
         itemCable = new ItemCable(Identifier.of(MOD_ID, "itemCable"));
     }
-
-    public static TemplateItemBase ironDust;
-    public static TemplateItemBase goldDust;
-
-    public static TemplateItemBase ironPlate;
-    public static TemplateItemBase goldPlate;
-
-    public static TemplateItemBase ironGear;
-    public static TemplateItemBase goldGear;
-
-    public static TemplateItemBase powerToolHandle;
-    public static TemplateItemBase drillHead;
-    public static TemplateItemBase sawHead;
-    public static TemplateItemBase diamondDrillHead;
-    public static TemplateItemBase diamondSawHead;
-
-    public static TemplateItemBase wrench;
-
-    public static TemplateItemBase batteryItem;
-
-    public static TemplateToolBase electricPickaxe;
-
-    public static ToolMaterial basePowerTool;
-    public static ToolMaterial diamondPowerTool;
-
-    public static TemplateItemBase drill;
-    public static TemplateItemBase diamondDrill;
-    public static TemplateItemBase saw;
-    public static TemplateItemBase diamondSaw;
-
-    public static TemplateSecondaryBlock cableItem;
-    public static TemplateSecondaryBlock powerCableItem;
-    public static TemplateSecondaryBlock itemCableItem;
 
     @EventListener
     public void registerItems(ItemRegistryEvent event) {

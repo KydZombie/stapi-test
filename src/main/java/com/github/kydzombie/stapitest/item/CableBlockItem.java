@@ -9,6 +9,7 @@ import java.awt.*;
 
 public class CableBlockItem extends TemplateSecondaryBlock {
     private final int color;
+
     public CableBlockItem(Identifier identifier, BlockBase tile, Color color) {
         super(identifier, tile);
         this.color = ColorConverter.colorToInt(color);

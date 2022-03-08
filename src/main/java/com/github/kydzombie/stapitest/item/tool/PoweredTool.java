@@ -28,8 +28,7 @@ public abstract class PoweredTool extends TemplateToolBase implements ItemPowerS
     public boolean postMine(ItemInstance item, int i, int j, int k, int i1, Living damageTarget) {
         if (getCurrentPower(item) >= 5) {
             consume(item, 5, false);
-        }
-        else {
+        } else {
             item.applyDamage(1, damageTarget);
         }
         return true;

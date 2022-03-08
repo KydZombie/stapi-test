@@ -24,11 +24,9 @@ import java.util.Random;
 @SuppressWarnings("SuspiciousNameCombination")
 public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, Connection, Wrenchable {
 
-    private final int color;
-    
     static final float MIN_WIDTH = .3f;
     static final float MAX_WIDTH = .7f;
-
+    private final int color;
     public Class<?> connectTo = null;
 
     public Cable(Identifier identifier) {
@@ -38,7 +36,7 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
         this.setHardness(0.8f);
         this.color = ColorConverter.colorToInt(Color.WHITE);
     }
-    
+
     public Cable(Identifier identifier, Color color) {
         super(identifier, Material.WOOL);
         this.texture = BlockBase.WOOL.texture;
@@ -76,9 +74,9 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
     @Override
     public boolean renderWorld(BlockRenderer tileRenderer, BlockView tileView, int x, int y, int z) {
         int var5 = this.getColourMultiplier(tileView, x, y, z);
-        float var6 = (float)(var5 >> 16 & 255) / 255.0F;
-        float var7 = (float)(var5 >> 8 & 255) / 255.0F;
-        float var8 = (float)(var5 & 255) / 255.0F;
+        float var6 = (float) (var5 >> 16 & 255) / 255.0F;
+        float var7 = (float) (var5 >> 8 & 255) / 255.0F;
+        float var8 = (float) (var5 & 255) / 255.0F;
 
         this.setBoundingBox(MIN_WIDTH, MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH, MAX_WIDTH);
         tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
@@ -87,7 +85,7 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
 
         List<CableConnection> connections = getConnections(tileView, x, y, z);
 
-        for (CableConnection connection: connections) {
+        for (CableConnection connection : connections) {
             SafeBox box = connection.boundingBox;
             this.setBoundingBox(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ);
             tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
@@ -105,7 +103,7 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
 
         List<CableConnection> connections = getConnections(tileView, x, y, z);
 
-        for (CableConnection connection: connections) {
+        for (CableConnection connection : connections) {
             SafeBox box = connection.boundingBox;
             currentBox.combine(box);
         }

@@ -27,7 +27,8 @@ public class Grinder extends MachineBlock {
     }
 
     @Override
-    public void afterPlaced(Level level, int x, int y, int z, Living living) { }
+    public void afterPlaced(Level level, int x, int y, int z, Living living) {
+    }
 
     @Environment(EnvType.CLIENT)
     public int getTextureForSide(BlockView tileView, int x, int y, int z, int meta) {
@@ -43,11 +44,9 @@ public class Grinder extends MachineBlock {
     public int getTextureForSide(int side) {
         if (side == 1) {
             return texture;
-        }
-        else if (side == 0) {
+        } else if (side == 0) {
             return TextureListener.machineBottom;
-        }
-        else {
+        } else {
             return texture + 1;
         }
     }

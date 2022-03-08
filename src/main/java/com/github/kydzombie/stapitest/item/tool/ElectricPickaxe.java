@@ -19,8 +19,7 @@ public class ElectricPickaxe extends PoweredTool implements ToolLevel {
     public ToolMaterial getMaterial(ItemInstance item) {
         if (getCurrentPower(item) >= 5) {
             return empowered;
-        }
-        else {
+        } else {
             return toolMaterial;
         }
     }

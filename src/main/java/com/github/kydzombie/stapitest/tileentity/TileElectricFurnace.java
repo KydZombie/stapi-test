@@ -1,9 +1,6 @@
 package com.github.kydzombie.stapitest.tileentity;
 
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemInstance;
-import net.minecraft.util.io.CompoundTag;
 import net.modificationstation.stationapi.api.recipe.SmeltingRegistry;
 
 public class TileElectricFurnace extends ProcessingMachine {
