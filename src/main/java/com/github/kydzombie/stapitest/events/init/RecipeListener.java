@@ -16,9 +16,9 @@ public class RecipeListener {
             SmeltingRegistry.addSmeltingRecipe(StapiTest.ironDust.id, new ItemInstance(ItemBase.ironIngot));
             SmeltingRegistry.addSmeltingRecipe(StapiTest.goldDust.id, new ItemInstance(ItemBase.goldIngot));
         } else if (event.recipeId.equals(RecipeRegisterEvent.Vanilla.CRAFTING_SHAPED.type())) {
-            CraftingRegistry.addShapedRecipe(new ItemInstance(StapiTest.cable), "XXX", 'X', BlockBase.WOOL);
-            CraftingRegistry.addShapedRecipe(new ItemInstance(StapiTest.powerCable), "XXX", 'X', new ItemInstance(BlockBase.WOOL, 1, 15));
-            CraftingRegistry.addShapedRecipe(new ItemInstance(StapiTest.itemCable), "XXX", 'X', new ItemInstance(BlockBase.WOOL, 1, 5));
+            CraftingRegistry.addShapedRecipe(new ItemInstance(StapiTest.cableItem), "XXX", 'X', BlockBase.WOOL);
+            CraftingRegistry.addShapedRecipe(new ItemInstance(StapiTest.powerCableItem), "XXX", 'X', new ItemInstance(BlockBase.WOOL, 1, 15));
+            CraftingRegistry.addShapedRecipe(new ItemInstance(StapiTest.itemCableItem), "XXX", 'X', new ItemInstance(BlockBase.WOOL, 1, 5));
 
             CraftingRegistry.addShapedRecipe(new ItemInstance(StapiTest.ironPlate, 2), "X", "X", "X", 'X', ItemBase.ironIngot);
             CraftingRegistry.addShapedRecipe(new ItemInstance(StapiTest.goldPlate, 2), "X", "X", "X", 'X', ItemBase.goldIngot);
