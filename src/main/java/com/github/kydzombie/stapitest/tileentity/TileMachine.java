@@ -9,9 +9,10 @@ public abstract class TileMachine extends TilePowered implements InventoryBase {
     ItemInstance[] inventory;
     String containerName;
 
-    public TileMachine(int maxPower, int inventorySize) {
+    public TileMachine(int maxPower, int inventorySize, String containerName) {
         super(maxPower);
         inventory = new ItemInstance[inventorySize];
+        this.containerName = containerName;
     }
 
     public TileMachine(int maxPower, int power, int inventorySize) {

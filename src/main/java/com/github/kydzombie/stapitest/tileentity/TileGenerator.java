@@ -18,8 +18,7 @@ public class TileGenerator extends TileMachine {
     private int burnTime = 0;
 
     public TileGenerator() {
-        super(1600, 2);
-        containerName = "Generator";
+        super(1600, 2, "Generator");
     }
 
     @Override

@@ -10,8 +10,7 @@ public class TileBattery extends TileMachine {
     private static final int MAX_CHARGE = 5;
 
     public TileBattery() {
-        super(3200, 2);
-        containerName = "Battery";
+        super(3200, 2, "Battery");
     }
 
     // TODO make stacked batteries work
