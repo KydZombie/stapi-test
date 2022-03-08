@@ -3,7 +3,6 @@ package com.github.kydzombie.stapitest.gui;
 import com.github.kydzombie.stapitest.container.ContainerElectricFurnace;
 import com.github.kydzombie.stapitest.tileentity.TileElectricFurnace;
 import net.minecraft.entity.player.PlayerInventory;
-import org.lwjgl.opengl.GL11;
 
 public class GuiElectricFurnace extends ProcessingGui {
 
