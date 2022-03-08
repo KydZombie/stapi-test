@@ -121,7 +121,7 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
         if (player.getHeldItem() != null && player.getHeldItem().itemId == StapiTest.wrench.id) {
             level.setTile(x, y, z, 0);
             this.drop(level, x, y, z, level.getTileMeta(x, y, z));
-            return true;
+            return false;
         }
         return super.canUse(level, x, y, z, player);
     }
