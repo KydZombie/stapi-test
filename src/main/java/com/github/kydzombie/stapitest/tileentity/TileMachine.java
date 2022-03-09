@@ -6,18 +6,21 @@ import net.minecraft.util.io.CompoundTag;
 import net.minecraft.util.io.ListTag;
 
 public abstract class TileMachine extends TilePowered implements InventoryBase {
+
+    private static final int DEFAULT_INV_SIZE = 2;
+
     ItemInstance[] inventory;
     String containerName;
 
-    public TileMachine(int maxPower, int inventorySize, String containerName) {
-        super(maxPower);
-        inventory = new ItemInstance[inventorySize];
+    public TileMachine(String containerName) {
+        super();
+        inventory = new ItemInstance[DEFAULT_INV_SIZE];
         this.containerName = containerName;
     }
 
-    public TileMachine(int maxPower, int power, int inventorySize) {
-        super(maxPower, power);
+    public TileMachine setInventorySize(int inventorySize) {
         inventory = new ItemInstance[inventorySize];
+        return this;
     }
 
     @Override

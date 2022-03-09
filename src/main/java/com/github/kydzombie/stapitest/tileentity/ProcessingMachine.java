@@ -7,37 +7,32 @@ import net.minecraft.util.io.CompoundTag;
 
 public abstract class ProcessingMachine extends TileMachine {
 
-    final int COOK_TIME;
-    final int POWER_USAGE;
+    private static final int DEFAULT_COOK_TIME = 80;
+    private static final int DEFAULT_POWER_USAGE = 2;
+
+    int totalCookTime;
+    int powerUsage;
     public int cookTime = 0;
 
-    public ProcessingMachine(int maxPower, int inventorySize, String containerName, int cookTime, int powerUsage) {
-        super(maxPower, inventorySize, containerName);
-        this.COOK_TIME = cookTime;
-        this.POWER_USAGE = powerUsage;
+    public ProcessingMachine(String containerName) {
+        super(containerName);
+        this.totalCookTime = DEFAULT_COOK_TIME;
+        this.powerUsage = DEFAULT_POWER_USAGE;
     }
 
-    public ProcessingMachine(int maxPower, String containerName, int cookTime, int powerUsage) {
-        super(maxPower, 2, containerName);
-        this.COOK_TIME = cookTime;
-        this.POWER_USAGE = powerUsage;
+    public ProcessingMachine setTotalCookTime(int totalCookTime) {
+        this.totalCookTime = totalCookTime;
+        return this;
     }
 
-    public ProcessingMachine(int maxPower, int inventorySize, String containerName) {
-        super(maxPower, inventorySize, containerName);
-        this.COOK_TIME = 80;
-        this.POWER_USAGE = 2;
-    }
-
-    public ProcessingMachine(int maxPower, String containerName) {
-        super(maxPower, 2, containerName);
-        this.COOK_TIME = 80;
-        this.POWER_USAGE = 2;
+    public ProcessingMachine setPowerUsage(int powerUsage) {
+        this.powerUsage = powerUsage;
+        return this;
     }
 
     @Environment(EnvType.CLIENT)
     public int getCookTimeDelta(int multiplier) {
-        return cookTime * multiplier / COOK_TIME;
+        return cookTime * multiplier / totalCookTime;
     }
 
     @Override
@@ -47,10 +42,10 @@ public abstract class ProcessingMachine extends TileMachine {
         if (!level.isServerSide) {
 
             if (canAcceptRecipeOutput()) {
-                if (power >= POWER_USAGE) {
+                if (power >= powerUsage) {
                     ++cookTime;
-                    power -= POWER_USAGE;
-                    if (cookTime == COOK_TIME) {
+                    power -= powerUsage;
+                    if (cookTime == totalCookTime) {
                         cookTime = 0;
                         craftRecipe();
                     }

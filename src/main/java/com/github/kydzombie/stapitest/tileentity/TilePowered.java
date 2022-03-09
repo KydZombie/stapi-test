@@ -11,22 +11,28 @@ import java.util.List;
 
 public abstract class TilePowered extends TileEntityBase implements PowerStorage {
 
-    final int maxPower;
+    private static final int DEFAULT_MAX = 800;
+
+    int maxPower;
     List<TilePowered> connectedMachines;
     boolean dirty;
     int power;
 
-    public TilePowered(int maxPower) {
+    public TilePowered() {
         super();
-        this.maxPower = maxPower;
+        this.maxPower = DEFAULT_MAX;
         power = 0;
         dirty = true;
     }
 
-    public TilePowered(int maxPower, int power) {
-        super();
+    public TilePowered setMaxPower(int maxPower) {
         this.maxPower = maxPower;
-        this.power = power;
+        return this;
+    }
+
+    public TilePowered setStartingPower(int startingPower) {
+        this.power = startingPower;
+        return this;
     }
 
     public void updateAllConnections() {

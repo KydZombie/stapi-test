@@ -6,7 +6,10 @@ import net.minecraft.item.ItemInstance;
 public class TilePress extends ProcessingMachine {
 
     public TilePress() {
-        super(1800, "Press", 120, 4);
+        super("Press");
+        setMaxPower(1800);
+        setTotalCookTime(120);
+        setPowerUsage(4);
     }
 
     @Override

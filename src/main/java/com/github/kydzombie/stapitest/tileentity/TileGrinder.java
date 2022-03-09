@@ -5,7 +5,8 @@ import net.minecraft.item.ItemInstance;
 
 public class TileGrinder extends ProcessingMachine {
     public TileGrinder() {
-        super(1200, "Grinder");
+        super("Grinder");
+        setMaxPower(1200);
     }
 
     public ItemInstance getOutput(ItemInstance input) {

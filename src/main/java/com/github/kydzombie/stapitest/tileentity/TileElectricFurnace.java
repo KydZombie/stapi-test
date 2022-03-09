@@ -6,7 +6,8 @@ import net.modificationstation.stationapi.api.recipe.SmeltingRegistry;
 public class TileElectricFurnace extends ProcessingMachine {
 
     public TileElectricFurnace() {
-        super(800, "ElectricFurnace", 30, 0);
+        super("Electric Furnace");
+        setPowerUsage(30);
     }
 
     @Override
