@@ -1,13 +1,15 @@
 package com.github.kydzombie.stapitest.gui;
 
+import com.github.kydzombie.stapitest.container.ProcessingContainer;
 import com.github.kydzombie.stapitest.tileentity.ProcessingMachine;
 import com.github.kydzombie.stapitest.tileentity.TileMachine;
 import net.minecraft.container.ContainerBase;
+import net.minecraft.entity.player.PlayerInventory;
 import org.lwjgl.opengl.GL11;
 
-public abstract class ProcessingGui extends GuiMachine {
-    public ProcessingGui(ContainerBase container, TileMachine tileEntityMachine, String titleText) {
-        super(container, tileEntityMachine, titleText);
+public class ProcessingGui extends GuiMachine {
+    public ProcessingGui(PlayerInventory playerInventory, ProcessingMachine machineEntity, String titleText) {
+        super(new ProcessingContainer(playerInventory, machineEntity), machineEntity, titleText);
     }
 
     @Override

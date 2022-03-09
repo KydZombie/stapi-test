@@ -15,6 +15,9 @@ import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.item.tool.ToolMaterial;
+import net.modificationstation.stationapi.api.StationAPI;
+import net.modificationstation.stationapi.api.event.mod.PreInitEvent;
+import net.modificationstation.stationapi.api.event.recipe.RecipeRegisterEvent;
 import net.modificationstation.stationapi.api.event.registry.BlockRegistryEvent;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.item.tool.ToolMaterialFactory;
@@ -127,6 +130,12 @@ public class StapiTest {
         cableItem = new CableBlockItem(Identifier.of(MOD_ID, "cable"), StapiTest.cable, Color.WHITE);
         powerCableItem = new CableBlockItem(Identifier.of(MOD_ID, "powerCable"), StapiTest.powerCable, new Color(37, 33, 33, 255));
         itemCableItem = new CableBlockItem(Identifier.of(MOD_ID, "itemCable"), StapiTest.itemCable, Color.GREEN);
+    }
+
+    @EventListener
+    public void preInit(PreInitEvent event) {
+        StationAPI.EVENT_BUS.post(new RecipeRegisterEvent(Identifier.of(MOD_ID, "grinder")));
+        StationAPI.EVENT_BUS.post(new RecipeRegisterEvent(Identifier.of(MOD_ID, "press")));
     }
 
 }

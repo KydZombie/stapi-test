@@ -1,4 +1,4 @@
-package com.github.kydzombie.stapitest.gui;
+package com.github.kydzombie.stapitest.container.slot;
 
 import net.minecraft.container.slot.Slot;
 import net.minecraft.entity.player.PlayerBase;

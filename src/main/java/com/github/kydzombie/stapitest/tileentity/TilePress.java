@@ -1,7 +1,6 @@
 package com.github.kydzombie.stapitest.tileentity;
 
-import com.github.kydzombie.stapitest.events.init.StapiTest;
-import net.minecraft.item.ItemBase;
+import com.github.kydzombie.stapitest.recipe.PressRecipeRegistry;
 import net.minecraft.item.ItemInstance;
 
 public class TilePress extends ProcessingMachine {
@@ -12,16 +11,6 @@ public class TilePress extends ProcessingMachine {
 
     @Override
     public ItemInstance getOutput(ItemInstance input) {
-        int itemId = input.itemId;
-        if (itemId == ItemBase.ironIngot.id) {
-            return new ItemInstance(StapiTest.ironPlate);
-        } else if (itemId == ItemBase.goldIngot.id) {
-            return new ItemInstance(StapiTest.goldPlate);
-        } else if (itemId == StapiTest.ironPlate.id) {
-            return new ItemInstance(StapiTest.ironGear);
-        } else if (itemId == StapiTest.goldPlate.id) {
-            return new ItemInstance(StapiTest.goldGear);
-        }
-        return null;
+        return PressRecipeRegistry.getRecipe(input);
     }
 }

@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.container;
 
-import com.github.kydzombie.stapitest.gui.ProcessingOutput;
+import com.github.kydzombie.stapitest.container.slot.ProcessingOutput;
 import com.github.kydzombie.stapitest.tileentity.ProcessingMachine;
 import net.minecraft.container.slot.Slot;
 import net.minecraft.entity.player.PlayerInventory;

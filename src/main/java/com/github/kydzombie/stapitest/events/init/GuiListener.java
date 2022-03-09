@@ -34,7 +34,7 @@ public class GuiListener {
 
     @Environment(EnvType.CLIENT)
     public ScreenBase openFurnace(PlayerBase player, InventoryBase inventoryBase) {
-        return new GuiElectricFurnace(player.inventory, (TileElectricFurnace) inventoryBase);
+        return new ProcessingGui(player.inventory, (TileElectricFurnace) inventoryBase, "Electric Furnace");
     }
 
     @Environment(EnvType.CLIENT)
@@ -44,12 +44,12 @@ public class GuiListener {
 
     @Environment(EnvType.CLIENT)
     public ScreenBase openGrinder(PlayerBase player, InventoryBase inventoryBase) {
-        return new GuiGrinder(player.inventory, (TileGrinder) inventoryBase);
+        return new ProcessingGui(player.inventory, (TileGrinder) inventoryBase, "Grinder");
     }
 
     @Environment(EnvType.CLIENT)
     public ScreenBase openPress(PlayerBase player, InventoryBase inventoryBase) {
-        return new GuiPress(player.inventory, (TilePress) inventoryBase);
+        return new ProcessingGui(player.inventory, (TilePress) inventoryBase, "Press");
     }
 
     @Environment(EnvType.CLIENT)

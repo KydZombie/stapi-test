@@ -1,30 +1,7 @@
-buildscript {
-	repositories {
-		maven {
-			name = 'Glass-Maven'
-			url = "https://maven.glass-launcher.net/snapshots"
-		}
-		maven {
-			name = 'Fabric'
-			url = "https://maven.fabricmc.net/"
-		}
-		gradlePluginPortal()
-		mavenCentral()
-		maven {
-			name = "Jitpack"
-			url = 'https://jitpack.io/'
-		}
-	}
-	dependencies {
-		classpath 'net.fabricmc:fabric-loom:0.2.8-SNAPSHOT'
-	}
-}
-
 plugins {
 	id 'maven-publish'
+	id 'fabric-loom' version '0.2.9-SNAPSHOT'
 }
-
-apply plugin: "fabric-loom"
 
 sourceCompatibility = JavaVersion.VERSION_17
 targetCompatibility = JavaVersion.VERSION_17
@@ -47,98 +24,54 @@ eclipse {
 
 repositories {
 	maven {
-		name = 'Glass-Maven'
-		url = "https://maven.glass-launcher.net/snapshots"
+		name = "Glass"
+		url "https://maven.glass-launcher.net/snapshots"
 	}
 	maven {
 		name = 'HalfOf2'
 		url = 'https://storage.googleapis.com/devan-maven/'
 	}
 	maven {
-		name = 'Forge'
-		url = 'https://maven.minecraftforge.net/'
+		name = 'Froge'
+		url 'https://maven.minecraftforge.net/'
 	}
 	maven {
-		name = 'Jitpack'
-		url = "https://jitpack.io/"
+		name = "Jitpack"
+		url "https://jitpack.io/"
 	}
 	mavenCentral()
 }
 
-minecraft {
-}
-
 dependencies {
-	/*
-	 * Specially required libraries for Fabric.
-	 */
-	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.0'
-	annotationProcessor group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.0'
-	implementation 'net.fabricmc:sponge-mixin:0.11.1+mixin.0.8.5'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
+	implementation group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.1'
+	annotationProcessor group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.17.1'
+	annotationProcessor group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.17.1'
 
-	/*
-	 * To change the versions see the gradle.properties file
-	 */
+	// mixin and fabric loader need asm 9
+	implementation 'org.ow2.asm:asm:9.2'
+	implementation 'org.ow2.asm:asm-analysis:9.2'
+	implementation 'org.ow2.asm:asm-commons:9.2'
+	implementation 'org.ow2.asm:asm-tree:9.2'
+	implementation 'org.ow2.asm:asm-util:9.2'
+
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 
-	/*
-	 * Here workspace defines mappings to use.
-	 * You can use other mappings, like Plasma or BIN-Mappings.
-	 */
 	mappings loom.fromCommit("calmilamsy/BIN-Mappings", "${project.yarn_mappings}") {spec ->
 		spec.version = "b1.7.3-${project.yarn_mappings}"
 	}
 
-	/*
-	 * Lombok Library.
-	 *
-	 * Adds some useful annotations for data classes, although does not add any dependencies.
-	 */
-	implementation /*Only*/ 'org.projectlombok:lombok:1.18.22'
+	// convenience stuff
+	// adds some useful annotations for data classes. does not add any dependencies
+	compileOnly 'org.projectlombok:lombok:1.18.22'
 	annotationProcessor 'org.projectlombok:lombok:1.18.22'
 
-	/*
-	 * Jetbrains Annotation Library.
-	 *
-	 * Adds some useful annotations for miscellaneous uses. does not add any dependencies,
-	 * though people without the lib will be missing some useful context hints.
-	 *
-	 * You can remove if you don't want to use it.
-	 */
-	implementation 'org.jetbrains:annotations:16.0.2'
+	// adds some useful annotations for miscellaneous uses. does not add any dependencies, though people without the lib will be missing some useful context hints.
+	implementation 'org.jetbrains:annotations:22.0.0'
 
-	/*
-	 * Cursed-Fabric-Loader - fabric loader library.
-	 */
-	modImplementation("com.github.calmilamsy:cursed-fabric-loader:91f8c4c") {
-		transitive false
-	}
+	modImplementation "com.github.calmilamsy:cursed-fabric-loader:${project.loader_version}"
 
-	///START API PART
-	/*
-	 * Optional, but really useful for creating content mods that add bunch of things to the game.
-	 */
-
-	/*
-	 * SEARCH INDEXES IN:
-	 * https://maven.glass-launcher.net/#/snapshots/net/modificationstation/StationAPI
-	 */
-	modImplementation("net.modificationstation:StationAPI:${project.stapi_version}") {
-		exclude group: 'io.github.minecraft-cursed-legacy', module: 'cursed-fabric-loader'
-	}
-
-	implementation /*Only*/ 'org.apache.commons:commons-lang3:3.12.0'
-	implementation /*Only*/ 'commons-io:commons-io:2.11.0'
-
-	implementation "net.jodah:typetools:${project.typetools_version}"
-	implementation "com.github.mineLdiver:expressions:${project.expressions_version}"
-	implementation "com.github.mineLdiver:UnsafeEvents:${project.unsafeevents_version}"
-	implementation "it.unimi.dsi:fastutil:${project.fastutil_version}"
-	//noinspection GradlePackageUpdate
-	implementation "com.github.ben-manes.caffeine:caffeine:${project.caffeine_version}"
-	implementation "com.mojang:datafixerupper:${project.dfu_version}"
-
-	///END API PART
+	modImplementation "net.modificationstation:StationAPI:${project.stapi_version}"
 
 	implementation "blue.endless:jankson:1.2.1"
 	modImplementation('com.github.calmilamsy:HowManyItems-Fabric-Unofficial:1c6873a') {
@@ -162,11 +95,6 @@ processResources {
 // see http://yodaconditions.net/blog/fix-for-java-file-encoding-problems-with-gradle.html
 tasks.withType(JavaCompile) {
 	options.encoding = "UTF-8"
-}
-
-//StationAPI uses Java 17 and higher.
-tasks.withType(JavaCompile).configureEach {
-	it.options.release = 17
 }
 
 // Loom will automatically attach sourcesJar to a RemapSourcesJar task and to the "build" task
@@ -200,13 +128,6 @@ publishing {
 			artifact ("${project.buildDir.absolutePath}/libs/${archivesBaseName}-${project.version}-dev.jar") {
 				classifier 'dev'
 				builtBy remapJar
-			}
-			pom.withXml {
-				asNode().dependencies.dependency.each { dep ->
-					if(dep.artifactId.last().value().last().toLowerCase() in ["cursed-fabric-loader", "stationapi"]) {
-						assert dep.parent().remove(dep)
-					}
-				}
 			}
 		}
 	}
