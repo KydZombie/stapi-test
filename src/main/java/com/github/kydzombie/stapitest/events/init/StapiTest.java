@@ -11,6 +11,10 @@ import com.github.kydzombie.stapitest.item.Wrench;
 import com.github.kydzombie.stapitest.item.tool.ElectricPickaxe;
 import com.github.kydzombie.stapitest.item.tool.ElectricTool;
 import com.github.kydzombie.stapitest.item.tool.ToolPart;
+import com.github.kydzombie.stapitest.recipe.ElectricFurnaceRecipeRegistry;
+import com.github.kydzombie.stapitest.recipe.GrinderRecipeRegistry;
+import com.github.kydzombie.stapitest.recipe.PressRecipeRegistry;
+import com.github.kydzombie.stapitest.recipe.ProcessingRegistry;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemInstance;
@@ -134,6 +138,10 @@ public class StapiTest {
 
     @EventListener
     public void preInit(PreInitEvent event) {
+        new GrinderRecipeRegistry();
+        new PressRecipeRegistry();
+        new ElectricFurnaceRecipeRegistry();
+
         StationAPI.EVENT_BUS.post(new RecipeRegisterEvent(Identifier.of(MOD_ID, "grinder")));
         StationAPI.EVENT_BUS.post(new RecipeRegisterEvent(Identifier.of(MOD_ID, "press")));
     }

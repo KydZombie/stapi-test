@@ -1,5 +1,6 @@
 package com.github.kydzombie.stapitest.tileentity;
 
+import com.github.kydzombie.stapitest.recipe.ProcessingRegistry;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemInstance;
@@ -14,10 +15,17 @@ public abstract class ProcessingMachine extends TileMachine {
     int powerUsage;
     public int cookTime = 0;
 
+    private ProcessingRegistry recipeRegistry;
+
     public ProcessingMachine(String containerName) {
         super(containerName);
         this.totalCookTime = DEFAULT_COOK_TIME;
         this.powerUsage = DEFAULT_POWER_USAGE;
+    }
+
+    public ProcessingMachine setRecipeHandler(ProcessingRegistry newRegistry) {
+        recipeRegistry = newRegistry;
+        return this;
     }
 
     public ProcessingMachine setTotalCookTime(int totalCookTime) {
@@ -76,6 +84,10 @@ public abstract class ProcessingMachine extends TileMachine {
     }
 
     public ItemInstance getOutput(ItemInstance input) {
+        if (recipeRegistry != null) {
+            return recipeRegistry.getOutput(input);
+        }
+        System.out.println("Unimplemented recipe registry from a " + this.containerName + ", returning null.");
         return null;
     }
 
