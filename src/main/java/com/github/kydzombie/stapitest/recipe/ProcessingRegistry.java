@@ -6,16 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class ProcessingRegistry {
+    public final List<ItemInstance[]> recipes = new ArrayList<>();
 
-    public static ProcessingRegistry INSTANCE;
-
-    private static final List<ItemInstance[]> recipes = new ArrayList<>();
-
-    public ProcessingRegistry() {
-        INSTANCE = this;
-    }
-
-    public static void addRecipe(ItemInstance input, ItemInstance output) {
+    public void addRecipe(ItemInstance input, ItemInstance output) {
         recipes.add(new ItemInstance[]{ input, output });
     }
 

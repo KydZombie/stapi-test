@@ -1,17 +1,23 @@
 package com.github.kydzombie.stapitest.events.init;
 
-import com.github.kydzombie.stapitest.recipe.GrinderRecipeRegistry;
-import com.github.kydzombie.stapitest.recipe.PressRecipeRegistry;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
+import net.modificationstation.stationapi.api.StationAPI;
+import net.modificationstation.stationapi.api.event.mod.PreInitEvent;
 import net.modificationstation.stationapi.api.event.recipe.RecipeRegisterEvent;
 import net.modificationstation.stationapi.api.recipe.CraftingRegistry;
 import net.modificationstation.stationapi.api.recipe.SmeltingRegistry;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
 public class RecipeListener {
+    @EventListener
+    public void preInit(PreInitEvent event) {
+        StationAPI.EVENT_BUS.post(new RecipeRegisterEvent(Identifier.of(StapiTest.MOD_ID, "electricFurnace")));
+        StationAPI.EVENT_BUS.post(new RecipeRegisterEvent(Identifier.of(StapiTest.MOD_ID, "grinder")));
+        StationAPI.EVENT_BUS.post(new RecipeRegisterEvent(Identifier.of(StapiTest.MOD_ID, "press")));
+    }
 
     @EventListener
     public void registerRecipes(RecipeRegisterEvent event) {
@@ -53,16 +59,16 @@ public class RecipeListener {
             CraftingRegistry.addShapelessRecipe(new ItemInstance(StapiTest.battery), new ItemInstance(StapiTest.batteryItem, 1, -1));
         }
         else if (event.recipeId.equals(Identifier.of(StapiTest.MOD_ID, "grinder"))) {
-            GrinderRecipeRegistry.addRecipe(new ItemInstance(BlockBase.COBBLESTONE), new ItemInstance(BlockBase.GRAVEL));
-            GrinderRecipeRegistry.addRecipe(new ItemInstance(BlockBase.GRAVEL), new ItemInstance(BlockBase.SAND));
-            GrinderRecipeRegistry.addRecipe(new ItemInstance(BlockBase.IRON_ORE), new ItemInstance(StapiTest.ironDust, 2));
-            GrinderRecipeRegistry.addRecipe(new ItemInstance(BlockBase.GOLD_ORE), new ItemInstance(StapiTest.goldDust, 2));
+            StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.COBBLESTONE), new ItemInstance(BlockBase.GRAVEL));
+            StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.GRAVEL), new ItemInstance(BlockBase.SAND));
+            StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.IRON_ORE), new ItemInstance(StapiTest.ironDust, 2));
+            StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.GOLD_ORE), new ItemInstance(StapiTest.goldDust, 2));
         }
         else if (event.recipeId.equals(Identifier.of(StapiTest.MOD_ID, "press"))) {
-            PressRecipeRegistry.addRecipe(new ItemInstance(ItemBase.ironIngot), new ItemInstance(StapiTest.ironPlate));
-            PressRecipeRegistry.addRecipe(new ItemInstance(ItemBase.goldIngot), new ItemInstance(StapiTest.goldPlate));
-            PressRecipeRegistry.addRecipe(new ItemInstance(StapiTest.ironPlate), new ItemInstance(StapiTest.ironGear));
-            PressRecipeRegistry.addRecipe(new ItemInstance(StapiTest.goldPlate), new ItemInstance(StapiTest.goldGear));
+            StapiTest.pressRegistry.addRecipe(new ItemInstance(ItemBase.ironIngot), new ItemInstance(StapiTest.ironPlate));
+            StapiTest.pressRegistry.addRecipe(new ItemInstance(ItemBase.goldIngot), new ItemInstance(StapiTest.goldPlate));
+            StapiTest.pressRegistry.addRecipe(new ItemInstance(StapiTest.ironPlate), new ItemInstance(StapiTest.ironGear));
+            StapiTest.pressRegistry.addRecipe(new ItemInstance(StapiTest.goldPlate), new ItemInstance(StapiTest.goldGear));
         }
     }
 }
