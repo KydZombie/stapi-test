@@ -4,6 +4,7 @@ item.itemCable.name=Item Cable
 item.battery.name=Battery
 
 item.wrench.name=Wrench
+item.powerToolHandle.name=Power Tool Handle
 
 item.pickaxe.name=Pickaxe
 item.axe.name=Axe

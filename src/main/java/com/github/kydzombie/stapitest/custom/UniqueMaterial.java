@@ -1,37 +1,30 @@
 package com.github.kydzombie.stapitest.custom;
 
+import net.minecraft.item.ItemBase;
 import net.minecraft.item.tool.ToolMaterial;
-import net.modificationstation.stationapi.api.item.tool.ToolMaterialFactory;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public class UniqueMaterial {
 
     private final ToolMaterial baseMaterial;
-    private final String name;
     private final int color;
+    private final ItemBase craftingMaterial;
 
-    public static List<UniqueMaterial> materials = new ArrayList<>();
+    public static HashMap<String, UniqueMaterial> materials = new HashMap<>();
 
-    public UniqueMaterial(ToolMaterial baseMaterial, String name, int color) {
+    public UniqueMaterial(ToolMaterial baseMaterial, int color, ItemBase craftingMaterial) {
         this.baseMaterial = baseMaterial;
-        this.name = name;
         this.color = color;
+        this.craftingMaterial = craftingMaterial;
     }
 
-    public static void registerNewToolMaterial(ToolMaterial baseMaterial, String name, int color) {
-        materials.add(new UniqueMaterial(baseMaterial, name, color));
-        materials.add(new UniqueMaterial(ToolMaterialFactory.create("dead_" + baseMaterial, 0, baseMaterial.getDurability(), 0, 0), "dead_" + name, color));
+    public static void registerNewToolMaterial(ToolMaterial baseMaterial, int color, ItemBase craftingMaterial) {
+        materials.put(baseMaterial.name(), new UniqueMaterial(baseMaterial, color, craftingMaterial));
     }
 
-    public static UniqueMaterial findToolMaterial(String materialName) {
-        for (UniqueMaterial eMaterial: materials) {
-            if (eMaterial.name.equals(materialName)) {
-                return eMaterial;
-            }
-        }
-        return findToolMaterial("missingMaterial");
+    public static UniqueMaterial registerNewToolMaterial(ToolMaterial baseMaterial, String name, int color, ItemBase craftingMaterial) {
+        return materials.put(name, new UniqueMaterial(baseMaterial, color, craftingMaterial));
     }
 
     public ToolMaterial getToolMaterial() {
@@ -42,7 +35,8 @@ public class UniqueMaterial {
         return color;
     }
 
-    public String getName() {
-        return name;
+    public ItemBase getCraftingMaterial() {
+        System.out.println(craftingMaterial);
+        return craftingMaterial;
     }
 }

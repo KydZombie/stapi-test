@@ -1,7 +1,7 @@
 package com.github.kydzombie.stapitest.item.tool;
 
-import com.github.kydzombie.stapitest.custom.UniqueMaterial;
 import com.github.kydzombie.stapitest.custom.util.machine.power.ItemPowerStorage;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.TextRenderer;
 import net.minecraft.client.render.entity.ItemRenderer;
@@ -9,10 +9,8 @@ import net.minecraft.client.texture.TextureManager;
 import net.minecraft.entity.Living;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.item.ItemInstance;
-import net.minecraft.item.tool.ToolMaterial;
 import net.minecraft.level.Level;
 import net.minecraft.util.io.CompoundTag;
-import net.modificationstation.stationapi.api.client.gui.CustomItemOverlay;
 import net.modificationstation.stationapi.api.item.nbt.StationNBT;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.util.Colours;
@@ -35,22 +33,12 @@ public class ElectricTool extends MaterialAgnosticTool implements ItemPowerStora
     }
 
     @Override
-    public ToolMaterial getMaterial(ItemInstance item) {
-        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
-        if (getCurrentPower(item) >= 5) {
-            return super.getMaterial(item);
-        }
-        else {
-            return UniqueMaterial.findToolMaterial("dead_" + nbt.getString("material")).getToolMaterial();
-        }
-    }
-
-    @Override
     public boolean postMine(ItemInstance item, int i, int j, int k, int i1, Living damageTarget) {
-        if (getCurrentPower(item) >= 5) {
-            consume(item, 5, false);
-            if (rand.nextInt(5) == 0) {
-                super.postMine(item, i, j, k, i1, damageTarget);
+        consume(item, 5, false);
+        if (rand.nextInt(5) == 0) {
+            super.postMine(item, i, j, k, i1, damageTarget);
+            if (item.count == 0) {
+                damageTarget.dropItem(new ItemInstance(StapiTest.powerToolHandle), 2);
             }
         }
         return true;

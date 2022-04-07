@@ -24,6 +24,7 @@ import net.modificationstation.stationapi.api.client.colour.block.BlockColours;
 import net.modificationstation.stationapi.api.client.colour.item.ItemColours;
 import net.modificationstation.stationapi.api.client.event.colour.block.BlockColoursRegisterEvent;
 import net.modificationstation.stationapi.api.client.event.colour.item.ItemColoursRegisterEvent;
+import net.modificationstation.stationapi.api.event.item.ItemStrengthOnBlockEvent;
 import net.modificationstation.stationapi.api.event.registry.BlockRegistryEvent;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.item.tool.ToolMaterialFactory;
@@ -53,6 +54,7 @@ public class StapiTest {
     public static TemplateItemBase goldDust;
     public static TemplateItemBase wrench;
     public static TemplateItemBase portableBattery;
+    public static TemplateItemBase powerToolHandle;
 
     public static TemplateItemBase pickaxe;
     public static TemplateItemBase axe;
@@ -88,10 +90,12 @@ public class StapiTest {
         Color goldColor = new Color(255, 255, 11);
 
         wrench = new Wrench(Identifier.of(MOD_ID, "wrench"));
+        powerToolHandle = new TemplateItemBase(Identifier.of(MOD_ID, "powerToolHandle")).setTranslationKey(MOD_ID, "powerToolHandle");
 
-        UniqueMaterial.registerNewToolMaterial(ToolMaterialFactory.create("missingMaterial", 0, 0, 0, 0), "missingMaterial", 0);
-        UniqueMaterial.registerNewToolMaterial(ToolMaterial.IRON, "iron", -1);
-        UniqueMaterial.registerNewToolMaterial(ToolMaterial.EMERALD, "diamond", ColorConverter.colorToInt(new Color(0x4AEDD9)));
+        UniqueMaterial.registerNewToolMaterial(ToolMaterialFactory.create("missingMaterial", 0, 0, 0, 0), 0, null);
+        UniqueMaterial.registerNewToolMaterial(ToolMaterial.IRON, "iron", -1, ItemBase.ironIngot);
+        UniqueMaterial.registerNewToolMaterial(ToolMaterial.EMERALD, "diamond", ColorConverter.colorToInt(new Color(0x4AEDD9)), ItemBase.diamond);
+        UniqueMaterial.registerNewToolMaterial(ToolMaterial.GOLD, "gold", ColorConverter.colorToInt(new Color(0xEFCA2B)), ItemBase.goldIngot);
 
         pickaxe = new MaterialAgnosticTool(Identifier.of(MOD_ID, "pickaxe"));
         axe = new MaterialAgnosticTool(Identifier.of(MOD_ID, "axe"));
@@ -162,6 +166,17 @@ public class StapiTest {
                 saw
         }) {
             itemColours.register((itemInstance, tintIndex) -> tintIndex == 0 ? ElectricTool.getUniqueMaterial(itemInstance).getMaterialColor() : -1, tool);
+        }
+    }
+
+    @EventListener
+    private static void strengthOnBlock(ItemStrengthOnBlockEvent event) {
+        if ((event.itemInstance.getType() instanceof MaterialAgnosticTool) &&
+                MaterialAgnosticTool.getDurability(event.itemInstance) == 0 ||
+                (event.itemInstance.getType() instanceof ElectricTool &&
+                        ((ElectricTool) event.itemInstance.getType()).getCurrentPower(event.itemInstance) < 5)
+        ) {
+            event.strength = 0;
         }
     }
 

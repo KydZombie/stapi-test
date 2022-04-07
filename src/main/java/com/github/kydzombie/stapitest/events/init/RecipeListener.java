@@ -1,12 +1,15 @@
 package com.github.kydzombie.stapitest.events.init;
 
+import com.github.kydzombie.stapitest.custom.UniqueMaterial;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
+import net.minecraft.util.io.CompoundTag;
 import net.modificationstation.stationapi.api.StationAPI;
 import net.modificationstation.stationapi.api.event.mod.PreInitEvent;
 import net.modificationstation.stationapi.api.event.recipe.RecipeRegisterEvent;
+import net.modificationstation.stationapi.api.item.nbt.StationNBT;
 import net.modificationstation.stationapi.api.recipe.CraftingRegistry;
 import net.modificationstation.stationapi.api.recipe.SmeltingRegistry;
 import net.modificationstation.stationapi.api.registry.Identifier;
@@ -25,6 +28,15 @@ public class RecipeListener {
             SmeltingRegistry.addSmeltingRecipe(StapiTest.ironDust.id, new ItemInstance(ItemBase.ironIngot));
             SmeltingRegistry.addSmeltingRecipe(StapiTest.goldDust.id, new ItemInstance(ItemBase.goldIngot));
         } else if (event.recipeId.equals(RecipeRegisterEvent.Vanilla.CRAFTING_SHAPED.type())) {
+            for (UniqueMaterial material:
+                 UniqueMaterial.materials.values()) {
+                if (material.getCraftingMaterial() != null) {
+                    ItemInstance result = new ItemInstance(StapiTest.pickaxe);
+                    CompoundTag nbt = StationNBT.cast(result).getStationNBT();
+                    nbt.put("material", material.getToolMaterial().name());
+                    CraftingRegistry.addShapedRecipe(result, "x", "x", "x", 'x', material.getCraftingMaterial());
+                }
+            }
         }
         else if (event.recipeId.equals(RecipeRegisterEvent.Vanilla.CRAFTING_SHAPELESS.type())) {
             CraftingRegistry.addShapelessRecipe(new ItemInstance(StapiTest.battery), new ItemInstance(StapiTest.portableBattery, 1, -1));

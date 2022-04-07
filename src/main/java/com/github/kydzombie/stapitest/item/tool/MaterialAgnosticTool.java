@@ -26,6 +26,12 @@ public class MaterialAgnosticTool extends TemplateItemBase implements ToolLevel,
         setTranslationKey(identifier.toString());
     }
 
+    public static int getDurability(ItemInstance item) {
+        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
+        ((MaterialAgnosticTool)item.getType()).updateStats(item);
+        return (nbt.getInt("maxDurability") - nbt.getInt("damage"));
+    }
+
     @Override
     public void onCreation(ItemInstance item, Level arg1, PlayerBase arg2) {
         super.onCreation(item, arg1, arg2);
@@ -35,11 +41,11 @@ public class MaterialAgnosticTool extends TemplateItemBase implements ToolLevel,
     @Override
     public boolean useOnTile(ItemInstance item, PlayerBase player, Level level, int x, int y, int z, int facing) {
         CompoundTag nbt = StationNBT.cast(item).getStationNBT();
-        if (nbt.getString("material").equals("iron")) {
+        if (nbt.getString("material").equals("gold")) {
             nbt.put("material", "diamond");
         }
         else {
-            nbt.put("material", "iron");
+            nbt.put("material", "gold");
         }
         updateStats(item);
         return super.useOnTile(item, player, level, x, y, z, facing);
@@ -58,18 +64,12 @@ public class MaterialAgnosticTool extends TemplateItemBase implements ToolLevel,
 
     @Override
     public ToolMaterial getMaterial(ItemInstance item) {
-        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
-        if (nbt.getInt("damage") < nbt.getInt("maxDurability")) {
-            return getUniqueMaterial(item).getToolMaterial();
-        }
-        else {
-            return UniqueMaterial.findToolMaterial("dead_" + nbt.getString("material")).getToolMaterial();
-        }
+        return getUniqueMaterial(item).getToolMaterial();
     }
 
     public static UniqueMaterial getUniqueMaterial(ItemInstance item) {
         CompoundTag nbt = StationNBT.cast(item).getStationNBT();
-        return UniqueMaterial.findToolMaterial(nbt.getString("material"));
+        return UniqueMaterial.materials.getOrDefault(nbt.getString("material"), UniqueMaterial.materials.get("missingMaterial"));
     }
 
     @Override
@@ -80,8 +80,12 @@ public class MaterialAgnosticTool extends TemplateItemBase implements ToolLevel,
 
     @Override
     public boolean postMine(ItemInstance item, int i, int j, int k, int i1, Living damageTarget) {
-        if (!getUniqueMaterial(item).getName().equals("missingMaterial")) {
+        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
+        if (!nbt.getString("material").equals("missingMaterial")) {
             applyDamage(item, 1);
+            if (nbt.getInt("damage") >= nbt.getInt("maxDurability")) {
+                item.count--;
+            }
         }
         return true;
     }
@@ -138,7 +142,7 @@ public class MaterialAgnosticTool extends TemplateItemBase implements ToolLevel,
         CompoundTag nbt = StationNBT.cast(itemInstance).getStationNBT();
         return new String[]{
                 originalTooltip,
-                "Material: " + getUniqueMaterial(itemInstance).getName(),
+                "Material: " + nbt.getString("material"),
                 "Durability: " + (nbt.getInt("maxDurability") - nbt.getInt("damage")) + "/" + nbt.getInt("maxDurability")
         };
     }
