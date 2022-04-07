@@ -1,8 +1,8 @@
 package com.github.kydzombie.stapitest.tileentity;
 
 import com.github.kydzombie.stapitest.item.Battery;
-import com.github.kydzombie.stapitest.util.machine.power.ItemPowerStorage;
-import com.github.kydzombie.stapitest.util.machine.power.PowerUtils;
+import com.github.kydzombie.stapitest.custom.util.machine.power.ItemPowerStorage;
+import com.github.kydzombie.stapitest.custom.util.machine.power.PowerUtils;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.io.CompoundTag;

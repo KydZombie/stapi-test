@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "stapitest:block/electricFurnace"
+    },
+    "facing=east": {
+      "model": "stapitest:block/electricFurnace",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "stapitest:block/electricFurnace",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "stapitest:block/electricFurnace",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "stapitest:block/electricFurnace"
+    },
+    "facing=down": {
+      "model": "stapitest:block/electricFurnace"
+    }
+  }
+}

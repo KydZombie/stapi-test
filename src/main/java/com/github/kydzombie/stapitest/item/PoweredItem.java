@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.item;
 
-import com.github.kydzombie.stapitest.util.machine.power.ItemPowerStorage;
+import com.github.kydzombie.stapitest.custom.util.machine.power.ItemPowerStorage;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.TextRenderer;
 import net.minecraft.client.render.entity.ItemRenderer;

@@ -1,0 +1,25 @@
+{
+  "variants": {
+    "facing=north": {
+      "model": "stapitest:block/press"
+    },
+    "facing=east": {
+      "model": "stapitest:block/press",
+      "y": 90
+    },
+    "facing=south": {
+      "model": "stapitest:block/press",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "stapitest:block/press",
+      "y": 270
+    },
+    "facing=up": {
+      "model": "stapitest:block/press"
+    },
+    "facing=down": {
+      "model": "stapitest:block/press"
+    }
+  }
+}

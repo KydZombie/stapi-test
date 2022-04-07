@@ -5,26 +5,16 @@ item.battery.name=Battery
 
 item.wrench.name=Wrench
 
-item.electricPickaxe.name=Electric Pickaxe
+item.pickaxe.name=Pickaxe
+item.axe.name=Axe
+item.shovel.name=Shovel
+item.sword.name=Sword
+item.hoe.name=Hoe
 item.drill.name=Drill
-item.diamondDrill.name=Diamond-Tipped Drill
 item.saw.name=Chainsaw
-item.diamondSaw.name=Diamond-Edged Chainsaw
 
 item.ironDust.name=Iron Dust
 item.goldDust.name=Gold Dust
-
-item.ironPlate.name=Iron Plate
-item.goldPlate.name=Gold Plate
-
-item.ironGear.name=Iron Gear
-item.goldGear.name=Gold Gear
-
-item.powerToolHandle.name=Tool Handle
-item.drillHead.name=Drill Head
-item.sawHead.name=Saw Blade
-item.diamondDrillHead.name=Diamond-Tipped Drill Head
-item.diamondSawHead.name=Diamond-Edged Saw Blade
 
 tile.generator.name=Generator
 tile.electricFurnace.name=Electric Furnace

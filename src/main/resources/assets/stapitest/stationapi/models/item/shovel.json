@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "stapitest:item/shovel_rod",
+    "layer1": "stapitest:item/shovel_head"
+  }
+}

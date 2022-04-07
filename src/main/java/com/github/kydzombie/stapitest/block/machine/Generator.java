@@ -3,7 +3,7 @@ package com.github.kydzombie.stapitest.block.machine;
 import com.github.kydzombie.stapitest.container.PowerStorageContainer;
 import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.tileentity.TileGenerator;
-import com.github.kydzombie.stapitest.util.ColorConverter;
+import com.github.kydzombie.stapitest.custom.util.ColorConverter;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.inventory.InventoryBase;
 import net.minecraft.level.Level;
@@ -33,7 +33,7 @@ public class Generator extends MachineBlock {
     }
 
     @Override
-    public int getBaseColour(int i) {
+    public int getMachineColor() {
         return ColorConverter.colorToInt(new Color(0xFF7B60));
     }
 }

@@ -24,7 +24,6 @@
       "com.github.kydzombie.stapitest.events.init.GuiListener"
     ],
     "stationapi:event_bus_client": [
-      "com.github.kydzombie.stapitest.events.init.TextureListener"
     ],
     "stationapi:event_bus_server": [
     ]

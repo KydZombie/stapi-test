@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "stapitest:item/saw_head",
+    "layer1": "stapitest:item/power_tool_handle"
+  }
+}

@@ -1,7 +1,7 @@
 package com.github.kydzombie.stapitest.tileentity;
 
-import com.github.kydzombie.stapitest.util.machine.power.PowerStorage;
-import com.github.kydzombie.stapitest.util.machine.power.PowerUtils;
+import com.github.kydzombie.stapitest.custom.util.machine.power.PowerStorage;
+import com.github.kydzombie.stapitest.custom.util.machine.power.PowerUtils;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.tileentity.TileEntityBase;
 import net.minecraft.util.io.CompoundTag;

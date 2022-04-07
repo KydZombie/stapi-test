@@ -1,0 +1,6 @@
+{
+  "parent": "stapitest:block/machine",
+  "textures": {
+    "front": "stapitest:block/press"
+  }
+}

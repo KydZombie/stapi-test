@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.item;
 
-import com.github.kydzombie.stapitest.util.machine.Wrenchable;
+import com.github.kydzombie.stapitest.custom.util.machine.Wrenchable;
 import net.minecraft.block.BlockBase;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.item.ItemInstance;

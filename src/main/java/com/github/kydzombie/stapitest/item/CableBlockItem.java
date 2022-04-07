@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.item;
 
-import com.github.kydzombie.stapitest.util.ColorConverter;
+import com.github.kydzombie.stapitest.custom.util.ColorConverter;
 import net.minecraft.block.BlockBase;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.template.item.TemplateSecondaryBlock;

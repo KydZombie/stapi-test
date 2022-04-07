@@ -1,0 +1,7 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "end": "stapitest:block/battery_side",
+    "side": "stapitest:block/battery_side"
+  }
+}

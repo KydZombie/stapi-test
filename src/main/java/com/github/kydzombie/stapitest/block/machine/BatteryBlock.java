@@ -3,10 +3,7 @@ package com.github.kydzombie.stapitest.block.machine;
 import com.github.kydzombie.stapitest.container.PowerStorageContainer;
 import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.tileentity.TileBattery;
-import com.github.kydzombie.stapitest.util.ColorConverter;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
-import net.minecraft.block.BlockBase;
+import com.github.kydzombie.stapitest.custom.util.ColorConverter;
 import net.minecraft.entity.Living;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.inventory.InventoryBase;
@@ -50,14 +47,5 @@ public class BatteryBlock extends MachineBlock {
 
     @Override
     public void afterPlaced(Level level, int x, int y, int z, Living living) {
-    }
-
-    @Environment(EnvType.CLIENT)
-    public int getTextureForSide(int side, int meta) {
-        if (side == 0 || side == 1) {
-            return BlockBase.WOOD.texture;
-        } else {
-            return this.texture;
-        }
     }
 }

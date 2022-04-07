@@ -69,7 +69,7 @@ dependencies {
 	// adds some useful annotations for miscellaneous uses. does not add any dependencies, though people without the lib will be missing some useful context hints.
 	implementation 'org.jetbrains:annotations:22.0.0'
 
-	modImplementation "com.github.calmilamsy:cursed-fabric-loader:${project.loader_version}"
+	// modImplementation "com.github.calmilamsy:cursed-fabric-loader:${project.loader_version}"
 
 	modImplementation "net.modificationstation:StationAPI:${project.stapi_version}"
 

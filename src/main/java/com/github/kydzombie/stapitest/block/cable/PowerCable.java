@@ -1,9 +1,9 @@
 package com.github.kydzombie.stapitest.block.cable;
 
 import com.github.kydzombie.stapitest.events.init.StapiTest;
-import com.github.kydzombie.stapitest.util.WorldUtils;
-import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
-import com.github.kydzombie.stapitest.util.machine.power.PowerUtils;
+import com.github.kydzombie.stapitest.custom.util.WorldUtils;
+import com.github.kydzombie.stapitest.custom.util.machine.power.PowerConnection;
+import com.github.kydzombie.stapitest.custom.util.machine.power.PowerUtils;
 import net.minecraft.block.BlockBase;
 import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
@@ -36,10 +36,5 @@ public class PowerCable extends Cable implements PowerConnection {
         BlockBase block = WorldUtils.getBlock(tileView, pos);
 
         return ((block instanceof PowerConnection && ((PowerConnection) block).canConnect(tileView, pos, side)) || block != null && id == block.id);
-    }
-
-    @Override
-    public int getDropId(int meta, Random rand) {
-        return StapiTest.powerCableItem.id;
     }
 }

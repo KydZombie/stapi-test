@@ -1,7 +1,7 @@
 package com.github.kydzombie.stapitest.block.cable;
 
 import com.github.kydzombie.stapitest.events.init.StapiTest;
-import com.github.kydzombie.stapitest.util.WorldUtils;
+import com.github.kydzombie.stapitest.custom.util.WorldUtils;
 import net.minecraft.block.BlockBase;
 import net.minecraft.inventory.InventoryBase;
 import net.minecraft.level.BlockView;
@@ -21,10 +21,5 @@ public class ItemCable extends Cable {
     public boolean checkConnection(BlockView tileView, Vec3i pos, int side) {
         BlockBase block = WorldUtils.getBlock(tileView, pos);
         return WorldUtils.getTileEntity(tileView, pos) instanceof InventoryBase || block != null && id == block.id;
-    }
-
-    @Override
-    public int getDropId(int meta, Random rand) {
-        return StapiTest.itemCableItem.id;
     }
 }

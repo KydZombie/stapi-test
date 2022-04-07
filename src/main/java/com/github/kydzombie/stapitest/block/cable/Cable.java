@@ -1,10 +1,10 @@
 package com.github.kydzombie.stapitest.block.cable;
 
 import com.github.kydzombie.stapitest.events.init.StapiTest;
-import com.github.kydzombie.stapitest.util.ColorConverter;
-import com.github.kydzombie.stapitest.util.WorldUtils;
-import com.github.kydzombie.stapitest.util.machine.Wrenchable;
-import com.github.kydzombie.stapitest.util.machine.power.Connection;
+import com.github.kydzombie.stapitest.custom.util.ColorConverter;
+import com.github.kydzombie.stapitest.custom.util.WorldUtils;
+import com.github.kydzombie.stapitest.custom.util.machine.Wrenchable;
+import com.github.kydzombie.stapitest.custom.util.machine.power.Connection;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.render.block.BlockRenderer;
@@ -43,11 +43,6 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
         this.setSounds(WOOL_SOUNDS);
         this.setHardness(0.8f);
         this.color = ColorConverter.colorToInt(color);
-    }
-
-    @Override
-    public int getDropId(int meta, Random rand) {
-        return StapiTest.cableItem.id;
     }
 
     @Override

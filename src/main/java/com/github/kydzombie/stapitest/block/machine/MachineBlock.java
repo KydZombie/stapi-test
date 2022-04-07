@@ -1,13 +1,11 @@
 package com.github.kydzombie.stapitest.block.machine;
 
 import com.github.kydzombie.stapitest.events.init.StapiTest;
-import com.github.kydzombie.stapitest.events.init.TextureListener;
 import com.github.kydzombie.stapitest.tileentity.TileMachine;
-import com.github.kydzombie.stapitest.util.ColorConverter;
-import com.github.kydzombie.stapitest.util.machine.Wrenchable;
-import com.github.kydzombie.stapitest.util.machine.power.PowerConnection;
-import net.fabricmc.api.EnvType;
-import net.fabricmc.api.Environment;
+import com.github.kydzombie.stapitest.custom.util.ColorConverter;
+import com.github.kydzombie.stapitest.custom.util.machine.Wrenchable;
+import com.github.kydzombie.stapitest.custom.util.machine.power.PowerConnection;
+import net.minecraft.block.BlockBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Item;
 import net.minecraft.entity.Living;
@@ -17,19 +15,27 @@ import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.util.maths.MathHelper;
 import net.minecraft.util.maths.Vec3i;
+import net.modificationstation.stationapi.api.block.BlockState;
+import net.modificationstation.stationapi.api.level.BlockStateView;
 import net.modificationstation.stationapi.api.registry.Identifier;
+import net.modificationstation.stationapi.api.state.StateManager;
+import net.modificationstation.stationapi.api.state.property.EnumProperty;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockWithEntity;
+import net.modificationstation.stationapi.api.util.math.Direction;
 
 import java.awt.*;
 import java.util.Random;
 
 public abstract class MachineBlock extends TemplateBlockWithEntity implements Wrenchable, PowerConnection {
+    public static final EnumProperty<Direction> FACING_PROPERTY = EnumProperty.of("facing", Direction.class);
     private final Random rand = new Random();
 
     public MachineBlock(Identifier identifier) {
         super(identifier, Material.METAL);
         this.hardness = 3.5f;
         setTranslationKey(identifier.toString());
+        setDefaultState(getStateManager().getDefaultState().with(FACING_PROPERTY, Direction.NORTH));
+        mineableBy(Identifier.of("tools/pickaxes"), 0);
     }
 
     @Override
@@ -39,23 +45,20 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
     }
 
     @Override
+    public void appendProperties(StateManager.Builder<BlockBase, BlockState> builder) {
+        builder.add(FACING_PROPERTY);
+    }
+
+        @Override
     public void afterPlaced(Level level, int x, int y, int z, Living living) {
-        int var6 = MathHelper.floor((double) (living.yaw * 4.0F / 360.0F) + 0.5D) & 3;
-        if (var6 == 0) {
-            level.setTileMeta(x, y, z, 2);
-        }
-
-        if (var6 == 1) {
-            level.setTileMeta(x, y, z, 5);
-        }
-
-        if (var6 == 2) {
-            level.setTileMeta(x, y, z, 3);
-        }
-
-        if (var6 == 3) {
-            level.setTileMeta(x, y, z, 4);
-        }
+        int direction = MathHelper.floor((double) (living.yaw * 4.0F / 360.0F) + 0.5D) & 3;
+        ((BlockStateView)level).setBlockState(x, y, z, getDefaultState().with(FACING_PROPERTY,
+                switch(direction) {
+                    case 0 -> Direction.EAST;
+                    case 1 -> Direction.SOUTH;
+                    case 2 -> Direction.WEST;
+                    default -> Direction.NORTH;
+        }));
     }
 
     @Override
@@ -90,27 +93,6 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
         super.onBlockRemoved(level, x, y, z);
     }
 
-    @Environment(EnvType.CLIENT)
-    public int getTextureForSide(int side, int meta) {
-        if (meta > 0 && meta < 6) {
-            if (side == meta) {
-                return texture;
-            }
-            return switch (side) {
-                case 0 -> TextureListener.machineBottom;
-                case 1 -> TextureListener.machineTop;
-                default -> TextureListener.machineSide;
-            };
-        } else {
-            return switch (side) {
-                case 0 -> TextureListener.machineBottom;
-                case 1 -> TextureListener.machineTop;
-                case 3 -> texture;
-                default -> TextureListener.machineSide;
-            };
-        }
-    }
-
     @Override
     public boolean canConnect(BlockView tileView, Vec3i pos, int side) {
         return side != tileView.getTileMeta(pos.x, pos.y, pos.z);
@@ -126,13 +108,7 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
         return super.canUse(level, x, y, z, player);
     }
 
-    @Override
-    public int getColourMultiplier(BlockView tileView, int x, int y, int z) {
-        return getBaseColour(tileView.getTileMeta(x, y, z));
-    }
-
-    @Override
-    public int getBaseColour(int i) {
+    public int getMachineColor() {
         return ColorConverter.colorToInt(new Color(0xB7FFDC));
     }
 }

@@ -4,24 +4,26 @@ import com.github.kydzombie.stapitest.block.cable.Cable;
 import com.github.kydzombie.stapitest.block.cable.ItemCable;
 import com.github.kydzombie.stapitest.block.cable.PowerCable;
 import com.github.kydzombie.stapitest.block.machine.*;
+import com.github.kydzombie.stapitest.custom.UniqueMaterial;
+import com.github.kydzombie.stapitest.custom.util.ColorConverter;
 import com.github.kydzombie.stapitest.item.Battery;
 import com.github.kydzombie.stapitest.item.CableBlockItem;
 import com.github.kydzombie.stapitest.item.ColoredItem;
 import com.github.kydzombie.stapitest.item.Wrench;
-import com.github.kydzombie.stapitest.item.tool.ElectricPickaxe;
 import com.github.kydzombie.stapitest.item.tool.ElectricTool;
-import com.github.kydzombie.stapitest.item.tool.ToolPart;
+import com.github.kydzombie.stapitest.item.tool.MaterialAgnosticTool;
 import com.github.kydzombie.stapitest.recipe.ElectricFurnaceRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.GrinderRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.PressRecipeRegistry;
-import com.github.kydzombie.stapitest.recipe.ProcessingRegistry;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
+import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.item.tool.ToolMaterial;
-import net.modificationstation.stationapi.api.StationAPI;
-import net.modificationstation.stationapi.api.event.mod.PreInitEvent;
-import net.modificationstation.stationapi.api.event.recipe.RecipeRegisterEvent;
+import net.modificationstation.stationapi.api.client.colour.block.BlockColours;
+import net.modificationstation.stationapi.api.client.colour.item.ItemColours;
+import net.modificationstation.stationapi.api.client.event.colour.block.BlockColoursRegisterEvent;
+import net.modificationstation.stationapi.api.client.event.colour.item.ItemColoursRegisterEvent;
 import net.modificationstation.stationapi.api.event.registry.BlockRegistryEvent;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.item.tool.ToolMaterialFactory;
@@ -31,7 +33,6 @@ import net.modificationstation.stationapi.api.registry.ModID;
 import net.modificationstation.stationapi.api.tags.TagRegistry;
 import net.modificationstation.stationapi.api.template.item.TemplateItemBase;
 import net.modificationstation.stationapi.api.template.item.TemplateSecondaryBlock;
-import net.modificationstation.stationapi.api.template.item.tool.TemplateToolBase;
 import net.modificationstation.stationapi.api.util.Null;
 
 import java.awt.*;
@@ -40,37 +41,30 @@ public class StapiTest {
 
     @Entrypoint.ModID
     public static final ModID MOD_ID = Null.get();
-    public static BlockBase generator;
-    public static BlockBase electricFurnace;
-    public static BlockBase grinder;
-    public static BlockBase press;
-    public static BlockBase battery;
+    public static MachineBlock generator;
+    public static MachineBlock electricFurnace;
+    public static MachineBlock grinder;
+    public static MachineBlock press;
+    public static MachineBlock battery;
     public static BlockBase cable;
     public static BlockBase powerCable;
     public static BlockBase itemCable;
     public static TemplateItemBase ironDust;
     public static TemplateItemBase goldDust;
-    public static TemplateItemBase ironPlate;
-    public static TemplateItemBase goldPlate;
-    public static TemplateItemBase ironGear;
-    public static TemplateItemBase goldGear;
-    public static TemplateItemBase powerToolHandle;
-    public static TemplateItemBase drillHead;
-    public static TemplateItemBase sawHead;
-    public static TemplateItemBase diamondDrillHead;
-    public static TemplateItemBase diamondSawHead;
     public static TemplateItemBase wrench;
-    public static TemplateItemBase batteryItem;
-    public static TemplateToolBase electricPickaxe;
-    public static ToolMaterial basePowerTool;
-    public static ToolMaterial diamondPowerTool;
+    public static TemplateItemBase portableBattery;
+
+    public static TemplateItemBase pickaxe;
+    public static TemplateItemBase axe;
+    public static TemplateItemBase shovel;
+    public static TemplateItemBase sword;
+    public static TemplateItemBase hoe;
     public static TemplateItemBase drill;
-    public static TemplateItemBase diamondDrill;
     public static TemplateItemBase saw;
-    public static TemplateItemBase diamondSaw;
-    public static TemplateSecondaryBlock cableItem;
-    public static TemplateSecondaryBlock powerCableItem;
-    public static TemplateSecondaryBlock itemCableItem;
+
+//    public static TemplateSecondaryBlock cableItem;
+//    public static TemplateSecondaryBlock powerCableItem;
+//    public static TemplateSecondaryBlock itemCableItem;
 
     public static ElectricFurnaceRecipeRegistry eFurnaceRegistry = new ElectricFurnaceRecipeRegistry();
     public static GrinderRecipeRegistry grinderRegistry = new GrinderRecipeRegistry();
@@ -78,7 +72,6 @@ public class StapiTest {
 
     @EventListener
     public void registerBlocks(BlockRegistryEvent event) {
-
         generator = new Generator(Identifier.of(MOD_ID, "generator"));
         electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electricFurnace"));
         grinder = new Grinder(Identifier.of(MOD_ID, "grinder"));
@@ -96,48 +89,80 @@ public class StapiTest {
 
         wrench = new Wrench(Identifier.of(MOD_ID, "wrench"));
 
-        electricPickaxe = new ElectricPickaxe(Identifier.of(MOD_ID, "electricPickaxe"), ToolMaterial.IRON, 800);
+        UniqueMaterial.registerNewToolMaterial(ToolMaterialFactory.create("missingMaterial", 0, 0, 0, 0), "missingMaterial", 0);
+        UniqueMaterial.registerNewToolMaterial(ToolMaterial.IRON, "iron", -1);
+        UniqueMaterial.registerNewToolMaterial(ToolMaterial.EMERALD, "diamond", ColorConverter.colorToInt(new Color(0x4AEDD9)));
 
-        basePowerTool = ToolMaterialFactory.create("drill", 2, 1200, 8.0F, 2);
-        diamondPowerTool = ToolMaterialFactory.create("diamondDrill", 3, 2400, 14.0F, 3);
+        pickaxe = new MaterialAgnosticTool(Identifier.of(MOD_ID, "pickaxe"));
+        axe = new MaterialAgnosticTool(Identifier.of(MOD_ID, "axe"));
+        shovel = new MaterialAgnosticTool(Identifier.of(MOD_ID, "shovel"));
+        sword = new MaterialAgnosticTool(Identifier.of(MOD_ID, "sword"));
+        hoe = new MaterialAgnosticTool(Identifier.of(MOD_ID, "hoe"));
 
-        drill = new ElectricTool(Identifier.of(MOD_ID, "drill"), basePowerTool);
-        diamondDrill = new ElectricTool(Identifier.of(MOD_ID, "diamondDrill"), diamondPowerTool);
+        drill = new ElectricTool(Identifier.of(MOD_ID, "drill"));
+        saw = new ElectricTool(Identifier.of(MOD_ID, "saw"));
 
-        saw = new ElectricTool(Identifier.of(MOD_ID, "saw"), basePowerTool);
-        diamondSaw = new ElectricTool(Identifier.of(MOD_ID, "diamondSaw"), diamondPowerTool);
-
-        TagRegistry.INSTANCE.register(Identifier.of("tools/pickaxes"), new ItemInstance(electricPickaxe), e -> e.itemId == electricPickaxe.id);
+        TagRegistry.INSTANCE.register(Identifier.of("tools/pickaxes"), new ItemInstance(pickaxe), e -> e.itemId == pickaxe.id);
+        TagRegistry.INSTANCE.register(Identifier.of("tools/axes"), new ItemInstance(axe), e -> e.itemId == axe.id);
+        TagRegistry.INSTANCE.register(Identifier.of("tools/shovels"), new ItemInstance(shovel), e -> e.itemId == shovel.id);
+        TagRegistry.INSTANCE.register(Identifier.of("tools/swords"), new ItemInstance(sword), e -> e.itemId == sword.id);
+        TagRegistry.INSTANCE.register(Identifier.of("tools/hoes"), new ItemInstance(hoe), e -> e.itemId == hoe.id);
 
         TagRegistry.INSTANCE.register(Identifier.of("tools/pickaxes"), new ItemInstance(drill), e -> e.itemId == drill.id);
         TagRegistry.INSTANCE.register(Identifier.of("tools/shovels"), new ItemInstance(drill), e -> e.itemId == drill.id);
-        TagRegistry.INSTANCE.register(Identifier.of("tools/pickaxes"), new ItemInstance(diamondDrill), e -> e.itemId == diamondDrill.id);
-        TagRegistry.INSTANCE.register(Identifier.of("tools/shovels"), new ItemInstance(diamondDrill), e -> e.itemId == diamondDrill.id);
 
         TagRegistry.INSTANCE.register(Identifier.of("tools/axes"), new ItemInstance(saw), e -> e.itemId == saw.id);
-        TagRegistry.INSTANCE.register(Identifier.of("tools/axes"), new ItemInstance(diamondSaw), e -> e.itemId == diamondSaw.id);
 
-        batteryItem = new Battery(Identifier.of(MOD_ID, "battery"), 400);
+        portableBattery = new Battery(Identifier.of(MOD_ID, "battery"), 400);
 
         ironDust = new ColoredItem(Identifier.of(MOD_ID, "ironDust"), Color.WHITE);
         goldDust = new ColoredItem(Identifier.of(MOD_ID, "goldDust"), goldColor);
 
-        ironPlate = new ColoredItem(Identifier.of(MOD_ID, "ironPlate"), Color.WHITE);
-        goldPlate = new ColoredItem(Identifier.of(MOD_ID, "goldPlate"), goldColor);
-
-        ironGear = new ColoredItem(Identifier.of(MOD_ID, "ironGear"), Color.WHITE);
-        goldGear = new ColoredItem(Identifier.of(MOD_ID, "goldGear"), goldColor);
-
-        powerToolHandle = new ToolPart(Identifier.of(MOD_ID, "powerToolHandle"));
-        drillHead = new ToolPart(Identifier.of(MOD_ID, "drillHead"));
-        sawHead = new ToolPart(Identifier.of(MOD_ID, "sawHead"));
-        diamondDrillHead = new ToolPart(Identifier.of(MOD_ID, "diamondDrillHead"));
-        diamondSawHead = new ToolPart(Identifier.of(MOD_ID, "diamondSawHead"));
-
         // Secondary Blocks (BlockItems)
-        cableItem = new CableBlockItem(Identifier.of(MOD_ID, "cableItem"), StapiTest.cable, Color.WHITE);
-        powerCableItem = new CableBlockItem(Identifier.of(MOD_ID, "powerCableItem"), StapiTest.powerCable, new Color(37, 33, 33, 255));
-        itemCableItem = new CableBlockItem(Identifier.of(MOD_ID, "itemCableItem"), StapiTest.itemCable, Color.GREEN);
+//        cableItem = new CableBlockItem(Identifier.of(MOD_ID, "cableItem"), StapiTest.cable, Color.WHITE);
+//        powerCableItem = new CableBlockItem(Identifier.of(MOD_ID, "powerCableItem"), StapiTest.powerCable, new Color(37, 33, 33, 255));
+//        itemCableItem = new CableBlockItem(Identifier.of(MOD_ID, "itemCableItem"), StapiTest.itemCable, Color.GREEN);
+    }
+
+    @EventListener
+    private static void registerBlockColours(BlockColoursRegisterEvent event) {
+        BlockColours blockColours = event.getBlockColours();
+        for (MachineBlock machine: new MachineBlock[] {
+                grinder,
+                press,
+                electricFurnace,
+                generator
+             }) {
+            blockColours.registerColourProvider((state, world, pos, tintIndex) -> machine.getMachineColor(), machine);
+        }
+    }
+
+    @EventListener
+    private static void registerItemColours(ItemColoursRegisterEvent event) {
+        ItemColours itemColours = event.getItemColours();
+        for (MachineBlock machine: new MachineBlock[] {
+                grinder,
+                press,
+                electricFurnace,
+                generator
+        }) {
+            itemColours.register((itemInstance, tintIndex) -> machine.getMachineColor(), machine);
+        }
+        for (TemplateItemBase tool: new TemplateItemBase[] {
+                pickaxe,
+                axe,
+                shovel,
+                sword,
+                hoe
+        }) {
+            itemColours.register((itemInstance, tintIndex) -> tintIndex == 1 ? ElectricTool.getUniqueMaterial(itemInstance).getMaterialColor() : -1, tool);
+        }
+        for (TemplateItemBase tool: new TemplateItemBase[] {
+                drill,
+                saw
+        }) {
+            itemColours.register((itemInstance, tintIndex) -> tintIndex == 0 ? ElectricTool.getUniqueMaterial(itemInstance).getMaterialColor() : -1, tool);
+        }
     }
 
 }
