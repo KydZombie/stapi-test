@@ -1,6 +1,5 @@
 package com.github.kydzombie.stapitest.block.cable;
 
-import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.custom.util.WorldUtils;
 import com.github.kydzombie.stapitest.custom.util.machine.power.PowerConnection;
 import com.github.kydzombie.stapitest.custom.util.machine.power.PowerUtils;
@@ -10,12 +9,9 @@ import net.minecraft.level.Level;
 import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.registry.Identifier;
 
-import java.awt.*;
-import java.util.Random;
-
 public class PowerCable extends Cable implements PowerConnection {
     public PowerCable(Identifier identifier) {
-        super(identifier, new Color(37, 33, 33, 255));
+        super(identifier);
         this.connectTo = PowerConnection.class;
     }
 
@@ -32,9 +28,9 @@ public class PowerCable extends Cable implements PowerConnection {
     }
 
     @Override
-    boolean checkConnection(BlockView tileView, Vec3i pos, int side) {
-        BlockBase block = WorldUtils.getBlock(tileView, pos);
+    boolean checkConnection(BlockView tileView, int x, int y, int z, int side) {
+        BlockBase block = WorldUtils.getBlock(tileView, x, y, z);
 
-        return ((block instanceof PowerConnection && ((PowerConnection) block).canConnect(tileView, pos, side)) || block != null && id == block.id);
+        return ((block instanceof PowerConnection && ((PowerConnection) block).canConnect(tileView, x, y, z, side)) || block != null && id == block.id);
     }
 }

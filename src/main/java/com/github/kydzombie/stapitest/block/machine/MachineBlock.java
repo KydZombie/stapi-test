@@ -49,7 +49,7 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
         builder.add(FACING_PROPERTY);
     }
 
-        @Override
+    @Override
     public void afterPlaced(Level level, int x, int y, int z, Living living) {
         int direction = MathHelper.floor((double) (living.yaw * 4.0F / 360.0F) + 0.5D) & 3;
         ((BlockStateView)level).setBlockState(x, y, z, getDefaultState().with(FACING_PROPERTY,
@@ -94,8 +94,9 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
     }
 
     @Override
-    public boolean canConnect(BlockView tileView, Vec3i pos, int side) {
-        return side != tileView.getTileMeta(pos.x, pos.y, pos.z);
+    public boolean canConnect(BlockView tileView, int x, int y, int z, int side) {
+        BlockState blockState = ((BlockStateView)tileView).getBlockState(x, y, z);
+        return side != blockState.get(FACING_PROPERTY).ordinal();
     }
 
     @Override

@@ -33,15 +33,16 @@ public class ElectricTool extends MaterialAgnosticTool implements ItemPowerStora
     }
 
     @Override
-    public boolean postMine(ItemInstance item, int i, int j, int k, int i1, Living damageTarget) {
-        consume(item, 5, false);
-        if (rand.nextInt(5) == 0) {
-            super.postMine(item, i, j, k, i1, damageTarget);
-            if (item.count == 0) {
-                damageTarget.dropItem(new ItemInstance(StapiTest.powerToolHandle), 2);
+    public void applyDamage(ItemInstance item, int damage, Living damageTarget) {
+        for (int i = 0; i < damage; i++) {
+            consume(item, 5, false);
+            if (rand.nextInt(5) == 0) {
+                super.applyDamage(item, damage, damageTarget);
+                if (item.count == 0) {
+                    damageTarget.dropItem(new ItemInstance(StapiTest.powerToolHandle), 2);
+                }
             }
         }
-        return true;
     }
 
     @Override

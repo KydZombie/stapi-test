@@ -1,15 +1,13 @@
 package com.github.kydzombie.stapitest.events.init;
 
-import com.github.kydzombie.stapitest.block.cable.Cable;
-import com.github.kydzombie.stapitest.block.cable.ItemCable;
-import com.github.kydzombie.stapitest.block.cable.PowerCable;
+import com.github.kydzombie.stapitest.block.cable.*;
 import com.github.kydzombie.stapitest.block.machine.*;
 import com.github.kydzombie.stapitest.custom.UniqueMaterial;
 import com.github.kydzombie.stapitest.custom.util.ColorConverter;
 import com.github.kydzombie.stapitest.item.Battery;
-import com.github.kydzombie.stapitest.item.CableBlockItem;
 import com.github.kydzombie.stapitest.item.ColoredItem;
 import com.github.kydzombie.stapitest.item.Wrench;
+import com.github.kydzombie.stapitest.item.tool.Chainsaw;
 import com.github.kydzombie.stapitest.item.tool.ElectricTool;
 import com.github.kydzombie.stapitest.item.tool.MaterialAgnosticTool;
 import com.github.kydzombie.stapitest.recipe.ElectricFurnaceRecipeRegistry;
@@ -33,7 +31,6 @@ import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.registry.ModID;
 import net.modificationstation.stationapi.api.tags.TagRegistry;
 import net.modificationstation.stationapi.api.template.item.TemplateItemBase;
-import net.modificationstation.stationapi.api.template.item.TemplateSecondaryBlock;
 import net.modificationstation.stationapi.api.util.Null;
 
 import java.awt.*;
@@ -64,10 +61,6 @@ public class StapiTest {
     public static TemplateItemBase drill;
     public static TemplateItemBase saw;
 
-//    public static TemplateSecondaryBlock cableItem;
-//    public static TemplateSecondaryBlock powerCableItem;
-//    public static TemplateSecondaryBlock itemCableItem;
-
     public static ElectricFurnaceRecipeRegistry eFurnaceRegistry = new ElectricFurnaceRecipeRegistry();
     public static GrinderRecipeRegistry grinderRegistry = new GrinderRecipeRegistry();
     public static PressRecipeRegistry pressRegistry = new PressRecipeRegistry();
@@ -80,7 +73,6 @@ public class StapiTest {
         press = new Press(Identifier.of(MOD_ID, "press"));
         battery = new BatteryBlock(Identifier.of(MOD_ID, "batteryBlock"));
 
-        cable = new Cable(Identifier.of(MOD_ID, "cable"));
         powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable"));
         itemCable = new ItemCable(Identifier.of(MOD_ID, "itemCable"));
     }
@@ -104,7 +96,7 @@ public class StapiTest {
         hoe = new MaterialAgnosticTool(Identifier.of(MOD_ID, "hoe"));
 
         drill = new ElectricTool(Identifier.of(MOD_ID, "drill"));
-        saw = new ElectricTool(Identifier.of(MOD_ID, "saw"));
+        saw = new Chainsaw(Identifier.of(MOD_ID, "saw"));
 
         TagRegistry.INSTANCE.register(Identifier.of("tools/pickaxes"), new ItemInstance(pickaxe), e -> e.itemId == pickaxe.id);
         TagRegistry.INSTANCE.register(Identifier.of("tools/axes"), new ItemInstance(axe), e -> e.itemId == axe.id);
@@ -172,7 +164,7 @@ public class StapiTest {
     @EventListener
     private static void strengthOnBlock(ItemStrengthOnBlockEvent event) {
         if ((event.itemInstance.getType() instanceof MaterialAgnosticTool) &&
-                MaterialAgnosticTool.getDurability(event.itemInstance) == 0 ||
+                MaterialAgnosticTool.getDurability(event.itemInstance) < 1 ||
                 (event.itemInstance.getType() instanceof ElectricTool &&
                         ((ElectricTool) event.itemInstance.getType()).getCurrentPower(event.itemInstance) < 5)
         ) {

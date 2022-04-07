@@ -35,7 +35,9 @@ public interface ItemPowerStorage extends CustomTooltipProvider, CustomItemOverl
     }
 
     default int consume(ItemInstance item, int consumeAmount, boolean simulate) {
-        ItemPowerStorage poweredItem = ((ItemPowerStorage) item.getType());
+        if (item.count == 0 || item.itemId == 0 || !(item.getType() instanceof ItemPowerStorage poweredItem)) {
+            return 0;
+        }
         consumeAmount = Math.min(poweredItem.getCurrentPower(item), consumeAmount);
         if (!simulate) {
             StationNBT.cast(item).getStationNBT().put("power", poweredItem.getCurrentPower(item) - consumeAmount);

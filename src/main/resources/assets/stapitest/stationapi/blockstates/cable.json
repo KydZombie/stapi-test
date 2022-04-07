@@ -1,0 +1,23 @@
+{
+  "multipart": [
+    {   "apply": { "model": "stapitest:block/cableCore" }},
+    {   "when": { "north": "true" },
+      "apply": { "model": "stapitest:block/cablePart", "uvlock": false }
+    },
+    {   "when": { "east": "true" },
+      "apply": { "model": "stapitest:block/cablePart", "y": 90, "uvlock": false }
+    },
+    {   "when": { "south": "true" },
+      "apply": { "model": "stapitest:block/cablePart", "y": 180, "uvlock": false }
+    },
+    {   "when": { "west": "true" },
+      "apply": { "model": "stapitest:block/cablePart", "y": 270, "uvlock": false }
+    },
+    {   "when": { "up": "true" },
+      "apply": { "model": "stapitest:block/cablePart", "x": 270, "uvlock": false }
+    },
+    {   "when": { "down": "true" },
+      "apply": { "model": "stapitest:block/cablePart", "x": 90, "uvlock": false }
+    }
+  ]
+}

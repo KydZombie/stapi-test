@@ -1,0 +1,7 @@
+{
+  "parent": "stapitest:block/baseCablePart",
+  "textures": {
+    "0": "block/iron_ore",
+    "particle": "block/iron_ore"
+  }
+}

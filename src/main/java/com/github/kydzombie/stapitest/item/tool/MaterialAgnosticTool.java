@@ -74,7 +74,7 @@ public class MaterialAgnosticTool extends TemplateItemBase implements ToolLevel,
 
     @Override
     public boolean postHit(ItemInstance item, Living damageSource, Living damageTarget) {
-        applyDamage(item, 2);
+        applyDamage(item, 2, damageTarget);
         return true;
     }
 
@@ -82,12 +82,13 @@ public class MaterialAgnosticTool extends TemplateItemBase implements ToolLevel,
     public boolean postMine(ItemInstance item, int i, int j, int k, int i1, Living damageTarget) {
         CompoundTag nbt = StationNBT.cast(item).getStationNBT();
         if (!nbt.getString("material").equals("missingMaterial")) {
-            applyDamage(item, 1);
-            if (nbt.getInt("damage") >= nbt.getInt("maxDurability")) {
-                item.count--;
-            }
+            applyDamage(item, 1, damageTarget);
         }
         return true;
+    }
+
+    public void applyDamage(ItemInstance item, int damage, Living damageTarget) {
+        applyDamage(item, damage);
     }
 
     public void applyDamage(ItemInstance item, int damage) {

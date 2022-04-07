@@ -1,0 +1,7 @@
+{
+  "parent": "stapitest:block/baseCablePart",
+  "textures": {
+    "0": "stapitest:block/item_cable",
+    "particle": "stapitest:block/item_cable"
+  }
+}

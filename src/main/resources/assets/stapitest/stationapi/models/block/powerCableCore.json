@@ -1,0 +1,7 @@
+{
+  "parent": "stapitest:block/baseCableCore",
+  "textures": {
+    "0": "stapitest:block/power_cable",
+    "particle": "stapitest:block/power_cable"
+  }
+}

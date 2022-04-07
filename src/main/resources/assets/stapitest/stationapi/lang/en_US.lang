@@ -1,6 +1,3 @@
-item.cable.name=Basic Cable
-item.powerCable.name=Power Cable
-item.itemCable.name=Item Cable
 item.battery.name=Battery
 
 item.wrench.name=Wrench
@@ -22,3 +19,6 @@ tile.electricFurnace.name=Electric Furnace
 tile.grinder.name=Grinder
 tile.press.name=Press
 tile.batteryBlock.name=Battery
+
+tile.powerCable.name=Power Cable
+tile.itemCable.name=Item Cable

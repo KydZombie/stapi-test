@@ -1,48 +1,78 @@
 package com.github.kydzombie.stapitest.block.cable;
 
-import com.github.kydzombie.stapitest.events.init.StapiTest;
-import com.github.kydzombie.stapitest.custom.util.ColorConverter;
 import com.github.kydzombie.stapitest.custom.util.WorldUtils;
 import com.github.kydzombie.stapitest.custom.util.machine.Wrenchable;
 import com.github.kydzombie.stapitest.custom.util.machine.power.Connection;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.material.Material;
-import net.minecraft.client.render.block.BlockRenderer;
 import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.util.maths.Box;
-import net.minecraft.util.maths.Vec3i;
-import net.modificationstation.stationapi.api.client.model.block.BlockWithWorldRenderer;
+import net.modificationstation.stationapi.api.block.BlockState;
+import net.modificationstation.stationapi.api.level.BlockStateView;
 import net.modificationstation.stationapi.api.registry.Identifier;
+import net.modificationstation.stationapi.api.state.StateManager;
+import net.modificationstation.stationapi.api.state.property.BooleanProperty;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockBase;
 
-import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
+public class Cable extends TemplateBlockBase implements Connection, Wrenchable {
+    public static final BooleanProperty NORTH = BooleanProperty.of("north");
+    public static final BooleanProperty SOUTH = BooleanProperty.of("south");
+    public static final BooleanProperty EAST = BooleanProperty.of("east");
+    public static final BooleanProperty WEST = BooleanProperty.of("west");
+    public static final BooleanProperty UP = BooleanProperty.of("up");
+    public static final BooleanProperty DOWN = BooleanProperty.of("down");
 
-@SuppressWarnings("SuspiciousNameCombination")
-public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, Connection, Wrenchable {
-
-    static final float MIN_WIDTH = .3f;
-    static final float MAX_WIDTH = .7f;
-    private final int color;
-    public Class<?> connectTo = null;
+    static final float MIN_SIZE = .25f;
+    static final float MAX_SIZE = .75f;
+    public Class<?> connectTo;
 
     public Cable(Identifier identifier) {
-        super(identifier, Material.WOOL);
-        this.texture = BlockBase.WOOL.texture;
-        this.setSounds(WOOL_SOUNDS);
+        super(identifier, Material.STONE);
         this.setHardness(0.8f);
-        this.color = ColorConverter.colorToInt(Color.WHITE);
+        mineableBy(Identifier.of("tools/pickaxes"), 0);
+        setTranslationKey(identifier.toString());
+        setDefaultState(getStateManager().getDefaultState()
+                .with(NORTH, false)
+                .with(SOUTH, false)
+                .with(EAST, false)
+                .with(WEST, false)
+                .with(UP, false)
+                .with(DOWN, false));
     }
 
-    public Cable(Identifier identifier, Color color) {
-        super(identifier, Material.WOOL);
-        this.texture = BlockBase.WOOL.texture;
-        this.setSounds(WOOL_SOUNDS);
-        this.setHardness(0.8f);
-        this.color = ColorConverter.colorToInt(color);
+    @Override
+    public void appendProperties(StateManager.Builder<BlockBase, BlockState> builder) {
+        builder.add(NORTH, SOUTH, EAST, WEST, UP, DOWN);
+    }
+
+    @Override
+    public void onBlockPlaced(Level level, int x, int y, int z) {
+        super.onBlockPlaced(level, x, y, z);
+        updateCable(level, x, y, z);
+    }
+
+    @Override
+    public void onAdjacentBlockUpdate(Level level, int x, int y, int z, int id) {
+        super.onAdjacentBlockUpdate(level, x, y, z, id);
+        updateCable(level, x, y, z);
+    }
+
+    @Override
+    public void onBlockRemoved(Level level, int x, int y, int z) {
+        super.onBlockRemoved(level, x, y, z);
+    }
+
+    public void updateCable(Level level, int x, int y, int z) {
+        ((BlockStateView)level).setBlockState(x, y, z, getDefaultState()
+                .with(NORTH, checkConnection(level, x - 1, y, z, 5))
+                .with(SOUTH, checkConnection(level, x + 1, y, z, 4))
+                .with(EAST, checkConnection(level, x, y, z - 1, 3))
+                .with(WEST, checkConnection(level, x, y, z + 1, 2))
+                .with(UP, checkConnection(level, x, y + 1, z, 0))
+                .with(DOWN, checkConnection(level, x, y - 1, z, 1)));
+
+        updateBoundingBox(level, x, y, z);
     }
 
     @Override
@@ -61,144 +91,28 @@ public class Cable extends TemplateBlockBase implements BlockWithWorldRenderer, 
     }
 
     @Override
-    public boolean canConnect(BlockView tileView, Vec3i pos, int side) {
+    public boolean canConnect(BlockView tileView, int x, int y, int z, int side) {
         return true;
     }
 
-    @SuppressWarnings("SuspiciousNameCombination")
-    @Override
-    public boolean renderWorld(BlockRenderer tileRenderer, BlockView tileView, int x, int y, int z) {
-        int var5 = this.getColourMultiplier(tileView, x, y, z);
-        float var6 = (float) (var5 >> 16 & 255) / 255.0F;
-        float var7 = (float) (var5 >> 8 & 255) / 255.0F;
-        float var8 = (float) (var5 & 255) / 255.0F;
-
-        this.setBoundingBox(MIN_WIDTH, MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH, MAX_WIDTH);
-        tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
-
-        SafeBox currentBox = new SafeBox(MIN_WIDTH, MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH, MAX_WIDTH);
-
-        List<CableConnection> connections = getConnections(tileView, x, y, z);
-
-        for (CableConnection connection : connections) {
-            SafeBox box = connection.boundingBox;
-            this.setBoundingBox(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ);
-            tileRenderer.renderFast(this, x, y, z, var6, var7, var8);
-            currentBox.combine(box);
-        }
-
-        return true;
-    }
-
-    @SuppressWarnings("SuspiciousNameCombination")
     @Override
     public void updateBoundingBox(BlockView tileView, int x, int y, int z) {
+        BlockState blockState = ((BlockStateView)tileView).getBlockState(x, y, z);
 
-        SafeBox currentBox = new SafeBox(MIN_WIDTH, MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH, MAX_WIDTH);
+        float maxX = blockState.get(SOUTH) ? 1 : MAX_SIZE;
+        float minX = blockState.get(NORTH) ? 0 : MIN_SIZE;
+        float maxY = blockState.get(UP) ? 1 : MAX_SIZE;
+        float minY = blockState.get(DOWN) ? 0 : MIN_SIZE;
+        float maxZ = blockState.get(WEST) ? 1 : MAX_SIZE;
+        float minZ = blockState.get(EAST) ? 0 : MIN_SIZE;
 
-        List<CableConnection> connections = getConnections(tileView, x, y, z);
-
-        for (CableConnection connection : connections) {
-            SafeBox box = connection.boundingBox;
-            currentBox.combine(box);
-        }
-
-        this.setBoundingBox(currentBox.minX, currentBox.minY, currentBox.minZ, currentBox.maxX, currentBox.maxY, currentBox.maxZ);
+        this.setBoundingBox(minX, minY, minZ, maxX, maxY, maxZ);
     }
 
-    List<CableConnection> getConnections(BlockView tileView, int x, int y, int z) {
-        List<CableConnection> connections = new ArrayList<>();
 
-        Vec3i check;
-
-        // x
-        check = new Vec3i(x + 1, y, z);
-        if (checkConnection(tileView, check, 4)) {
-            connections.add(new CableConnection(check, new SafeBox(MAX_WIDTH, MIN_WIDTH, MIN_WIDTH, 1f, MAX_WIDTH, MAX_WIDTH)));
-        }
-        check = new Vec3i(x - 1, y, z);
-        if (checkConnection(tileView, check, 5)) {
-            connections.add(new CableConnection(check, new SafeBox(0f, MIN_WIDTH, MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH)));
-        }
-        // y
-        check = new Vec3i(x, y + 1, z);
-        if (checkConnection(tileView, check, 0)) {
-            connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, MAX_WIDTH, MIN_WIDTH, MAX_WIDTH, 1f, MAX_WIDTH)));
-        }
-        check = new Vec3i(x, y - 1, z);
-        if (checkConnection(tileView, check, 1)) {
-            connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, 0f, MIN_WIDTH, MAX_WIDTH, MIN_WIDTH, MAX_WIDTH)));
-        }
-        // z
-        check = new Vec3i(x, y, z + 1);
-        if (checkConnection(tileView, check, 2)) {
-            connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, MIN_WIDTH, MAX_WIDTH, MAX_WIDTH, MAX_WIDTH, 1f)));
-        }
-        check = new Vec3i(x, y, z - 1);
-        if (checkConnection(tileView, check, 3)) {
-            connections.add(new CableConnection(check, new SafeBox(MIN_WIDTH, MIN_WIDTH, 0f, MAX_WIDTH, MAX_WIDTH, MIN_WIDTH)));
-        }
-        return connections;
-    }
-
-    boolean checkConnection(BlockView tileView, Vec3i pos, int side) {
-        BlockBase block = WorldUtils.getBlock(tileView, pos);
+    boolean checkConnection(BlockView tileView, int x, int y, int z, int side) {
+        BlockBase block = WorldUtils.getBlock(tileView, x, y, z);
 
         return block != null && ((connectTo != null && connectTo.isInstance(block)) || id == block.id);
     }
-
-    @Override
-    public int getColourMultiplier(BlockView tileView, int x, int y, int z) {
-        return color;
-    }
-}
-
-class CableConnection {
-    final Vec3i pos;
-    final SafeBox boundingBox;
-
-    CableConnection(Vec3i pos, SafeBox boundingBox) {
-        this.pos = pos;
-        this.boundingBox = boundingBox;
-    }
-}
-
-class SafeBox {
-    float minX;
-    float minY;
-    float minZ;
-    float maxX;
-    float maxY;
-    float maxZ;
-
-    SafeBox(float minX, float minY, float minZ, float maxX, float maxY, float maxZ) {
-        this.minX = minX;
-        this.minY = minY;
-        this.minZ = minZ;
-        this.maxX = maxX;
-        this.maxY = maxY;
-        this.maxZ = maxZ;
-    }
-
-    void combine(SafeBox box) {
-        if (box.minX < this.minX) {
-            this.minX = box.minX;
-        }
-        if (box.minY < this.minY) {
-            this.minY = box.minY;
-        }
-        if (box.minZ < this.minZ) {
-            this.minZ = box.minZ;
-        }
-        if (box.maxX > this.maxX) {
-            this.maxX = box.maxX;
-        }
-        if (box.maxY > this.maxY) {
-            this.maxY = box.maxY;
-        }
-        if (box.maxZ > this.maxZ) {
-            this.maxZ = box.maxZ;
-        }
-    }
-
 }
