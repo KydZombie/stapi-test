@@ -4,12 +4,15 @@ import com.github.kydzombie.stapitest.block.cable.*;
 import com.github.kydzombie.stapitest.block.machine.*;
 import com.github.kydzombie.stapitest.custom.UniqueMaterial;
 import com.github.kydzombie.stapitest.custom.util.ColorConverter;
+import com.github.kydzombie.stapitest.custom.util.item.MaterialAgnostic;
+import com.github.kydzombie.stapitest.item.BasicDynamicItem;
 import com.github.kydzombie.stapitest.item.Battery;
 import com.github.kydzombie.stapitest.item.ColoredItem;
 import com.github.kydzombie.stapitest.item.Wrench;
 import com.github.kydzombie.stapitest.item.tool.Chainsaw;
 import com.github.kydzombie.stapitest.item.tool.ElectricTool;
 import com.github.kydzombie.stapitest.item.tool.MaterialAgnosticTool;
+import com.github.kydzombie.stapitest.recipe.CentrifugeRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.ElectricFurnaceRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.GrinderRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.PressRecipeRegistry;
@@ -43,12 +46,15 @@ public class StapiTest {
     public static MachineBlock electricFurnace;
     public static MachineBlock grinder;
     public static MachineBlock press;
+    public static MachineBlock centrifuge;
     public static MachineBlock battery;
-    public static BlockBase cable;
+
     public static BlockBase powerCable;
     public static BlockBase itemCable;
     public static TemplateItemBase ironDust;
     public static TemplateItemBase goldDust;
+    public static TemplateItemBase sludge;
+
     public static TemplateItemBase wrench;
     public static TemplateItemBase portableBattery;
     public static TemplateItemBase powerToolHandle;
@@ -64,6 +70,7 @@ public class StapiTest {
     public static ElectricFurnaceRecipeRegistry eFurnaceRegistry = new ElectricFurnaceRecipeRegistry();
     public static GrinderRecipeRegistry grinderRegistry = new GrinderRecipeRegistry();
     public static PressRecipeRegistry pressRegistry = new PressRecipeRegistry();
+    public static CentrifugeRecipeRegistry centrifugeRegistry = new CentrifugeRecipeRegistry();
 
     @EventListener
     public void registerBlocks(BlockRegistryEvent event) {
@@ -71,6 +78,7 @@ public class StapiTest {
         electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electricFurnace"));
         grinder = new Grinder(Identifier.of(MOD_ID, "grinder"));
         press = new Press(Identifier.of(MOD_ID, "press"));
+        centrifuge = new Centrifuge(Identifier.of(MOD_ID, "centrifuge"));
         battery = new BatteryBlock(Identifier.of(MOD_ID, "batteryBlock"));
 
         powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable"));
@@ -84,10 +92,11 @@ public class StapiTest {
         wrench = new Wrench(Identifier.of(MOD_ID, "wrench"));
         powerToolHandle = new TemplateItemBase(Identifier.of(MOD_ID, "powerToolHandle")).setTranslationKey(MOD_ID, "powerToolHandle");
 
-        UniqueMaterial.registerNewToolMaterial(ToolMaterialFactory.create("missingMaterial", 0, 0, 0, 0), 0, null);
-        UniqueMaterial.registerNewToolMaterial(ToolMaterial.IRON, "iron", -1, ItemBase.ironIngot);
-        UniqueMaterial.registerNewToolMaterial(ToolMaterial.EMERALD, "diamond", ColorConverter.colorToInt(new Color(0x4AEDD9)), ItemBase.diamond);
-        UniqueMaterial.registerNewToolMaterial(ToolMaterial.GOLD, "gold", ColorConverter.colorToInt(new Color(0xEFCA2B)), ItemBase.goldIngot);
+        UniqueMaterial.registerNewUniqueMaterial(ToolMaterialFactory.create("missingMaterial", 0, 0, 0, 0), 0, null);
+        UniqueMaterial.registerNewUniqueMaterial(ToolMaterial.IRON, "iron", -1, ItemBase.ironIngot);
+        UniqueMaterial.registerNewUniqueMaterial(ToolMaterial.EMERALD, "diamond", ColorConverter.colorToInt(new Color(0x4AEDD9)), ItemBase.diamond);
+        UniqueMaterial.registerNewUniqueMaterial(ToolMaterial.GOLD, "gold", ColorConverter.colorToInt(new Color(0xEFCA2B)), ItemBase.goldIngot);
+        UniqueMaterial.registerNewUniqueMaterial(null, "redstone", ColorConverter.colorToInt(new Color(0xFF6D6D)), null);
 
         pickaxe = new MaterialAgnosticTool(Identifier.of(MOD_ID, "pickaxe"));
         axe = new MaterialAgnosticTool(Identifier.of(MOD_ID, "axe"));
@@ -114,10 +123,7 @@ public class StapiTest {
         ironDust = new ColoredItem(Identifier.of(MOD_ID, "ironDust"), Color.WHITE);
         goldDust = new ColoredItem(Identifier.of(MOD_ID, "goldDust"), goldColor);
 
-        // Secondary Blocks (BlockItems)
-//        cableItem = new CableBlockItem(Identifier.of(MOD_ID, "cableItem"), StapiTest.cable, Color.WHITE);
-//        powerCableItem = new CableBlockItem(Identifier.of(MOD_ID, "powerCableItem"), StapiTest.powerCable, new Color(37, 33, 33, 255));
-//        itemCableItem = new CableBlockItem(Identifier.of(MOD_ID, "itemCableItem"), StapiTest.itemCable, Color.GREEN);
+        sludge = new BasicDynamicItem(Identifier.of(MOD_ID, "sludge"));
     }
 
     @EventListener
@@ -127,6 +133,7 @@ public class StapiTest {
                 grinder,
                 press,
                 electricFurnace,
+                centrifuge,
                 generator
              }) {
             blockColours.registerColourProvider((state, world, pos, tintIndex) -> machine.getMachineColor(), machine);
@@ -140,6 +147,7 @@ public class StapiTest {
                 grinder,
                 press,
                 electricFurnace,
+                centrifuge,
                 generator
         }) {
             itemColours.register((itemInstance, tintIndex) -> machine.getMachineColor(), machine);
@@ -151,14 +159,21 @@ public class StapiTest {
                 sword,
                 hoe
         }) {
-            itemColours.register((itemInstance, tintIndex) -> tintIndex == 1 ? ElectricTool.getUniqueMaterial(itemInstance).getMaterialColor() : -1, tool);
+            itemColours.register((itemInstance, tintIndex) -> tintIndex == 1 ? MaterialAgnostic.getUniqueMaterial(itemInstance).getMaterialColor() : -1, tool);
         }
         for (TemplateItemBase tool: new TemplateItemBase[] {
                 drill,
                 saw
         }) {
-            itemColours.register((itemInstance, tintIndex) -> tintIndex == 0 ? ElectricTool.getUniqueMaterial(itemInstance).getMaterialColor() : -1, tool);
+            itemColours.register((itemInstance, tintIndex) -> tintIndex == 0 ? MaterialAgnostic.getUniqueMaterial(itemInstance).getMaterialColor() : -1, tool);
         }
+
+        for (TemplateItemBase tool: new TemplateItemBase[] {
+                sludge
+        }) {
+            itemColours.register((itemInstance, tintIndex) -> MaterialAgnostic.getUniqueMaterial(itemInstance).getMaterialColor(), sludge);
+        }
+
     }
 
     @EventListener

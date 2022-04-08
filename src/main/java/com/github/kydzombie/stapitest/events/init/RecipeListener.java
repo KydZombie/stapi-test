@@ -20,6 +20,7 @@ public class RecipeListener {
         StationAPI.EVENT_BUS.post(new RecipeRegisterEvent(Identifier.of(StapiTest.MOD_ID, "electricFurnace")));
         StationAPI.EVENT_BUS.post(new RecipeRegisterEvent(Identifier.of(StapiTest.MOD_ID, "grinder")));
         StationAPI.EVENT_BUS.post(new RecipeRegisterEvent(Identifier.of(StapiTest.MOD_ID, "press")));
+        StationAPI.EVENT_BUS.post(new RecipeRegisterEvent(Identifier.of(StapiTest.MOD_ID, "centrifuge")));
     }
 
     @EventListener
@@ -48,6 +49,9 @@ public class RecipeListener {
             StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.GOLD_ORE), new ItemInstance(StapiTest.goldDust, 2));
         }
         else if (event.recipeId.equals(Identifier.of(StapiTest.MOD_ID, "press"))) {
+        }
+        else if (event.recipeId.equals(Identifier.of(StapiTest.MOD_ID, "centrifuge"))) {
+            StapiTest.centrifugeRegistry.addRecipe(new ItemInstance(ItemBase.redstoneDust), new ItemInstance(StapiTest.sludge));
         }
     }
 }

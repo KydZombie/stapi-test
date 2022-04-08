@@ -29,6 +29,7 @@ public class GuiListener {
         registry.registerValueNoMessage(Identifier.of(MOD_ID, "openGenerator"), BiTuple.of(this::openGenerator, TileGenerator::new));
         registry.registerValueNoMessage(Identifier.of(MOD_ID, "openGrinder"), BiTuple.of(this::openGrinder, TileGrinder::new));
         registry.registerValueNoMessage(Identifier.of(MOD_ID, "openPress"), BiTuple.of(this::openPress, TilePress::new));
+        registry.registerValueNoMessage(Identifier.of(MOD_ID, "openCentrifuge"), BiTuple.of(this::openCentrifuge, TileCentrifuge::new));
         registry.registerValueNoMessage(Identifier.of(MOD_ID, "openBattery"), BiTuple.of(this::openBattery, TileBattery::new));
     }
 
@@ -50,6 +51,11 @@ public class GuiListener {
     @Environment(EnvType.CLIENT)
     public ScreenBase openPress(PlayerBase player, InventoryBase inventoryBase) {
         return new ProcessingGui(player.inventory, (TilePress) inventoryBase, "Press");
+    }
+
+    @Environment(EnvType.CLIENT)
+    public ScreenBase openCentrifuge(PlayerBase player, InventoryBase inventoryBase) {
+        return new ProcessingGui(player.inventory, (TileCentrifuge) inventoryBase, "Centrifuge");
     }
 
     @Environment(EnvType.CLIENT)

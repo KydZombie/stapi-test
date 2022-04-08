@@ -19,12 +19,12 @@ public class UniqueMaterial {
         this.craftingMaterial = craftingMaterial;
     }
 
-    public static void registerNewToolMaterial(ToolMaterial baseMaterial, int color, ItemBase craftingMaterial) {
+    public static void registerNewUniqueMaterial(ToolMaterial baseMaterial, int color, ItemBase craftingMaterial) {
         materials.put(baseMaterial.name(), new UniqueMaterial(baseMaterial, color, craftingMaterial));
     }
 
-    public static UniqueMaterial registerNewToolMaterial(ToolMaterial baseMaterial, String name, int color, ItemBase craftingMaterial) {
-        return materials.put(name, new UniqueMaterial(baseMaterial, color, craftingMaterial));
+    public static void registerNewUniqueMaterial(ToolMaterial baseMaterial, String name, int color, ItemBase craftingMaterial) {
+        materials.put(name, new UniqueMaterial(baseMaterial, color, craftingMaterial));
     }
 
     public ToolMaterial getToolMaterial() {

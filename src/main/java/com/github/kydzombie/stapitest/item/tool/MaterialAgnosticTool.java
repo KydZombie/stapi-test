@@ -1,6 +1,6 @@
 package com.github.kydzombie.stapitest.item.tool;
 
-import com.github.kydzombie.stapitest.custom.UniqueMaterial;
+import com.github.kydzombie.stapitest.custom.util.item.MaterialAgnostic;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.TextRenderer;
 import net.minecraft.client.render.entity.ItemRenderer;
@@ -19,7 +19,7 @@ import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.template.item.TemplateItemBase;
 import org.lwjgl.opengl.GL11;
 
-public class MaterialAgnosticTool extends TemplateItemBase implements ToolLevel, CustomTooltipProvider, CustomItemOverlay {
+public class MaterialAgnosticTool extends TemplateItemBase implements MaterialAgnostic, ToolLevel, CustomTooltipProvider, CustomItemOverlay {
     public MaterialAgnosticTool(Identifier identifier) {
         super(identifier);
         this.setMaxStackSize(1);
@@ -51,6 +51,7 @@ public class MaterialAgnosticTool extends TemplateItemBase implements ToolLevel,
         return super.useOnTile(item, player, level, x, y, z, facing);
     }
 
+    @Override
     public void updateStats(ItemInstance item) {
         CompoundTag nbt = StationNBT.cast(item).getStationNBT();
         if (!nbt.containsKey("material")) {
@@ -64,12 +65,7 @@ public class MaterialAgnosticTool extends TemplateItemBase implements ToolLevel,
 
     @Override
     public ToolMaterial getMaterial(ItemInstance item) {
-        return getUniqueMaterial(item).getToolMaterial();
-    }
-
-    public static UniqueMaterial getUniqueMaterial(ItemInstance item) {
-        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
-        return UniqueMaterial.materials.getOrDefault(nbt.getString("material"), UniqueMaterial.materials.get("missingMaterial"));
+        return MaterialAgnostic.getUniqueMaterial(item).getToolMaterial();
     }
 
     @Override

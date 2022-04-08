@@ -13,11 +13,15 @@ item.saw.name=Chainsaw
 
 item.ironDust.name=Iron Dust
 item.goldDust.name=Gold Dust
+item.sludge.name=Sludge
+item.redSludge.name=Redsludge
 
 tile.generator.name=Generator
 tile.electricFurnace.name=Electric Furnace
 tile.grinder.name=Grinder
 tile.press.name=Press
+tile.centrifuge.name=Centrifuge
+
 tile.batteryBlock.name=Battery
 
 tile.powerCable.name=Power Cable

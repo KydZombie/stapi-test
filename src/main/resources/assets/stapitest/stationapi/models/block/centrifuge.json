@@ -1,0 +1,8 @@
+{
+  "parent": "stapitest:block/machine",
+  "textures": {
+    "front": "stapitest:block/centrifuge_side",
+    "side": "stapitest:block/centrifuge_side",
+    "top": "stapitest:block/centrifuge_top"
+  }
+}

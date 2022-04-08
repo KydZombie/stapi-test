@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "stapitest:item/wrench"
+    "layer0": "stapitest:item/sludge"
   }
 }
