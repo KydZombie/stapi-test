@@ -11,10 +11,16 @@ item.hoe.name=Hoe
 item.drill.name=Drill
 item.saw.name=Chainsaw
 
-item.ironDust.name=Iron Dust
-item.goldDust.name=Gold Dust
+item.ingot.name=Ingot
+item.dust.name=Dust
 item.sludge.name=Sludge
 item.redSludge.name=Redsludge
+
+item.impureDust.name=Impure Dust
+
+item.ironDust.name=Iron Dust
+item.goldDust.name=Gold Dust
+
 
 tile.generator.name=Generator
 tile.electricFurnace.name=Electric Furnace
@@ -26,3 +32,12 @@ tile.batteryBlock.name=Battery
 
 tile.powerCable.name=Power Cable
 tile.itemCable.name=Item Cable
+
+material..name=NULL
+material.iron.name=Iron
+material.diamond.name=Diamond
+material.gold.name=Gold
+material.redstone.name=Redstone
+material.chromium.name=Chromium
+material.steel.name=Steel
+material.stainlessSteel.name=Stainless Steel

@@ -17,7 +17,7 @@ import net.modificationstation.stationapi.api.util.Colours;
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.opengl.GL11;
 
-public class ElectricTool extends MaterialAgnosticTool implements ItemPowerStorage {
+public class ElectricTool extends DynamicTool implements ItemPowerStorage {
 
     public ElectricTool(Identifier identifier) {
         super(identifier);

@@ -4,6 +4,7 @@ import com.github.kydzombie.stapitest.custom.util.item.MaterialAgnostic;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.TextRenderer;
 import net.minecraft.client.render.entity.ItemRenderer;
+import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.entity.Living;
 import net.minecraft.entity.player.PlayerBase;
@@ -19,8 +20,8 @@ import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.template.item.TemplateItemBase;
 import org.lwjgl.opengl.GL11;
 
-public class MaterialAgnosticTool extends TemplateItemBase implements MaterialAgnostic, ToolLevel, CustomTooltipProvider, CustomItemOverlay {
-    public MaterialAgnosticTool(Identifier identifier) {
+public class DynamicTool extends TemplateItemBase implements MaterialAgnostic, ToolLevel, CustomTooltipProvider, CustomItemOverlay {
+    public DynamicTool(Identifier identifier) {
         super(identifier);
         this.setMaxStackSize(1);
         setTranslationKey(identifier.toString());
@@ -28,7 +29,7 @@ public class MaterialAgnosticTool extends TemplateItemBase implements MaterialAg
 
     public static int getDurability(ItemInstance item) {
         CompoundTag nbt = StationNBT.cast(item).getStationNBT();
-        ((MaterialAgnosticTool)item.getType()).updateStats(item);
+        ((DynamicTool)item.getType()).updateStats(item);
         return (nbt.getInt("maxDurability") - nbt.getInt("damage"));
     }
 
@@ -138,8 +139,7 @@ public class MaterialAgnosticTool extends TemplateItemBase implements MaterialAg
     public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
         CompoundTag nbt = StationNBT.cast(itemInstance).getStationNBT();
         return new String[]{
-                originalTooltip,
-                "Material: " + nbt.getString("material"),
+                I18n.translate(String.format("material.stapitest:%s.name", nbt.getString("material"))) + " " + originalTooltip,
                 "Durability: " + (nbt.getInt("maxDurability") - nbt.getInt("damage")) + "/" + nbt.getInt("maxDurability")
         };
     }

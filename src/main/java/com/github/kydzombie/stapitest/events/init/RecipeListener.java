@@ -1,6 +1,7 @@
 package com.github.kydzombie.stapitest.events.init;
 
 import com.github.kydzombie.stapitest.custom.UniqueMaterial;
+import com.github.kydzombie.stapitest.item.DynamicItem;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
@@ -29,29 +30,36 @@ public class RecipeListener {
             SmeltingRegistry.addSmeltingRecipe(StapiTest.ironDust.id, new ItemInstance(ItemBase.ironIngot));
             SmeltingRegistry.addSmeltingRecipe(StapiTest.goldDust.id, new ItemInstance(ItemBase.goldIngot));
         } else if (event.recipeId.equals(RecipeRegisterEvent.Vanilla.CRAFTING_SHAPED.type())) {
-            for (UniqueMaterial material:
-                 UniqueMaterial.materials.values()) {
+            for (String key:
+                 UniqueMaterial.materials.keySet()) {
+                UniqueMaterial material = UniqueMaterial.materials.get(key);
                 if (material.getCraftingMaterial() != null) {
                     ItemInstance result = new ItemInstance(StapiTest.pickaxe);
                     CompoundTag nbt = StationNBT.cast(result).getStationNBT();
-                    nbt.put("material", material.getToolMaterial().name());
+                    nbt.put("material", key);
                     CraftingRegistry.addShapedRecipe(result, "x", "x", "x", 'x', material.getCraftingMaterial());
                 }
             }
         }
         else if (event.recipeId.equals(RecipeRegisterEvent.Vanilla.CRAFTING_SHAPELESS.type())) {
             CraftingRegistry.addShapelessRecipe(new ItemInstance(StapiTest.battery), new ItemInstance(StapiTest.portableBattery, 1, -1));
+            CraftingRegistry.addShapelessRecipe(DynamicItem.convert(StapiTest.ingot, "steel"), ItemBase.coal);
+            CraftingRegistry.addShapelessRecipe(DynamicItem.convert(StapiTest.ingot, "redstone"), ItemBase.redstoneDust);
+            CraftingRegistry.addShapelessRecipe(DynamicItem.convert(StapiTest.ingot, "stainlessSteel"), ItemBase.stick);
         }
         else if (event.recipeId.equals(Identifier.of(StapiTest.MOD_ID, "grinder"))) {
             StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.COBBLESTONE), new ItemInstance(BlockBase.GRAVEL));
             StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.GRAVEL), new ItemInstance(BlockBase.SAND));
             StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.IRON_ORE), new ItemInstance(StapiTest.ironDust, 2));
             StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.GOLD_ORE), new ItemInstance(StapiTest.goldDust, 2));
+
+            StapiTest.grinderRegistry.addRecipe(DynamicItem.convert(StapiTest.sludge, "redstone"),
+                    DynamicItem.convert(StapiTest.impureDust, "chromium"));
         }
         else if (event.recipeId.equals(Identifier.of(StapiTest.MOD_ID, "press"))) {
         }
         else if (event.recipeId.equals(Identifier.of(StapiTest.MOD_ID, "centrifuge"))) {
-            StapiTest.centrifugeRegistry.addRecipe(new ItemInstance(ItemBase.redstoneDust), new ItemInstance(StapiTest.sludge));
+            StapiTest.centrifugeRegistry.addRecipe(new ItemInstance(ItemBase.redstoneDust), DynamicItem.convert(StapiTest.sludge, "redstone"));
         }
     }
 }

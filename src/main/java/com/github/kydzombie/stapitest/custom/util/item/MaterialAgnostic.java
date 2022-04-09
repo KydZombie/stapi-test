@@ -8,7 +8,7 @@ import net.modificationstation.stationapi.api.item.nbt.StationNBT;
 public interface MaterialAgnostic {
     static UniqueMaterial getUniqueMaterial(ItemInstance item) {
         CompoundTag nbt = StationNBT.cast(item).getStationNBT();
-        return UniqueMaterial.materials.getOrDefault(nbt.getString("material"), UniqueMaterial.materials.get("missingMaterial"));
+        return UniqueMaterial.getUniqueMaterial(nbt.getString("material"));
     }
 
     default void updateStats(ItemInstance item) {

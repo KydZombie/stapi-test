@@ -1,41 +1,67 @@
 package com.github.kydzombie.stapitest.custom;
 
 import net.minecraft.item.ItemBase;
+import net.minecraft.item.ItemInstance;
 import net.minecraft.item.tool.ToolMaterial;
 
 import java.util.HashMap;
 
 public class UniqueMaterial {
 
-    private final ToolMaterial baseMaterial;
+    private final ToolMaterial toolMaterial;
     private final int color;
-    private final ItemBase craftingMaterial;
+    private ItemInstance craftingMaterial;
 
     public static HashMap<String, UniqueMaterial> materials = new HashMap<>();
 
-    public UniqueMaterial(ToolMaterial baseMaterial, int color, ItemBase craftingMaterial) {
-        this.baseMaterial = baseMaterial;
+    public UniqueMaterial(int color) {
         this.color = color;
+        this.toolMaterial = null;
+    }
+
+    public UniqueMaterial(int color, ToolMaterial baseMaterial) {
+        this.color = color;
+        this.toolMaterial = baseMaterial;
+    }
+
+    public UniqueMaterial setCraftingMaterial(ItemInstance craftingMaterial) {
         this.craftingMaterial = craftingMaterial;
+        return this;
     }
 
-    public static void registerNewUniqueMaterial(ToolMaterial baseMaterial, int color, ItemBase craftingMaterial) {
-        materials.put(baseMaterial.name(), new UniqueMaterial(baseMaterial, color, craftingMaterial));
+    public UniqueMaterial setCraftingMaterial(ItemBase craftingMaterial) {
+        return setCraftingMaterial(new ItemInstance(craftingMaterial));
     }
 
-    public static void registerNewUniqueMaterial(ToolMaterial baseMaterial, String name, int color, ItemBase craftingMaterial) {
-        materials.put(name, new UniqueMaterial(baseMaterial, color, craftingMaterial));
+    public static UniqueMaterial registerNewUniqueMaterial(int color, String name) {
+        UniqueMaterial mat = new UniqueMaterial(color);
+        materials.put(name, mat);
+        return mat;
+    }
+
+    public static UniqueMaterial registerNewUniqueMaterial(int color, ToolMaterial baseMaterial) {
+        return registerNewUniqueMaterial(color, baseMaterial, baseMaterial.name());
+    }
+
+    public static UniqueMaterial registerNewUniqueMaterial(int color, ToolMaterial baseMaterial, String name) {
+        UniqueMaterial mat = new UniqueMaterial(color, baseMaterial);
+        materials.put(name, mat);
+        return mat;
+    }
+
+    public static UniqueMaterial getUniqueMaterial(String materialName) {
+        return materials.getOrDefault(materialName, UniqueMaterial.materials.get("missingMaterial"));
     }
 
     public ToolMaterial getToolMaterial() {
-        return baseMaterial;
+        return toolMaterial;
     }
 
     public int getMaterialColor() {
         return color;
     }
 
-    public ItemBase getCraftingMaterial() {
+    public ItemInstance getCraftingMaterial() {
         System.out.println(craftingMaterial);
         return craftingMaterial;
     }

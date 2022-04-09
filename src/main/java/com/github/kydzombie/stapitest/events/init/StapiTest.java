@@ -5,13 +5,13 @@ import com.github.kydzombie.stapitest.block.machine.*;
 import com.github.kydzombie.stapitest.custom.UniqueMaterial;
 import com.github.kydzombie.stapitest.custom.util.ColorConverter;
 import com.github.kydzombie.stapitest.custom.util.item.MaterialAgnostic;
-import com.github.kydzombie.stapitest.item.BasicDynamicItem;
+import com.github.kydzombie.stapitest.item.DynamicItem;
 import com.github.kydzombie.stapitest.item.Battery;
 import com.github.kydzombie.stapitest.item.ColoredItem;
 import com.github.kydzombie.stapitest.item.Wrench;
 import com.github.kydzombie.stapitest.item.tool.Chainsaw;
 import com.github.kydzombie.stapitest.item.tool.ElectricTool;
-import com.github.kydzombie.stapitest.item.tool.MaterialAgnosticTool;
+import com.github.kydzombie.stapitest.item.tool.DynamicTool;
 import com.github.kydzombie.stapitest.recipe.CentrifugeRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.ElectricFurnaceRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.GrinderRecipeRegistry;
@@ -53,7 +53,11 @@ public class StapiTest {
     public static BlockBase itemCable;
     public static TemplateItemBase ironDust;
     public static TemplateItemBase goldDust;
+
+    public static TemplateItemBase ingot;
+    public static TemplateItemBase dust;
     public static TemplateItemBase sludge;
+    public static TemplateItemBase impureDust;
 
     public static TemplateItemBase wrench;
     public static TemplateItemBase portableBattery;
@@ -89,20 +93,28 @@ public class StapiTest {
     public void registerItems(ItemRegistryEvent event) {
         Color goldColor = new Color(255, 255, 11);
 
+        ingot = new DynamicItem(Identifier.of(MOD_ID, "ingot"));
+        dust = new DynamicItem(Identifier.of(MOD_ID, "dust"));
+        sludge = new DynamicItem(Identifier.of(MOD_ID, "sludge"));
+        impureDust = new DynamicItem(Identifier.of(MOD_ID, "impureDust"));
+
         wrench = new Wrench(Identifier.of(MOD_ID, "wrench"));
         powerToolHandle = new TemplateItemBase(Identifier.of(MOD_ID, "powerToolHandle")).setTranslationKey(MOD_ID, "powerToolHandle");
 
-        UniqueMaterial.registerNewUniqueMaterial(ToolMaterialFactory.create("missingMaterial", 0, 0, 0, 0), 0, null);
-        UniqueMaterial.registerNewUniqueMaterial(ToolMaterial.IRON, "iron", -1, ItemBase.ironIngot);
-        UniqueMaterial.registerNewUniqueMaterial(ToolMaterial.EMERALD, "diamond", ColorConverter.colorToInt(new Color(0x4AEDD9)), ItemBase.diamond);
-        UniqueMaterial.registerNewUniqueMaterial(ToolMaterial.GOLD, "gold", ColorConverter.colorToInt(new Color(0xEFCA2B)), ItemBase.goldIngot);
-        UniqueMaterial.registerNewUniqueMaterial(null, "redstone", ColorConverter.colorToInt(new Color(0xFF6D6D)), null);
+        UniqueMaterial.registerNewUniqueMaterial(0, ToolMaterialFactory.create("missingMaterial", 0, 0, 0, 0));
+        UniqueMaterial.registerNewUniqueMaterial(-1, ToolMaterial.IRON, "iron").setCraftingMaterial(ItemBase.ironIngot);
+        UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0x4AEDD9)), ToolMaterial.EMERALD, "diamond").setCraftingMaterial(ItemBase.diamond);
+        UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0xEFCA2B)), ToolMaterial.GOLD, "gold").setCraftingMaterial(ItemBase.goldIngot);
+        UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0xFF6D6D)), "redstone");
+        UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0xCFDBC5)), "chromium");
+        UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0x3B3B3B)), ToolMaterialFactory.create("steel", 3, 1561, 8.0F, 3)).setCraftingMaterial(DynamicItem.convert(ingot, "steel"));
+        UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0x898383)), ToolMaterialFactory.create("stainlessSteel", 3, 1561, 8.0F, 3)).setCraftingMaterial(DynamicItem.convert(ingot, "steel"));
 
-        pickaxe = new MaterialAgnosticTool(Identifier.of(MOD_ID, "pickaxe"));
-        axe = new MaterialAgnosticTool(Identifier.of(MOD_ID, "axe"));
-        shovel = new MaterialAgnosticTool(Identifier.of(MOD_ID, "shovel"));
-        sword = new MaterialAgnosticTool(Identifier.of(MOD_ID, "sword"));
-        hoe = new MaterialAgnosticTool(Identifier.of(MOD_ID, "hoe"));
+        pickaxe = new DynamicTool(Identifier.of(MOD_ID, "pickaxe"));
+        axe = new DynamicTool(Identifier.of(MOD_ID, "axe"));
+        shovel = new DynamicTool(Identifier.of(MOD_ID, "shovel"));
+        sword = new DynamicTool(Identifier.of(MOD_ID, "sword"));
+        hoe = new DynamicTool(Identifier.of(MOD_ID, "hoe"));
 
         drill = new ElectricTool(Identifier.of(MOD_ID, "drill"));
         saw = new Chainsaw(Identifier.of(MOD_ID, "saw"));
@@ -123,7 +135,8 @@ public class StapiTest {
         ironDust = new ColoredItem(Identifier.of(MOD_ID, "ironDust"), Color.WHITE);
         goldDust = new ColoredItem(Identifier.of(MOD_ID, "goldDust"), goldColor);
 
-        sludge = new BasicDynamicItem(Identifier.of(MOD_ID, "sludge"));
+
+
     }
 
     @EventListener
@@ -168,18 +181,21 @@ public class StapiTest {
             itemColours.register((itemInstance, tintIndex) -> tintIndex == 0 ? MaterialAgnostic.getUniqueMaterial(itemInstance).getMaterialColor() : -1, tool);
         }
 
-        for (TemplateItemBase tool: new TemplateItemBase[] {
-                sludge
+        for (TemplateItemBase item: new TemplateItemBase[] {
+                ingot,
+                dust,
+                sludge,
+                impureDust
         }) {
-            itemColours.register((itemInstance, tintIndex) -> MaterialAgnostic.getUniqueMaterial(itemInstance).getMaterialColor(), sludge);
+            itemColours.register((itemInstance, tintIndex) -> MaterialAgnostic.getUniqueMaterial(itemInstance).getMaterialColor(), item);
         }
 
     }
 
     @EventListener
     private static void strengthOnBlock(ItemStrengthOnBlockEvent event) {
-        if ((event.itemInstance.getType() instanceof MaterialAgnosticTool) &&
-                MaterialAgnosticTool.getDurability(event.itemInstance) < 1 ||
+        if ((event.itemInstance.getType() instanceof DynamicTool) &&
+                DynamicTool.getDurability(event.itemInstance) < 1 ||
                 (event.itemInstance.getType() instanceof ElectricTool &&
                         ((ElectricTool) event.itemInstance.getType()).getCurrentPower(event.itemInstance) < 5)
         ) {
