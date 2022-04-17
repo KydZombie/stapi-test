@@ -15,6 +15,8 @@ import net.modificationstation.stationapi.api.state.StateManager;
 import net.modificationstation.stationapi.api.state.property.BooleanProperty;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockBase;
 
+import java.util.Random;
+
 public class Cable extends TemplateBlockBase implements Connection, Wrenchable {
     public static final BooleanProperty NORTH = BooleanProperty.of("north");
     public static final BooleanProperty SOUTH = BooleanProperty.of("south");
@@ -56,11 +58,12 @@ public class Cable extends TemplateBlockBase implements Connection, Wrenchable {
     public void onAdjacentBlockUpdate(Level level, int x, int y, int z, int id) {
         super.onAdjacentBlockUpdate(level, x, y, z, id);
         updateCable(level, x, y, z);
+//        level.method_216(x, y, z, id, 1);
     }
 
     @Override
-    public void onBlockRemoved(Level level, int x, int y, int z) {
-        super.onBlockRemoved(level, x, y, z);
+    public void onScheduledTick(Level level, int x, int y, int z, Random rand) {
+        updateCable(level, x, y, z);
     }
 
     public void updateCable(Level level, int x, int y, int z) {

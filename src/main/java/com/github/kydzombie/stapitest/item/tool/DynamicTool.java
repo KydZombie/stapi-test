@@ -1,6 +1,8 @@
 package com.github.kydzombie.stapitest.item.tool;
 
 import com.github.kydzombie.stapitest.custom.util.item.MaterialAgnostic;
+import com.github.kydzombie.stapitest.custom.util.machine.power.ItemPowerStorage;
+import com.github.kydzombie.stapitest.item.DynamicItem;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.TextRenderer;
 import net.minecraft.client.render.entity.ItemRenderer;
@@ -13,14 +15,14 @@ import net.minecraft.item.tool.ToolMaterial;
 import net.minecraft.level.Level;
 import net.minecraft.util.io.CompoundTag;
 import net.modificationstation.stationapi.api.client.gui.CustomItemOverlay;
-import net.modificationstation.stationapi.api.client.gui.CustomTooltipProvider;
 import net.modificationstation.stationapi.api.item.nbt.StationNBT;
 import net.modificationstation.stationapi.api.item.tool.ToolLevel;
 import net.modificationstation.stationapi.api.registry.Identifier;
-import net.modificationstation.stationapi.api.template.item.TemplateItemBase;
+import net.modificationstation.stationapi.api.util.Colours;
+import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.opengl.GL11;
 
-public class DynamicTool extends TemplateItemBase implements MaterialAgnostic, ToolLevel, CustomTooltipProvider, CustomItemOverlay {
+public class DynamicTool extends DynamicItem implements ToolLevel, CustomItemOverlay {
     public DynamicTool(Identifier identifier) {
         super(identifier);
         this.setMaxStackSize(1);
@@ -31,12 +33,6 @@ public class DynamicTool extends TemplateItemBase implements MaterialAgnostic, T
         CompoundTag nbt = StationNBT.cast(item).getStationNBT();
         ((DynamicTool)item.getType()).updateStats(item);
         return (nbt.getInt("maxDurability") - nbt.getInt("damage"));
-    }
-
-    @Override
-    public void onCreation(ItemInstance item, Level arg1, PlayerBase arg2) {
-        super.onCreation(item, arg1, arg2);
-        updateStats(item);
     }
 
     @Override
@@ -54,10 +50,8 @@ public class DynamicTool extends TemplateItemBase implements MaterialAgnostic, T
 
     @Override
     public void updateStats(ItemInstance item) {
+        super.updateStats(item);
         CompoundTag nbt = StationNBT.cast(item).getStationNBT();
-        if (!nbt.containsKey("material")) {
-            nbt.put("material", "missingMaterial");
-        }
         nbt.put("maxDurability", getMaterial(item).getDurability());
         if (!nbt.containsKey("damage")) {
             nbt.put("damage", 0);
@@ -136,11 +130,9 @@ public class DynamicTool extends TemplateItemBase implements MaterialAgnostic, T
     }
 
     @Override
-    public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
-        CompoundTag nbt = StationNBT.cast(itemInstance).getStationNBT();
-        return new String[]{
-                I18n.translate(String.format("material.stapitest:%s.name", nbt.getString("material"))) + " " + originalTooltip,
-                "Durability: " + (nbt.getInt("maxDurability") - nbt.getInt("damage")) + "/" + nbt.getInt("maxDurability")
-        };
+    public String[] getTooltip(ItemInstance item, String originalTooltip) {
+        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
+        return ArrayUtils.add(super.getTooltip(item, originalTooltip),
+                "Durability: " + (nbt.getInt("maxDurability") - nbt.getInt("damage")) + "/" + nbt.getInt("maxDurability"));
     }
 }

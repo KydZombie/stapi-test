@@ -24,15 +24,6 @@ public class ElectricTool extends DynamicTool implements ItemPowerStorage {
     }
 
     @Override
-    public void onCreation(ItemInstance item, Level arg1, PlayerBase arg2) {
-        super.onCreation(item, arg1, arg2);
-        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
-        if (!nbt.containsKey("material")) {
-            nbt.put("material", "missingMaterial");
-        }
-    }
-
-    @Override
     public void applyDamage(ItemInstance item, int damage, Living damageTarget) {
         for (int i = 0; i < damage; i++) {
             consume(item, 5, false);
@@ -51,10 +42,10 @@ public class ElectricTool extends DynamicTool implements ItemPowerStorage {
     }
 
     @Override
-    public String[] getTooltip(ItemInstance itemInstance, String originalTooltip) {
-        return ArrayUtils.add(super.getTooltip(itemInstance, originalTooltip),
-                "" + Colours.RED + ((ItemPowerStorage) itemInstance.getType()).getCurrentPower(itemInstance) + Colours.WHITE +
-                        "/" + Colours.DARK_AQUA + ((ItemPowerStorage) itemInstance.getType()).getMaxPower(itemInstance) + Colours.WHITE + " power stored");
+    public String[] getTooltip(ItemInstance item, String originalTooltip) {
+        return ArrayUtils.add(super.getTooltip(item, originalTooltip),
+                "" + Colours.RED + ((ItemPowerStorage) item.getType()).getCurrentPower(item) + Colours.WHITE +
+                        "/" + Colours.DARK_AQUA + ((ItemPowerStorage) item.getType()).getMaxPower(item) + Colours.WHITE + " power stored");
     }
 
     public void renderItemOverlay(ItemRenderer itemRenderer, int itemX, int itemY, ItemInstance itemInstance, TextRenderer textRenderer, TextureManager textureManager) {

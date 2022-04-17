@@ -3,20 +3,20 @@ item.battery.name=Battery
 item.wrench.name=Wrench
 item.powerToolHandle.name=Power Tool Handle
 
-item.pickaxe.name=Pickaxe
-item.axe.name=Axe
-item.shovel.name=Shovel
-item.sword.name=Sword
-item.hoe.name=Hoe
-item.drill.name=Drill
-item.saw.name=Chainsaw
+item.pickaxe.name=%s Pickaxe
+item.axe.name=%s Axe
+item.shovel.name=%s Shovel
+item.sword.name=%s Sword
+item.hoe.name=%s Hoe
+item.drill.name=%s Drill
+item.saw.name=%s Chainsaw
 
-item.ingot.name=Ingot
-item.dust.name=Dust
-item.sludge.name=Sludge
-item.redSludge.name=Redsludge
+item.impureDust.name=Impure %s Dust
+item.ingot.name=%s Ingot
+item.dust.name=%s Dust
+item.sludge.name=%s Sludge
 
-item.impureDust.name=Impure Dust
+item.redstone_sludge.name=Redsludge
 
 item.ironDust.name=Iron Dust
 item.goldDust.name=Gold Dust
