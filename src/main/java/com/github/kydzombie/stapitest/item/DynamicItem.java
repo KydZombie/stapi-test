@@ -36,6 +36,12 @@ public class DynamicItem extends TemplateItemBase implements CustomTooltipProvid
         return convert(new ItemInstance(itemBase), material);
     }
 
+    public static ItemInstance convert(ItemBase itemBase, String material, int count) {
+        ItemInstance newItem = convert(new ItemInstance(itemBase), material);
+        newItem.count = count;
+        return newItem;
+    }
+
     public static ItemInstance convert(ItemInstance item, String material) {
         StationNBT.cast(item).getStationNBT().put("material", material);
         return item;

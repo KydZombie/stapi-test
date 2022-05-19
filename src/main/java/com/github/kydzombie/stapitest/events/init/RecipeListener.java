@@ -27,8 +27,8 @@ public class RecipeListener {
     @EventListener
     public void registerRecipes(RecipeRegisterEvent event) {
         if (event.recipeId.equals(RecipeRegisterEvent.Vanilla.SMELTING.type())) {
-            SmeltingRegistry.addSmeltingRecipe(StapiTest.ironDust.id, new ItemInstance(ItemBase.ironIngot));
-            SmeltingRegistry.addSmeltingRecipe(StapiTest.goldDust.id, new ItemInstance(ItemBase.goldIngot));
+            SmeltingRegistry.addSmeltingRecipe(DynamicItem.convert(StapiTest.dust, "iron"), new ItemInstance(ItemBase.ironIngot));
+            SmeltingRegistry.addSmeltingRecipe(DynamicItem.convert(StapiTest.dust, "gold"), new ItemInstance(ItemBase.goldIngot));
         } else if (event.recipeId.equals(RecipeRegisterEvent.Vanilla.CRAFTING_SHAPED.type())) {
             for (String key:
                  UniqueMaterial.materials.keySet()) {
@@ -50,8 +50,8 @@ public class RecipeListener {
         else if (event.recipeId.equals(Identifier.of(StapiTest.MOD_ID, "grinder"))) {
             StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.COBBLESTONE), new ItemInstance(BlockBase.GRAVEL));
             StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.GRAVEL), new ItemInstance(BlockBase.SAND));
-            StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.IRON_ORE), new ItemInstance(StapiTest.ironDust, 2));
-            StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.GOLD_ORE), new ItemInstance(StapiTest.goldDust, 2));
+            StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.IRON_ORE), DynamicItem.convert(StapiTest.dust, "iron", 2));
+            StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.GOLD_ORE), DynamicItem.convert(StapiTest.dust, "gold", 2));
 
             StapiTest.grinderRegistry.addRecipe(DynamicItem.convert(StapiTest.sludge, "redstone"),
                     DynamicItem.convert(StapiTest.impureDust, "chromium"));

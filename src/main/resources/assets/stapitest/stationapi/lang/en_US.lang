@@ -18,10 +18,6 @@ item.sludge.name=%s Sludge
 
 item.redstone_sludge.name=Redsludge
 
-item.ironDust.name=Iron Dust
-item.goldDust.name=Gold Dust
-
-
 tile.generator.name=Generator
 tile.electricFurnace.name=Electric Furnace
 tile.grinder.name=Grinder

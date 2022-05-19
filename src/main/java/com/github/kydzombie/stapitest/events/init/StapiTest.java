@@ -51,8 +51,6 @@ public class StapiTest {
 
     public static BlockBase powerCable;
     public static BlockBase itemCable;
-    public static TemplateItemBase ironDust;
-    public static TemplateItemBase goldDust;
 
     public static TemplateItemBase ingot;
     public static TemplateItemBase dust;
@@ -131,12 +129,6 @@ public class StapiTest {
         TagRegistry.INSTANCE.register(Identifier.of("tools/axes"), new ItemInstance(saw), e -> e.itemId == saw.id);
 
         portableBattery = new Battery(Identifier.of(MOD_ID, "battery"), 400);
-
-        ironDust = new ColoredItem(Identifier.of(MOD_ID, "ironDust"), Color.WHITE);
-        goldDust = new ColoredItem(Identifier.of(MOD_ID, "goldDust"), goldColor);
-
-
-
     }
 
     @EventListener
