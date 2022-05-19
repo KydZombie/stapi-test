@@ -6,6 +6,8 @@ import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
 import net.minecraft.item.ItemInstance;
+import net.minecraft.recipe.Recipe;
+import net.minecraft.recipe.RecipeRegistry;
 import net.minecraft.util.io.CompoundTag;
 import net.modificationstation.stationapi.api.StationAPI;
 import net.modificationstation.stationapi.api.event.mod.PreInitEvent;
@@ -14,6 +16,7 @@ import net.modificationstation.stationapi.api.item.nbt.StationNBT;
 import net.modificationstation.stationapi.api.recipe.CraftingRegistry;
 import net.modificationstation.stationapi.api.recipe.SmeltingRegistry;
 import net.modificationstation.stationapi.api.registry.Identifier;
+import net.modificationstation.stationapi.api.template.item.TemplateItemBase;
 
 public class RecipeListener {
     @EventListener
@@ -37,7 +40,7 @@ public class RecipeListener {
                     ItemInstance result = new ItemInstance(StapiTest.pickaxe);
                     CompoundTag nbt = StationNBT.cast(result).getStationNBT();
                     nbt.put("material", key);
-                    CraftingRegistry.addShapedRecipe(result, "x", "x", "x", 'x', material.getCraftingMaterial());
+                    CraftingRegistry.addShapedRecipe(result, "XXX", "S", "S", 'X', material.getCraftingMaterial(), 'S', ItemBase.stick);
                 }
             }
         }
