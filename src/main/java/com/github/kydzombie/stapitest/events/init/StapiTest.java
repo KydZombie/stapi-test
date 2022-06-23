@@ -100,9 +100,9 @@ public class StapiTest {
         powerToolHandle = new TemplateItemBase(Identifier.of(MOD_ID, "powerToolHandle")).setTranslationKey(MOD_ID, "powerToolHandle");
 
         UniqueMaterial.registerNewUniqueMaterial(0, ToolMaterialFactory.create("missingMaterial", 0, 0, 0, 0));
-        UniqueMaterial.registerNewUniqueMaterial(-1, ToolMaterial.IRON, "iron").setCraftingMaterial(ItemBase.ironIngot);
-        UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0x4AEDD9)), ToolMaterial.EMERALD, "diamond").setCraftingMaterial(ItemBase.diamond);
-        UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0xEFCA2B)), ToolMaterial.GOLD, "gold").setCraftingMaterial(ItemBase.goldIngot);
+        UniqueMaterial.registerNewUniqueMaterial(-1, ToolMaterial.field_1690, "iron").setCraftingMaterial(ItemBase.ironIngot);
+        UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0x4AEDD9)), ToolMaterial.field_1691, "diamond").setCraftingMaterial(ItemBase.diamond);
+        UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0xEFCA2B)), ToolMaterial.field_1692, "gold").setCraftingMaterial(ItemBase.goldIngot);
         UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0xFF6D6D)), "redstone");
         UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0xCFDBC5)), "chromium");
         UniqueMaterial.registerNewUniqueMaterial(ColorConverter.colorToInt(new Color(0x3B3B3B)), ToolMaterialFactory.create("steel", 3, 1561, 8.0F, 3)).setCraftingMaterial(DynamicItem.convert(ingot, "steel"));
