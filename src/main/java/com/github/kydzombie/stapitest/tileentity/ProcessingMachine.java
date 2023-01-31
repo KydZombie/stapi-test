@@ -5,7 +5,6 @@ import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.util.io.CompoundTag;
-import net.modificationstation.stationapi.api.item.nbt.StationNBT;
 
 public abstract class ProcessingMachine extends TileMachine {
 
