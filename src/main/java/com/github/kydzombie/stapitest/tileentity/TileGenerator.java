@@ -1,12 +1,12 @@
 package com.github.kydzombie.stapitest.tileentity;
 
-import com.github.kydzombie.stapitest.item.Battery;
 import com.github.kydzombie.stapitest.custom.util.machine.power.ItemPowerStorage;
 import com.github.kydzombie.stapitest.custom.util.machine.power.PowerUtils;
+import com.github.kydzombie.stapitest.item.Battery;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.util.io.CompoundTag;
-import net.modificationstation.stationapi.api.recipe.SmeltingRegistry;
+import net.modificationstation.stationapi.api.recipe.FuelRegistry;
 
 public class TileGenerator extends TileMachine {
 
@@ -31,8 +31,8 @@ public class TileGenerator extends TileMachine {
             burnTime--;
         } else if (inventory[0] != null) {
 
-            if (SmeltingRegistry.getFuelTime(inventory[0]) > 0 && power != maxPower) {
-                fuelTime = burnTime = SmeltingRegistry.getFuelTime(inventory[0]);
+            if (FuelRegistry.getFuelTime(inventory[0]) > 0 && power != maxPower) {
+                fuelTime = burnTime = FuelRegistry.getFuelTime(inventory[0]);
                 takeInventoryItem(0, 1);
             } else if (inventory[0].getType() instanceof Battery) {
                 power += PowerUtils.attemptConsumeItemPower(inventory[0], Math.min(MAX_CHARGE, maxPower - power));

@@ -1,12 +1,11 @@
 package com.github.kydzombie.stapitest.item.tool;
 
 import com.github.kydzombie.stapitest.custom.util.item.MaterialAgnostic;
-import com.github.kydzombie.stapitest.custom.util.machine.power.ItemPowerStorage;
 import com.github.kydzombie.stapitest.item.DynamicItem;
+import net.minecraft.block.BlockBase;
 import net.minecraft.client.render.Tessellator;
 import net.minecraft.client.render.TextRenderer;
 import net.minecraft.client.render.entity.ItemRenderer;
-import net.minecraft.client.resource.language.I18n;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.entity.Living;
 import net.minecraft.entity.player.PlayerBase;
@@ -15,33 +14,35 @@ import net.minecraft.item.tool.ToolMaterial;
 import net.minecraft.level.Level;
 import net.minecraft.util.io.CompoundTag;
 import net.modificationstation.stationapi.api.client.gui.CustomItemOverlay;
-import net.modificationstation.stationapi.api.item.nbt.StationNBT;
 import net.modificationstation.stationapi.api.item.tool.ToolLevel;
+import net.modificationstation.stationapi.api.registry.BlockRegistry;
 import net.modificationstation.stationapi.api.registry.Identifier;
-import net.modificationstation.stationapi.api.util.Colours;
+import net.modificationstation.stationapi.api.tag.TagKey;
 import org.apache.commons.lang3.ArrayUtils;
 import org.lwjgl.opengl.GL11;
 
 public class DynamicTool extends DynamicItem implements ToolLevel, CustomItemOverlay {
-    public DynamicTool(Identifier identifier) {
+    private TagKey<BlockBase> effectiveBlocks;
+
+    public DynamicTool(Identifier identifier, String effectiveOn) {
         super(identifier);
         this.setMaxStackSize(1);
         setTranslationKey(identifier.toString());
+        setEffectiveBlocks(TagKey.of(BlockRegistry.INSTANCE.getKey(), Identifier.of(effectiveOn)));
     }
 
     public static int getDurability(ItemInstance item) {
-        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
-        ((DynamicTool)item.getType()).updateStats(item);
+        CompoundTag nbt = item.getStationNBT();
+        ((DynamicTool) item.getType()).updateStats(item);
         return (nbt.getInt("maxDurability") - nbt.getInt("damage"));
     }
 
     @Override
     public boolean useOnTile(ItemInstance item, PlayerBase player, Level level, int x, int y, int z, int facing) {
-        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
+        CompoundTag nbt = item.getStationNBT();
         if (nbt.getString("material").equals("gold")) {
             nbt.put("material", "diamond");
-        }
-        else {
+        } else {
             nbt.put("material", "gold");
         }
         updateStats(item);
@@ -51,11 +52,21 @@ public class DynamicTool extends DynamicItem implements ToolLevel, CustomItemOve
     @Override
     public void updateStats(ItemInstance item) {
         super.updateStats(item);
-        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
+        CompoundTag nbt = item.getStationNBT();
         nbt.put("maxDurability", getMaterial(item).getDurability());
         if (!nbt.containsKey("damage")) {
             nbt.put("damage", 0);
         }
+    }
+
+    @Override
+    public void setEffectiveBlocks(TagKey<BlockBase> effectiveBlocks) {
+        this.effectiveBlocks = effectiveBlocks;
+    }
+
+    @Override
+    public TagKey<BlockBase> getEffectiveBlocks(ItemInstance itemInstance) {
+        return effectiveBlocks;
     }
 
     @Override
@@ -71,7 +82,7 @@ public class DynamicTool extends DynamicItem implements ToolLevel, CustomItemOve
 
     @Override
     public boolean postMine(ItemInstance item, int i, int j, int k, int i1, Living damageTarget) {
-        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
+        CompoundTag nbt = item.getStationNBT();
         if (!nbt.getString("material").equals("missingMaterial")) {
             applyDamage(item, 1, damageTarget);
         }
@@ -83,19 +94,18 @@ public class DynamicTool extends DynamicItem implements ToolLevel, CustomItemOve
     }
 
     public void applyDamage(ItemInstance item, int damage) {
-        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
+        CompoundTag nbt = item.getStationNBT();
         int newDamage = nbt.getInt("damage") + damage;
         if (newDamage > nbt.getInt("maxDurability")) {
             item.count = 0;
-        }
-        else {
+        } else {
             nbt.put("damage", newDamage);
         }
     }
 
     @Override
-    public void renderItemOverlay(ItemRenderer itemRenderer, int itemX, int itemY, ItemInstance itemInstance, TextRenderer textRenderer, TextureManager textureManager) {
-        CompoundTag nbt = StationNBT.cast(itemInstance).getStationNBT();
+    public void renderItemOverlay(ItemRenderer itemRenderer, int itemX, int itemY, ItemInstance item, TextRenderer textRenderer, TextureManager textureManager) {
+        CompoundTag nbt = item.getStationNBT();
         if (nbt.getInt("damage") == 0) {
             return;
         }
@@ -131,8 +141,7 @@ public class DynamicTool extends DynamicItem implements ToolLevel, CustomItemOve
 
     @Override
     public String[] getTooltip(ItemInstance item, String originalTooltip) {
-        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
-        return ArrayUtils.add(super.getTooltip(item, originalTooltip),
-                "Durability: " + (nbt.getInt("maxDurability") - nbt.getInt("damage")) + "/" + nbt.getInt("maxDurability"));
+        CompoundTag nbt = item.getStationNBT();
+        return ArrayUtils.add(super.getTooltip(item, originalTooltip), "Durability: " + (nbt.getInt("maxDurability") - nbt.getInt("damage")) + "/" + nbt.getInt("maxDurability"));
     }
 }

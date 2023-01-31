@@ -14,7 +14,7 @@ public class Chainsaw extends ElectricTool {
     public static int veinMineCap = 50;
 
     public Chainsaw(Identifier identifier) {
-        super(identifier);
+        super(identifier, "mineable/axe");
     }
 
     @Override

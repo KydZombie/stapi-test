@@ -8,14 +8,13 @@ import net.minecraft.item.ItemInstance;
 import net.minecraft.util.io.CompoundTag;
 import net.modificationstation.stationapi.api.client.gui.CustomItemOverlay;
 import net.modificationstation.stationapi.api.client.gui.CustomTooltipProvider;
-import net.modificationstation.stationapi.api.item.nbt.StationNBT;
 import net.modificationstation.stationapi.api.util.Colours;
 import org.lwjgl.opengl.GL11;
 
 public interface ItemPowerStorage extends CustomTooltipProvider, CustomItemOverlay {
 
     default int getCurrentPower(ItemInstance item) {
-        CompoundTag nbt = StationNBT.cast(item).getStationNBT();
+        CompoundTag nbt = item.getStationNBT();
         if (!nbt.containsKey("power")) {
             nbt.put("power", 0);
         }
@@ -28,7 +27,7 @@ public interface ItemPowerStorage extends CustomTooltipProvider, CustomItemOverl
         ItemPowerStorage poweredItem = ((ItemPowerStorage) item.getType());
         chargeAmount = Math.min(chargeAmount, poweredItem.getMaxPower(item) - poweredItem.getCurrentPower(item));
         if (!simulate) {
-            StationNBT.cast(item).getStationNBT().put("power", poweredItem.getCurrentPower(item) + chargeAmount);
+            item.getStationNBT().put("power", poweredItem.getCurrentPower(item) + chargeAmount);
         }
 
         return chargeAmount;
@@ -40,7 +39,7 @@ public interface ItemPowerStorage extends CustomTooltipProvider, CustomItemOverl
         }
         consumeAmount = Math.min(poweredItem.getCurrentPower(item), consumeAmount);
         if (!simulate) {
-            StationNBT.cast(item).getStationNBT().put("power", poweredItem.getCurrentPower(item) - consumeAmount);
+            item.getStationNBT().put("power", poweredItem.getCurrentPower(item) - consumeAmount);
         }
 
         return consumeAmount;

@@ -3,15 +3,11 @@ package com.github.kydzombie.stapitest.events.init;
 import com.github.kydzombie.stapitest.tileentity.*;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.modificationstation.stationapi.api.event.tileentity.TileEntityRegisterEvent;
-import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.registry.Identifier;
-import net.modificationstation.stationapi.api.registry.ModID;
-import net.modificationstation.stationapi.api.util.Null;
+
+import static com.github.kydzombie.stapitest.events.init.StapiTest.MOD_ID;
 
 public class TileEntityListener {
-
-    @Entrypoint.ModID
-    public static final ModID MOD_ID = Null.get();
 
     @EventListener
     public void registerTileEntities(TileEntityRegisterEvent event) {

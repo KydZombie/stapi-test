@@ -1,6 +1,8 @@
 package com.github.kydzombie.stapitest.events.init;
 
-import com.github.kydzombie.stapitest.gui.*;
+import com.github.kydzombie.stapitest.gui.GuiBattery;
+import com.github.kydzombie.stapitest.gui.GuiGenerator;
+import com.github.kydzombie.stapitest.gui.ProcessingGui;
 import com.github.kydzombie.stapitest.tileentity.*;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
@@ -9,17 +11,13 @@ import net.minecraft.client.gui.screen.ScreenBase;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.inventory.InventoryBase;
 import net.modificationstation.stationapi.api.event.registry.GuiHandlerRegistryEvent;
-import net.modificationstation.stationapi.api.mod.entrypoint.Entrypoint;
 import net.modificationstation.stationapi.api.registry.GuiHandlerRegistry;
 import net.modificationstation.stationapi.api.registry.Identifier;
-import net.modificationstation.stationapi.api.registry.ModID;
-import net.modificationstation.stationapi.api.util.Null;
 import uk.co.benjiweber.expressions.tuple.BiTuple;
 
-public class GuiListener {
+import static com.github.kydzombie.stapitest.events.init.StapiTest.MOD_ID;
 
-    @Entrypoint.ModID
-    public static final ModID MOD_ID = Null.get();
+public class GuiListener {
 
     @Environment(EnvType.CLIENT)
     @EventListener

@@ -1,10 +1,10 @@
 package com.github.kydzombie.stapitest.block.machine;
 
-import com.github.kydzombie.stapitest.events.init.StapiTest;
-import com.github.kydzombie.stapitest.tileentity.TileMachine;
 import com.github.kydzombie.stapitest.custom.util.ColorConverter;
 import com.github.kydzombie.stapitest.custom.util.machine.Wrenchable;
 import com.github.kydzombie.stapitest.custom.util.machine.power.PowerConnection;
+import com.github.kydzombie.stapitest.events.init.StapiTest;
+import com.github.kydzombie.stapitest.tileentity.TileMachine;
 import net.minecraft.block.BlockBase;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Item;
@@ -14,14 +14,13 @@ import net.minecraft.item.ItemInstance;
 import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.util.maths.MathHelper;
-import net.minecraft.util.maths.Vec3i;
 import net.modificationstation.stationapi.api.block.BlockState;
-import net.modificationstation.stationapi.api.level.BlockStateView;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.state.StateManager;
 import net.modificationstation.stationapi.api.state.property.EnumProperty;
 import net.modificationstation.stationapi.api.template.block.TemplateBlockWithEntity;
 import net.modificationstation.stationapi.api.util.math.Direction;
+import net.modificationstation.stationapi.api.world.BlockStateView;
 
 import java.awt.*;
 import java.util.Random;
@@ -35,7 +34,7 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
         this.hardness = 3.5f;
         setTranslationKey(identifier.toString());
         setDefaultState(getStateManager().getDefaultState().with(FACING_PROPERTY, Direction.NORTH));
-        mineableBy(Identifier.of("tools/pickaxes"), 0);
+//        mineableBy(Identifier.of("tools/pickaxes"), 0);
     }
 
     @Override
@@ -52,7 +51,7 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
     @Override
     public void afterPlaced(Level level, int x, int y, int z, Living living) {
         int direction = MathHelper.floor((double) (living.yaw * 4.0F / 360.0F) + 0.5D) & 3;
-        ((BlockStateView)level).setBlockState(x, y, z, getDefaultState().with(FACING_PROPERTY,
+        level.setBlockState(x, y, z, getDefaultState().with(FACING_PROPERTY,
                 switch(direction) {
                     case 0 -> Direction.EAST;
                     case 1 -> Direction.SOUTH;
@@ -112,4 +111,9 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
     public int getMachineColor() {
         return ColorConverter.colorToInt(new Color(0xB7FFDC));
     }
+
+//    @Override
+//    public int getColor(BlockState state, @Nullable BlockView world, @Nullable TilePos pos, int tintIndex) {
+//        return getMachineColor();
+//    }
 }

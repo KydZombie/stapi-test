@@ -9,7 +9,7 @@ import net.minecraft.level.BlockView;
 import net.minecraft.level.Level;
 import net.minecraft.util.maths.Box;
 import net.modificationstation.stationapi.api.block.BlockState;
-import net.modificationstation.stationapi.api.level.BlockStateView;
+import net.modificationstation.stationapi.api.world.BlockStateView;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.state.StateManager;
 import net.modificationstation.stationapi.api.state.property.BooleanProperty;
@@ -32,7 +32,7 @@ public class Cable extends TemplateBlockBase implements Connection, Wrenchable {
     public Cable(Identifier identifier) {
         super(identifier, Material.STONE);
         this.setHardness(0.8f);
-        mineableBy(Identifier.of("tools/pickaxes"), 0);
+//        mineableBy(Identifier.of("tools/pickaxes"), 0);
         setTranslationKey(identifier.toString());
         setDefaultState(getStateManager().getDefaultState()
                 .with(NORTH, false)
@@ -67,7 +67,7 @@ public class Cable extends TemplateBlockBase implements Connection, Wrenchable {
     }
 
     public void updateCable(Level level, int x, int y, int z) {
-        ((BlockStateView)level).setBlockState(x, y, z, getDefaultState()
+        level.setBlockState(x, y, z, getDefaultState()
                 .with(NORTH, checkConnection(level, x - 1, y, z, 5))
                 .with(SOUTH, checkConnection(level, x + 1, y, z, 4))
                 .with(EAST, checkConnection(level, x, y, z - 1, 3))

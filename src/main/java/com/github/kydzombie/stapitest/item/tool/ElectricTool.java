@@ -7,11 +7,8 @@ import net.minecraft.client.render.TextRenderer;
 import net.minecraft.client.render.entity.ItemRenderer;
 import net.minecraft.client.texture.TextureManager;
 import net.minecraft.entity.Living;
-import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.item.ItemInstance;
-import net.minecraft.level.Level;
 import net.minecraft.util.io.CompoundTag;
-import net.modificationstation.stationapi.api.item.nbt.StationNBT;
 import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.util.Colours;
 import org.apache.commons.lang3.ArrayUtils;
@@ -19,8 +16,8 @@ import org.lwjgl.opengl.GL11;
 
 public class ElectricTool extends DynamicTool implements ItemPowerStorage {
 
-    public ElectricTool(Identifier identifier) {
-        super(identifier);
+    public ElectricTool(Identifier identifier, String effectiveOn) {
+        super(identifier, effectiveOn);
     }
 
     @Override
@@ -48,18 +45,18 @@ public class ElectricTool extends DynamicTool implements ItemPowerStorage {
                         "/" + Colours.DARK_AQUA + ((ItemPowerStorage) item.getType()).getMaxPower(item) + Colours.WHITE + " power stored");
     }
 
-    public void renderItemOverlay(ItemRenderer itemRenderer, int itemX, int itemY, ItemInstance itemInstance, TextRenderer textRenderer, TextureManager textureManager) {
-        CompoundTag nbt = StationNBT.cast(itemInstance).getStationNBT();
+    public void renderItemOverlay(ItemRenderer itemRenderer, int itemX, int itemY, ItemInstance item, TextRenderer textRenderer, TextureManager textureManager) {
+        CompoundTag nbt = item.getStationNBT();
         int barOffset = nbt.getInt("damage") > 0 ? 2 : 0;
 
-        int barLength = (int) Math.round((((double) getCurrentPower(itemInstance) / (double) getMaxPower(itemInstance)) * 13));
-        int colourOffset = 255 - (int) Math.round((((double) getCurrentPower(itemInstance) / (double) getMaxPower(itemInstance)) * 225));
+        int barLength = (int) Math.round((((double) getCurrentPower(item) / (double) getMaxPower(item)) * 13));
+        int colorOffset = 255 - (int) Math.round((((double) getCurrentPower(item) / (double) getMaxPower(item)) * 225));
         GL11.glDisable(2896);
         GL11.glDisable(2929);
         GL11.glDisable(3553);
         Tessellator var8 = Tessellator.INSTANCE;
-        int barColour = Math.max((colourOffset / 8) - 130, 100) << 16 | (233 - colourOffset) << 8 | 255 - (colourOffset / 4);
-        int backgroundColour = (255 - colourOffset) / 4 << 16 | 16128;
+        int barColour = Math.max((colorOffset / 8) - 130, 100) << 16 | (233 - colorOffset) << 8 | 255 - (colorOffset / 4);
+        int backgroundColour = (255 - colorOffset) / 4 << 16 | 16128;
         method_1485(var8, itemX + 2, itemY + 13 - barOffset, 13, 2, 0);
         method_1485(var8, itemX + 2, itemY + 13 - barOffset, 12, 1, backgroundColour);
         method_1485(var8, itemX + 2, itemY + 13 - barOffset, barLength, 1, barColour);
@@ -68,6 +65,6 @@ public class ElectricTool extends DynamicTool implements ItemPowerStorage {
         GL11.glEnable(2929);
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
 
-        super.renderItemOverlay(itemRenderer, itemX, itemY, itemInstance, textRenderer, textureManager);
+        super.renderItemOverlay(itemRenderer, itemX, itemY, item, textRenderer, textureManager);
     }
 }
