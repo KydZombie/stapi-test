@@ -2,6 +2,8 @@ package com.github.kydzombie.stapitest.events.init;
 
 import com.github.kydzombie.stapitest.custom.UniqueMaterial;
 import com.github.kydzombie.stapitest.item.DynamicItem;
+import com.github.kydzombie.stapitest.tabs.GrindingTab;
+import net.glasslauncher.hmifabric.HowManyItems;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
@@ -48,7 +50,6 @@ public class RecipeListener {
             StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.GRAVEL), new ItemInstance(BlockBase.SAND));
             StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.IRON_ORE), DynamicItem.convert(StapiTest.dust, "iron", 2));
             StapiTest.grinderRegistry.addRecipe(new ItemInstance(BlockBase.GOLD_ORE), DynamicItem.convert(StapiTest.dust, "gold", 2));
-
             StapiTest.grinderRegistry.addRecipe(DynamicItem.convert(StapiTest.sludge, "redstone"),
                     DynamicItem.convert(StapiTest.impureDust, "chromium"));
         } else if (event.recipeId.equals(Identifier.of(StapiTest.MOD_ID, "press"))) {
