@@ -17,6 +17,8 @@ import com.github.kydzombie.stapitest.recipe.CentrifugeRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.ElectricFurnaceRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.GrinderRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.PressRecipeRegistry;
+import com.github.kydzombie.stapitest.tabs.GrindingTab;
+import net.glasslauncher.hmifabric.HowManyItems;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
@@ -84,6 +86,9 @@ public class StapiTest {
 
         powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable"));
         itemCable = new ItemCable(Identifier.of(MOD_ID, "itemCable"));
+
+        // HMI tabs registry
+        HowManyItems.addTab(new GrindingTab());
     }
 
     @EventListener
@@ -117,6 +122,7 @@ public class StapiTest {
         saw = new Chainsaw(Identifier.of(MOD_ID, "saw"));
 
         portableBattery = new Battery(Identifier.of(MOD_ID, "battery"), 400);
+
     }
 
     @EventListener
