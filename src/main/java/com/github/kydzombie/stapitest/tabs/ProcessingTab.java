@@ -16,12 +16,6 @@ public class ProcessingTab extends TabWithTexture {
     protected List<ItemInstance[]> recipes;
     private final BlockBase tabBlock;
     private final List<ItemInstance[]> recipesReady;
-//    public ArrayList<Class<? extends ContainerBase>> guiCraftingStations = new ArrayList<>();
-
-//    public ProcessingTab(ModID tabCreator) {
-//        this(tabCreator, new ArrayList<ItemInstance[]>(RecipeRegistry.getInstance().getRecipes()), BlockBase.SAND);
-//        guiCraftingStations.add(Crafting.class);
-//    }
     public ProcessingTab(List<ItemInstance[]> recipesReady, BlockBase tabBlock) {
         this(StapiTest.MOD_ID, 2, recipesReady, tabBlock, "/assets/stapitest/stationapi/gui/basic_machine.png", 118, 56, 28, 15, 3);
     }
@@ -31,32 +25,16 @@ public class ProcessingTab extends TabWithTexture {
         this.recipesReady = recipesReady;
         this.tabBlock = tabBlock;
         recipes = new ArrayList<>();
-//        System.out.print("recipes: ");
-//        System.out.println(this.recipesReady.size());
 
         slots[0] = new Integer[]{88, 23};
         slots[1] = new Integer[]{28, 23};
-//        equivalentCraftingStations.add(getTabItem());
     }
 
     @Override
     public void draw(int x, int y, int recipeOnThisPageIndex, int recipeIndex, int cursorX, int cursorY) {
         super.draw(x, y, recipeOnThisPageIndex, recipeIndex, cursorX, cursorY);
-//        if (recipeIndex < recipes.size() && recipes.get(recipeIndex) instanceof ItemInstance[]) {
-//            Utils.bindTexture("/assets/hmifabric/textures/shapeless_icon.png");
-//            double size = 8;
-//            x += 80;
-//            y += 16;
-//            Tessellator tess = Tessellator.INSTANCE;
-//            tess.start();
-//            tess.vertex(x, y + size, 0, 0, 1);
-//            tess.vertex(x + size, y + size, 0, 1, 1);
-//            tess.vertex(x + size, y, 0, 1, 0);
-//            tess.vertex(x, y, 0, 0, 0);
-//            tess.draw();
-//        }
     }
-//
+
     @Override
     public ItemInstance[][] getItems(int index, ItemInstance filter) {
         ItemInstance[][] items = new ItemInstance[recipesPerPage][];
@@ -93,7 +71,6 @@ public class ProcessingTab extends TabWithTexture {
 
     public void updateRecipesWithoutClear(ItemInstance filter, Boolean getUses) {
         lastIndex = 0;
-        System.out.println(recipesReady.size());
         recipesReady.forEach(recipe -> {
             ItemInstance input = recipe[0];
             ItemInstance output = recipe[1];
@@ -102,7 +79,6 @@ public class ProcessingTab extends TabWithTexture {
                (!getUses && compare(filter, output)) ||
                (getUses && compare(filter, input))
             ) {
-                System.out.println("gut");
                 recipes.add(recipe);
             }
         });
