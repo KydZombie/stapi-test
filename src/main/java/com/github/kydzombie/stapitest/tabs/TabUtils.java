@@ -1,28 +1,29 @@
 package com.github.kydzombie.stapitest.tabs;
 
 import com.github.kydzombie.stapitest.events.init.StapiTest;
-import com.github.kydzombie.stapitest.gui.ProcessingGui;
-import net.glasslauncher.hmifabric.tabs.Tab;
-import net.glasslauncher.hmifabric.tabs.TabCrafting;
-import net.glasslauncher.hmifabric.tabs.TabSmelting;
-import net.minecraft.block.BlockBase;
-import net.minecraft.client.gui.screen.container.ContainerBase;
-import net.minecraft.client.gui.screen.container.Crafting;
-import net.minecraft.client.gui.screen.container.Furnace;
+import net.glasslauncher.hmifabric.HowManyItems;
 import net.minecraft.item.ItemInstance;
-import net.modificationstation.stationapi.api.registry.ModID;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class TabUtils {
-    private static GrindingTab grinderTab;
-    private static Map<Class<? extends ContainerBase>, ItemInstance> guiToBlock = new HashMap<>();
+    public static ProcessingTab grinderTab;
+    public static ProcessingTab pressTab;
+    public static ProcessingTab centrifugeTab;
+    public static ProcessingTab eFurnaceTab;
 
-    public static void loadTabs(ArrayList<Tab> tabList) {
-        grinderTab = new GrindingTab();
-        tabList.add(grinderTab);
-        guiToBlock.put(ProcessingGui.class, new ItemInstance(StapiTest.grinder));
+    public static void loadTabs() {
+        grinderTab = new ProcessingTab(StapiTest.grinderRegistry.recipes, StapiTest.grinder);
+        HowManyItems.addTab(grinderTab);
+        pressTab = new ProcessingTab(StapiTest.pressRegistry.recipes, StapiTest.press);
+        HowManyItems.addTab(pressTab);
+        centrifugeTab = new ProcessingTab(StapiTest.centrifugeRegistry.recipes, StapiTest.centrifuge);
+        HowManyItems.addTab(centrifugeTab);
+        eFurnaceTab = new ProcessingTab(StapiTest.eFurnaceRegistry.recipes, StapiTest.electricFurnace);
+        HowManyItems.addTab(eFurnaceTab);
+    }
+
+    public static boolean compare(ItemInstance filter, ItemInstance item) {
+        boolean sameId = filter.itemId == item.itemId;
+        boolean sameNBT = item.getStationNBT().values().containsAll(filter.getStationNBT().values());
+        return sameId && sameNBT;
     }
 }
