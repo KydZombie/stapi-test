@@ -2,8 +2,6 @@ package com.github.kydzombie.stapitest.events.init;
 
 import com.github.kydzombie.stapitest.custom.UniqueMaterial;
 import com.github.kydzombie.stapitest.item.DynamicItem;
-import com.github.kydzombie.stapitest.tabs.GrindingTab;
-import net.glasslauncher.hmifabric.HowManyItems;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;

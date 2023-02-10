@@ -17,8 +17,7 @@ import com.github.kydzombie.stapitest.recipe.CentrifugeRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.ElectricFurnaceRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.GrinderRecipeRegistry;
 import com.github.kydzombie.stapitest.recipe.PressRecipeRegistry;
-import com.github.kydzombie.stapitest.tabs.GrindingTab;
-import net.glasslauncher.hmifabric.HowManyItems;
+import com.github.kydzombie.stapitest.tabs.TabUtils;
 import net.mine_diver.unsafeevents.listener.EventListener;
 import net.minecraft.block.BlockBase;
 import net.minecraft.item.ItemBase;
@@ -28,6 +27,7 @@ import net.modificationstation.stationapi.api.client.color.item.ItemColors;
 import net.modificationstation.stationapi.api.client.event.color.block.BlockColorsRegisterEvent;
 import net.modificationstation.stationapi.api.client.event.color.item.ItemColorsRegisterEvent;
 import net.modificationstation.stationapi.api.event.item.ItemMiningSpeedMultiplierOnStateEvent;
+import net.modificationstation.stationapi.api.event.mod.PostInitEvent;
 import net.modificationstation.stationapi.api.event.registry.BlockRegistryEvent;
 import net.modificationstation.stationapi.api.event.registry.ItemRegistryEvent;
 import net.modificationstation.stationapi.api.item.tool.ToolMaterialFactory;
@@ -76,6 +76,10 @@ public class StapiTest {
     public static CentrifugeRecipeRegistry centrifugeRegistry = new CentrifugeRecipeRegistry();
 
     @EventListener
+    public void postInit(PostInitEvent event) {
+        TabUtils.loadTabs();
+    }
+    @EventListener
     public void registerBlocks(BlockRegistryEvent event) {
         generator = new Generator(Identifier.of(MOD_ID, "generator"));
         electricFurnace = new ElectricFurnace(Identifier.of(MOD_ID, "electricFurnace"));
@@ -86,9 +90,6 @@ public class StapiTest {
 
         powerCable = new PowerCable(Identifier.of(MOD_ID, "powerCable"));
         itemCable = new ItemCable(Identifier.of(MOD_ID, "itemCable"));
-
-        // HMI tabs registry
-        HowManyItems.addTab(new GrindingTab());
     }
 
     @EventListener
