@@ -24,7 +24,7 @@ public class Centrifuge extends MachineBlock {
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
         super.canUse(level, x, y, z, player);
         TileEntityBase tileCentrifuge = level.getTileEntity(x, y, z);
-        GuiHelper.openGUI(player, Identifier.of(StapiTest.MOD_ID, "openCentrifuge"), (InventoryBase) tileCentrifuge, new ProcessingContainer(player.inventory, (TileCentrifuge) tileCentrifuge));
+        GuiHelper.openGUI(player, StapiTest.MOD_ID.id("openCentrifuge"), (InventoryBase) tileCentrifuge, new ProcessingContainer(player.inventory, (TileCentrifuge) tileCentrifuge));
         return true;
     }
 }

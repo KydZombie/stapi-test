@@ -1,13 +1,14 @@
 package com.github.kydzombie.stapitest.custom.util.item;
 
-import com.github.kydzombie.stapitest.custom.UniqueMaterial;
+import com.github.kydzombie.stapitest.material.Material;
+import com.github.kydzombie.stapitest.material.Materials;
 import net.minecraft.item.ItemInstance;
 import net.minecraft.util.io.CompoundTag;
 
 public interface MaterialAgnostic {
-    static UniqueMaterial getUniqueMaterial(ItemInstance item) {
+    static Material getUniqueMaterial(ItemInstance item) {
         CompoundTag nbt = item.getStationNBT();
-        return UniqueMaterial.getUniqueMaterial(nbt.getString("material"));
+        return Materials.get(nbt.getString("material"));
     }
 
     default void updateStats(ItemInstance item) {

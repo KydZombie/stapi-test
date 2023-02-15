@@ -1,5 +1,6 @@
 package com.github.kydzombie.stapitest.item;
 
+import com.github.kydzombie.stapitest.material.Material;
 import net.minecraft.client.resource.language.I18n;
 import net.minecraft.entity.player.PlayerBase;
 import net.minecraft.item.ItemBase;
@@ -11,6 +12,7 @@ import net.modificationstation.stationapi.api.registry.Identifier;
 import net.modificationstation.stationapi.api.registry.ItemRegistry;
 import net.modificationstation.stationapi.api.template.item.TemplateItemBase;
 
+import java.util.HashMap;
 import java.util.Objects;
 
 public class DynamicItem extends TemplateItemBase implements CustomTooltipProvider {

@@ -31,7 +31,7 @@ public class BatteryBlock extends MachineBlock {
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
         super.canUse(level, x, y, z, player);
         TileEntityBase tileEntityBattery = level.getTileEntity(x, y, z);
-        GuiHelper.openGUI(player, Identifier.of(StapiTest.MOD_ID, "openBattery"), (InventoryBase) tileEntityBattery, new PowerStorageContainer(player.inventory, (TileBattery) tileEntityBattery));
+        GuiHelper.openGUI(player, StapiTest.MOD_ID.id("openBattery"), (InventoryBase) tileEntityBattery, new PowerStorageContainer(player.inventory, (TileBattery) tileEntityBattery));
         return true;
     }
 

@@ -11,12 +11,12 @@ public class TileEntityListener {
 
     @EventListener
     public void registerTileEntities(TileEntityRegisterEvent event) {
-        event.register(TileElectricFurnace.class, Identifier.of(MOD_ID, "electric_furnace_entity").toString());
-        event.register(TileGenerator.class, Identifier.of(MOD_ID, "generator_entity").toString());
-        event.register(TileGrinder.class, Identifier.of(MOD_ID, "grinder_entity").toString());
-        event.register(TilePress.class, Identifier.of(MOD_ID, "press_entity").toString());
-        event.register(TileCentrifuge.class, Identifier.of(MOD_ID, "centrifuge_entity").toString());
-        event.register(TileBattery.class, Identifier.of(MOD_ID, "battery_entity").toString());
+        event.register(TileElectricFurnace.class, MOD_ID.id("electric_furnace_entity").toString());
+        event.register(TileGenerator.class, MOD_ID.id("generator_entity").toString());
+        event.register(TileGrinder.class, MOD_ID.id("grinder_entity").toString());
+        event.register(TilePress.class, MOD_ID.id("press_entity").toString());
+        event.register(TileCentrifuge.class, MOD_ID.id("centrifuge_entity").toString());
+        event.register(TileBattery.class, MOD_ID.id("battery_entity").toString());
     }
 
 }
