@@ -20,7 +20,7 @@ public class Materials {
                .color(0).build();
        new Material.Builder("iron")
                .toolProperties(ToolMaterial.field_1690)
-               .ingot(ItemBase.ironIngot)
+               .ingot(ItemBase.ironIngot).dust()
                .color(-1).build();
        new Material.Builder("diamond")
                .toolProperties(ToolMaterial.field_1691)
@@ -28,10 +28,11 @@ public class Materials {
                .color(0x4AEDD9).build();
        new Material.Builder("gold")
                .toolProperties(ToolMaterial.field_1692)
-               .ingot(ItemBase.goldIngot)
+               .ingot(ItemBase.goldIngot).dust()
                .color(0xFFFF0B).build();
        new Material.Builder("redstone")
-               .color(0xFF6D6D).build();
+               .dust(ItemBase.redstoneDust)
+               .color(0xF06D6D).build();
        new Material.Builder("chromium")
                .color(0xCFDBC5).build();
        new Material.Builder("steel")

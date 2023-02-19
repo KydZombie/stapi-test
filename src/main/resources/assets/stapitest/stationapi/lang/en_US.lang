@@ -30,6 +30,7 @@ tile.powerCable.name=Power Cable
 tile.itemCable.name=Item Cable
 
 material..name=NULL
+material.missingMaterial.name=NULL
 material.diamond.name=Diamond
 material.redstone.name=Redstone
 material.chromium.name=Chromium

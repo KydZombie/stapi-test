@@ -35,6 +35,8 @@ import net.modificationstation.stationapi.api.util.Null;
 
 import java.awt.*;
 
+import static com.github.kydzombie.stapitest.item.DynamicItem.*;
+
 public class StapiTest {
 
     @Entrypoint.ModID
@@ -48,11 +50,6 @@ public class StapiTest {
 
     public static BlockBase powerCable;
     public static BlockBase itemCable;
-
-    public static TemplateItemBase ingot;
-    public static TemplateItemBase dust;
-    public static TemplateItemBase sludge;
-    public static TemplateItemBase impureDust;
 
     public static TemplateItemBase wrench;
     public static TemplateItemBase portableBattery;
@@ -71,7 +68,6 @@ public class StapiTest {
     public static PressRecipeRegistry pressRegistry = new PressRecipeRegistry();
     public static CentrifugeRecipeRegistry centrifugeRegistry = new CentrifugeRecipeRegistry();
 
-    public static TemplateItemBase[] materialState;
     public static MachineBlock[] machines;
     public static TemplateItemBase[] tools;
     public static TemplateItemBase[] electricTools;
@@ -97,10 +93,7 @@ public class StapiTest {
     public void registerItems(ItemRegistryEvent event) {
         Color goldColor = new Color(255, 255, 11);
 
-        ingot = new DynamicItem(MOD_ID.id("ingot"));
-        dust = new DynamicItem(MOD_ID.id("dust"));
-        sludge = new DynamicItem(MOD_ID.id("sludge"));
-        impureDust = new DynamicItem(MOD_ID.id("impureDust"));
+        DynamicItem.init();
 
         wrench = new Wrench(MOD_ID.id("wrench"));
         powerToolHandle = new TemplateItemBase(MOD_ID.id("powerToolHandle")).setTranslationKey(MOD_ID, "powerToolHandle");
@@ -118,9 +111,7 @@ public class StapiTest {
 
         portableBattery = new Battery(MOD_ID.id("battery"), 400);
 
-        materialState = new TemplateItemBase[] {
-                ingot, dust, sludge, impureDust
-        };
+
         machines = new MachineBlock[]{
                 generator, electricFurnace,
                 grinder, press,

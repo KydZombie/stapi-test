@@ -1,5 +1,6 @@
 package com.github.kydzombie.stapitest.material;
 
+import com.github.kydzombie.stapitest.custom.util.ColorConverter;
 import com.github.kydzombie.stapitest.events.init.StapiTest;
 import com.github.kydzombie.stapitest.item.DynamicItem;
 import net.minecraft.item.ItemBase;
@@ -7,30 +8,21 @@ import net.minecraft.item.ItemInstance;
 import net.minecraft.item.tool.ToolMaterial;
 import net.modificationstation.stationapi.api.item.tool.ToolMaterialFactory;
 
+import java.awt.*;
 import java.util.HashMap;
-
-import static com.github.kydzombie.stapitest.events.init.StapiTest.ingot;
 
 public class Material {
 
     public String name;
     private final ToolMaterial toolMaterial;
     private final int color;
-    private ItemInstance craftingMaterial;
+    private HashMap<String, ItemInstance> states;
 
     private Material(int color, ToolMaterial baseMaterial, String name) {
         this.color = color;
         this.toolMaterial = baseMaterial;
         this.name = name;
-    }
-
-    public Material setCraftingMaterial(ItemInstance craftingMaterial) {
-        this.craftingMaterial = craftingMaterial;
-        return this;
-    }
-
-    public Material setCraftingMaterial(ItemBase craftingMaterial) {
-        return setCraftingMaterial(new ItemInstance(craftingMaterial));
+        this.states = new HashMap<>();
     }
 
 
@@ -45,21 +37,18 @@ public class Material {
     }
 
     public int getMaterialColor() {
+        new Color(0x228844);
         return color;
-    }
-
-    public ItemInstance getCraftingMaterial() {
-        System.out.println(craftingMaterial);
-        return craftingMaterial;
     }
 
     public static class Builder {
         private ToolMaterial material;
         private int color;
         private String name;
-        public ItemInstance item;
+        private HashMap<String, ItemInstance> states;
         public Builder(String name) {
             this.name = name;
+            this.states = new HashMap<>();
         }
         public Material build() {
             return Material.registerNewUniqueMaterial(color, material, name);
@@ -78,11 +67,13 @@ public class Material {
             return this;
         }
         public Builder color(int rgb) {
-            color = rgb;
-            return this;
+            return color(new Color(rgb));
         }
         public Builder color(int r, int g, int b) {
-            color = ((r & 0xFF) << 16)|((g & 0xFF) << 8)|((b & 0xFF) << 0);
+            return color(new Color(r,g,b));
+        }
+        public Builder color(Color rgba) {
+            color = ColorConverter.colorToInt(rgba);
             return this;
         }
         public Builder ingot(ItemBase itemBase) {
@@ -90,11 +81,24 @@ public class Material {
             return this;
         }
         public Builder ingot(ItemInstance itemInstance) {
-            item = DynamicItem.convert(itemInstance, name);
+            states.put("ingot", itemInstance);
             return this;
         }
         public Builder ingot() {
-            item = DynamicItem.convert(ingot, name);
+            states.put("ingot", DynamicItem.ingot(name));
+            return this;
+        }
+
+        public Builder dust(ItemBase itemBase) {
+            dust(new ItemInstance(itemBase));
+            return this;
+        }
+        public Builder dust(ItemInstance itemInstance) {
+            states.put("dust", itemInstance);
+            return this;
+        }
+        public Builder dust() {
+            states.put("ingot", DynamicItem.dust(name));
             return this;
         }
     }

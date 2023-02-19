@@ -10,7 +10,7 @@ import java.util.List;
 
 import com.github.kydzombie.stapitest.events.init.StapiTest;
 
-import static com.github.kydzombie.stapitest.tabs.TabUtils.compare;
+import static com.github.kydzombie.stapitest.util.ItemUtil.compare;
 
 public class ProcessingTab extends TabWithTexture {
     protected List<ItemInstance[]> recipes;
