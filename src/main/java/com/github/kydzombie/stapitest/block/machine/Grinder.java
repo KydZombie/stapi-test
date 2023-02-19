@@ -40,7 +40,7 @@ public class Grinder extends MachineBlock {
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
         super.canUse(level, x, y, z, player);
         TileEntityBase tileGrinder = level.getTileEntity(x, y, z);
-        GuiHelper.openGUI(player, Identifier.of(StapiTest.MOD_ID, "openGrinder"), (InventoryBase) tileGrinder, new ProcessingContainer(player.inventory, (TileGrinder) tileGrinder));
+        GuiHelper.openGUI(player, StapiTest.MOD_ID.id("openGrinder"), (InventoryBase) tileGrinder, new ProcessingContainer(player.inventory, (TileGrinder) tileGrinder));
         return true;
     }
 }

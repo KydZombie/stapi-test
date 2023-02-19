@@ -24,7 +24,7 @@ public class Press extends MachineBlock {
     public boolean canUse(Level level, int x, int y, int z, PlayerBase player) {
         super.canUse(level, x, y, z, player);
         TileEntityBase tilePress = level.getTileEntity(x, y, z);
-        GuiHelper.openGUI(player, Identifier.of(StapiTest.MOD_ID, "openPress"), (InventoryBase) tilePress, new ProcessingContainer(player.inventory, (TilePress) tilePress));
+        GuiHelper.openGUI(player, StapiTest.MOD_ID.id("openPress"), (InventoryBase) tilePress, new ProcessingContainer(player.inventory, (TilePress) tilePress));
         return true;
     }
 }

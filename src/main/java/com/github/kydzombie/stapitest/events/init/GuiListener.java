@@ -23,12 +23,12 @@ public class GuiListener {
     @EventListener
     public void registerGuiHandler(GuiHandlerRegistryEvent event) {
         GuiHandlerRegistry registry = event.registry;
-        registry.registerValueNoMessage(Identifier.of(MOD_ID, "openFurnace"), BiTuple.of(this::openFurnace, TileElectricFurnace::new));
-        registry.registerValueNoMessage(Identifier.of(MOD_ID, "openGenerator"), BiTuple.of(this::openGenerator, TileGenerator::new));
-        registry.registerValueNoMessage(Identifier.of(MOD_ID, "openGrinder"), BiTuple.of(this::openGrinder, TileGrinder::new));
-        registry.registerValueNoMessage(Identifier.of(MOD_ID, "openPress"), BiTuple.of(this::openPress, TilePress::new));
-        registry.registerValueNoMessage(Identifier.of(MOD_ID, "openCentrifuge"), BiTuple.of(this::openCentrifuge, TileCentrifuge::new));
-        registry.registerValueNoMessage(Identifier.of(MOD_ID, "openBattery"), BiTuple.of(this::openBattery, TileBattery::new));
+        registry.registerValueNoMessage(MOD_ID.id("openFurnace"), BiTuple.of(this::openFurnace, TileElectricFurnace::new));
+        registry.registerValueNoMessage(MOD_ID.id("openGenerator"), BiTuple.of(this::openGenerator, TileGenerator::new));
+        registry.registerValueNoMessage(MOD_ID.id("openGrinder"), BiTuple.of(this::openGrinder, TileGrinder::new));
+        registry.registerValueNoMessage(MOD_ID.id("openPress"), BiTuple.of(this::openPress, TilePress::new));
+        registry.registerValueNoMessage(MOD_ID.id("openCentrifuge"), BiTuple.of(this::openCentrifuge, TileCentrifuge::new));
+        registry.registerValueNoMessage(MOD_ID.id("openBattery"), BiTuple.of(this::openBattery, TileBattery::new));
     }
 
     @Environment(EnvType.CLIENT)
