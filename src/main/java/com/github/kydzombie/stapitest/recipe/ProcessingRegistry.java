@@ -1,5 +1,6 @@
 package com.github.kydzombie.stapitest.recipe;
 
+import com.github.kydzombie.stapitest.util.ItemUtil;
 import net.minecraft.item.ItemInstance;
 
 import java.util.ArrayList;
@@ -14,7 +15,7 @@ public abstract class ProcessingRegistry {
 
     public ItemInstance getOutput(ItemInstance item) {
         for (ItemInstance[] recipe: recipes) {
-            if (recipe[0] != null && recipe[0].itemId == item.itemId) {
+            if (recipe[0] != null && ItemUtil.compare(recipe[0], item)) {
                 return recipe[1];
             }
         }

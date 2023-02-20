@@ -34,7 +34,7 @@ public abstract class MachineBlock extends TemplateBlockWithEntity implements Wr
         this.hardness = 3.5f;
         setTranslationKey(identifier.toString());
         setDefaultState(getStateManager().getDefaultState().with(FACING_PROPERTY, Direction.NORTH));
-//        mineableBy(Identifier.of("tools/pickaxes"), 0);
+//        mineableBy("tools/pickaxes"), 0);
     }
 
     @Override

@@ -2,7 +2,6 @@ package com.github.kydzombie.stapitest.tabs;
 
 import com.github.kydzombie.stapitest.events.init.StapiTest;
 import net.glasslauncher.hmifabric.HowManyItems;
-import net.minecraft.item.ItemInstance;
 
 public class TabUtils {
     public static ProcessingTab grinderTab;
@@ -19,11 +18,5 @@ public class TabUtils {
         HowManyItems.addTab(centrifugeTab);
         eFurnaceTab = new ProcessingTab(StapiTest.eFurnaceRegistry.recipes, StapiTest.electricFurnace);
         HowManyItems.addTab(eFurnaceTab);
-    }
-
-    public static boolean compare(ItemInstance filter, ItemInstance item) {
-        boolean sameId = filter.itemId == item.itemId;
-        boolean sameNBT = item.getStationNBT().values().containsAll(filter.getStationNBT().values());
-        return sameId && sameNBT;
     }
 }
