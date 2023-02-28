@@ -1,10 +1,6 @@
 package com.github.kydzombie.stapitest.util;
 
 import net.minecraft.item.ItemInstance;
-import net.minecraft.util.io.CompoundTag;
-import net.modificationstation.stationapi.api.nbt.NBTHelper;
-
-import java.util.Collection;
 
 public class ItemUtil {
     public static boolean compare(ItemInstance filter, ItemInstance item) {

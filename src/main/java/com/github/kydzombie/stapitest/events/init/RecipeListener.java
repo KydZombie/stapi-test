@@ -33,14 +33,19 @@ public class RecipeListener {
             SmeltingRegistry.addSmeltingRecipe(DynamicItem.dust("iron"), new ItemInstance(ItemBase.ironIngot));
             SmeltingRegistry.addSmeltingRecipe(DynamicItem.dust("gold"), new ItemInstance(ItemBase.goldIngot));
         } else if (event.recipeId.equals(RecipeRegisterEvent.Vanilla.CRAFTING_SHAPED.type())) {
-            for (Material material : Materials.allMaterials()) {
-                if (material.getToolMaterial() != null) {
-                    ItemInstance result = new ItemInstance(StapiTest.pickaxe);
-                    CompoundTag nbt = result.getStationNBT();
-                    nbt.put("material", material.name);
-//                    CraftingRegistry.addShapedRecipe(result, "XXX", " S ", " S ", 'X', material.getCraftingMaterial(), 'S', ItemBase.stick);
-                }
-            }
+            ItemInstance result = new ItemInstance(StapiTest.pickaxe);
+            CompoundTag nbt = result.getStationNBT();
+            nbt.put("material", "steel");
+            CraftingRegistry.addShapedRecipe(result, "XXX", " S ", " S ", 'X', DynamicItem.ingot("steel"), 'S', ItemBase.stick);
+
+//            for (Material material : Materials.allMaterials()) {
+//                if (material.getToolMaterial() != null) {
+//                    ItemInstance result = new ItemInstance(StapiTest.pickaxe);
+//                    CompoundTag nbt = result.getStationNBT();
+//                    nbt.put("material", material.name);
+////                    CraftingRegistry.addShapedRecipe(result, "XXX", " S ", " S ", 'X', material.getCraftingMaterial(), 'S', ItemBase.stick);
+//                }
+//            }
         } else if (event.recipeId.equals(RecipeRegisterEvent.Vanilla.CRAFTING_SHAPELESS.type())) {
             CraftingRegistry.addShapelessRecipe(new ItemInstance(StapiTest.battery), new ItemInstance(StapiTest.portableBattery, 1, -1));
             CraftingRegistry.addShapelessRecipe(DynamicItem.ingot("steel"), ItemBase.coal);
